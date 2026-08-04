@@ -1,0 +1,47 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const links = [
+  {
+    href: "/get-involved/coach-with-us",
+    label: "Coach With Us",
+    blurb: "Our standard, our values, and the path to becoming a Ramp Up coach.",
+  },
+  {
+    href: "/get-involved/partner-with-ramp-up",
+    label: "Partner With Ramp Up",
+    blurb: "Bring the program to your township, school, or business.",
+  },
+];
+---
+
+<Layout title="Get Involved" description="Coach with Ramp Up, or partner with us to bring skateboarding programs to your community.">
+  <section>
+    <div class="container">
+      <p class="eyebrow">Get Involved</p>
+      <h1>Two ways to be part of this.</h1>
+
+      <div class="grid cols-2">
+        {links.map((link) => (
+          <a class="card link-card" href={link.href}>
+            <h3>{link.label}</h3>
+            <p>{link.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .link-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .link-card p {
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+</style>

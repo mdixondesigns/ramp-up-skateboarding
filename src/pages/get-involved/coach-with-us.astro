@@ -1,0 +1,83 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const values = [
+  {
+    name: "The Grind",
+    body: "We carry on the legacy of skaters who built the sport through sheer effort and dedication. Our meticulous attention to detail and hands-on approach ensure our programs consistently outperform the competition through actions, not just words.",
+  },
+  {
+    name: "Engage the Community",
+    body: "We are more than a business; we are a force for our community. We build friendships, camaraderie, and a sense of belonging at the local level, and actively partner with schools and small businesses to strengthen bonds across our community.",
+  },
+  {
+    name: "Radical Hospitality",
+    body: "We believe a transformative experience is built on a foundation of trust. We proactively anticipate every need, ensuring parents feel confident and kids have a trusted mentor, empowering them to accomplish things they never thought possible.",
+  },
+  {
+    name: "The Positive Push",
+    body: "We promote a lifelong love for skateboarding through a balanced and healthy approach to the sport. By prioritizing safety, recovery, and both mental and physical strength, we teach the self-discipline necessary for a lifetime of well-being.",
+  },
+  {
+    name: "Beyond the Board",
+    body: "We use skateboarding as a catalyst for building great humans, focusing on developing qualities such as resilience, confidence, and self-discipline. Our program empowers kids to embrace challenges and grow both on and off the board.",
+  },
+];
+---
+
+<Layout
+  title="Coach With Us"
+  description="The standard, values, and certification path behind every Ramp Up coach."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Get Involved &rsaquo; Coach With Us</p>
+      <h1>Here's the standard. Here's the path.</h1>
+      <p class="lede">
+        Ramp Up is a new type of youth skateboarding program, growing fast
+        across Greater Lancaster, PA. Whether you skate every day or you're
+        looking for a reason to get back on a board, this is what it takes
+        to coach with us.
+      </p>
+
+      <div class="todo">
+        We can't put new coaches to work immediately, so the honest framing
+        here is trust and a warm pipeline rather than "apply now." A light
+        interest form or just directing people to Contact both work &mdash;
+        currently this points to the Contact page.
+      </div>
+
+      <p>
+        <a class="button primary" href="/contact">Think you've got it? Get on our radar &rarr;</a>
+      </p>
+
+      <h2>Our values</h2>
+      <div class="grid cols-2">
+        {values.map((value) => (
+          <div class="card">
+            <h3>{value.name}</h3>
+            <p>{value.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>The certification path</h2>
+      <p>
+        Every coach is trained and vetted against the same standard.
+        <a href="/parent-resources/certification-process">See our certification process &rarr;</a>
+      </p>
+
+      <h2>Common questions</h2>
+      <div class="todo">
+        The original site had an FAQ here ("What skateboarding skills are
+        required?" / "Is this a paid opportunity?") but the answer text
+        wasn't available to migrate. Add the real answers here &mdash;
+        placeholder questions are below so the structure is ready.
+      </div>
+      <h3>What skateboarding skills are required?</h3>
+      <p>[Answer]</p>
+      <h3>Is this a paid opportunity?</h3>
+      <p>[Answer]</p>
+    </div>
+  </section>
+</Layout>

@@ -1,0 +1,42 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const links = [
+  { href: "/programs/free-clinics", label: "Free Clinics", blurb: "The easiest first yes: no experience, no equipment, no cost." },
+  { href: "/programs/calendar", label: "Calendar", blurb: "Every upcoming clinic and session across the area, in one place." },
+  { href: "/programs/seasonal-sessions", label: "Seasonal Sessions", blurb: "The next step after a free clinic: a real progression over a season." },
+  { href: "/programs/private-lessons", label: "Private Lessons", blurb: "One-on-one instruction with a certified coach. Coming soon." },
+];
+---
+
+<Layout title="Programs" description="Free skateboarding clinics, seasonal sessions, and private lessons for kids across Greater Lancaster, PA.">
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs</p>
+      <h1>From a free first try to a full season of progress.</h1>
+      <p class="lede">Every program hands off to Sawyer for registration.</p>
+
+      <div class="grid cols-2">
+        {links.map((link) => (
+          <a class="card link-card" href={link.href}>
+            <h3>{link.label}</h3>
+            <p>{link.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .link-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .link-card p {
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+</style>

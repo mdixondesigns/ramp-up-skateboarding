@@ -1,0 +1,32 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import SawyerEmbed from "../../components/SawyerEmbed.astro";
+---
+
+<Layout
+  title="Calendar"
+  description="See every upcoming Ramp Up clinic and session across Greater Lancaster, PA."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs &rsaquo; Calendar</p>
+      <h1>There's always something happening.</h1>
+      <p class="lede">
+        A living view of clinics and sessions across the area. Register
+        links go straight to Sawyer.
+      </p>
+
+      <SawyerEmbed label="Unified calendar view (all locations)" />
+
+      <div class="todo">
+        Sawyer's widget builder supports a Calendar view and can be
+        pre-filtered to one or more locations, but a single embed doesn't
+        currently offer a visitor-facing "filter by town" toggle. For now,
+        this page uses one unified calendar across all locations. If you
+        want per-town filtering later, the simplest option is embedding a
+        separate location-filtered widget per town on its own section of
+        this page.
+      </div>
+    </div>
+  </section>
+</Layout>

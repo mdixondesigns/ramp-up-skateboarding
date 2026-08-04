@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Testimonials from "../../components/Testimonials.astro";
+import SawyerEmbed from "../../components/SawyerEmbed.astro";
+import EmailBand from "../../components/EmailBand.astro";
+---
+
+<Layout
+  title="Free Learn to Skate Clinics"
+  description="Join a free Learn to Skate clinic with Ramp Up. No experience or equipment needed — pre-registration required, powered by Sawyer."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs &rsaquo; Free Clinics</p>
+      <h1>No experience needed. Nothing to lose.</h1>
+      <p class="lede">
+        Our FREE Learn to Skate Clinics are the easiest possible first yes:
+        no experience, no equipment, no cost.
+      </p>
+
+      <h2>What to expect</h2>
+      <ul>
+        <li>Boards and safety gear are provided &mdash; just show up.</li>
+        <li>Certified instructors run small-group, age-appropriate coaching.</li>
+        <li>Pre-registration is required; space is limited.</li>
+      </ul>
+
+      <h2>Upcoming clinics</h2>
+      <SawyerEmbed label="Free clinics list/calendar" />
+
+      <p>
+        Not ready to commit yet? <a href="/#join-the-movement">Join the movement</a>
+        to hear about the next free clinic as soon as it's announced.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <Testimonials heading="What first-timers are saying" />
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <EmailBand />
+    </div>
+  </section>
+</Layout>

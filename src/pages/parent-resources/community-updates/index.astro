@@ -1,0 +1,60 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+// TODO(Christine): add a new entry here each time you publish an update,
+// plus a new .astro file in this folder for the post itself. Copy
+// february-2026-update.astro as a starting template.
+const posts = [
+  {
+    href: "/parent-resources/community-updates/february-2026-update",
+    date: "February 5, 2026",
+    title: "Ramp Up Community Update: February 2026",
+    excerpt: "Mike and Christine here with our first ever Ramp Up Community Update. As we enter the next phase of Ramp Up, one of our goals is to pull back the curtain and share where the organization stands and where we're heading.",
+  },
+];
+---
+
+<Layout
+  title="Community Updates"
+  description="Recaps, milestones, and the ongoing story of Ramp Up."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Parent Resources &rsaquo; Community Updates</p>
+      <h1>The ongoing story.</h1>
+      <p class="lede">
+        Recaps, milestones, kid wins, and new locations &mdash; the living
+        story of a growing movement.
+      </p>
+
+      <div class="post-list">
+        {posts.map((post) => (
+          <a class="card post-card" href={post.href}>
+            <p class="muted">{post.date}</p>
+            <h3>{post.title}</h3>
+            <p>{post.excerpt}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .post-list {
+    display: grid;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .post-card {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin: 0 0 0.25rem;
+  }
+</style>

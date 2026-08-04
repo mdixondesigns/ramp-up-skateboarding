@@ -1,0 +1,49 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// TODO(Christine): swap in real partner/host logos once you have
+// permission to display them.
+const partners = ["Partner logo", "Partner logo", "Partner logo", "Partner logo"];
+---
+
+<Layout
+  title="Partner With Ramp Up"
+  description="Bring Ramp Up's mobile youth skateboarding program to your township, school, or business."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Get Involved &rsaquo; Partner With Ramp Up</p>
+      <h1>Bring Ramp Up to your community.</h1>
+      <p class="lede">
+        We're mobile &mdash; we bring the program to townships, schools, and
+        businesses. This is the invitation to bring it to yours.
+      </p>
+
+      <h2>How hosting works</h2>
+      <div class="todo">
+        Fill in the real mechanics here: what a host provides (space,
+        promotion to their community, etc.), what Ramp Up brings
+        (equipment, certified coaches, insurance, marketing support), typical
+        timeline, and any minimum commitment.
+      </div>
+      <ul>
+        <li>[What the host provides]</li>
+        <li>[What Ramp Up brings]</li>
+        <li>[How scheduling and logistics work]</li>
+      </ul>
+
+      <h2>Who we've worked with</h2>
+      <div class="grid cols-3">
+        {partners.map((label) => (
+          <div class="placeholder-photo">{label}</div>
+        ))}
+      </div>
+
+      <h2>Start a conversation</h2>
+      <p>
+        Ready to talk about bringing Ramp Up to your community?
+        <a class="button primary" href="/contact">Get in touch &rarr;</a>
+      </p>
+    </div>
+  </section>
+</Layout>

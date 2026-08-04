@@ -1,0 +1,54 @@
+---
+import Layout from "../layouts/Layout.astro";
+import EmailBand from "../components/EmailBand.astro";
+---
+
+<Layout title="Contact" description="Get in touch with Ramp Up.">
+  <section>
+    <div class="container">
+      <p class="eyebrow">Contact</p>
+      <h1>A friendly door, not a form wall.</h1>
+      <p class="lede">Reach out &mdash; we'd love to hear from you.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>General questions &amp; free clinics</h3>
+          <p>
+            <a href="mailto:christine@rampupskate.com">christine@rampupskate.com</a>
+          </p>
+        </div>
+        <div class="card">
+          <h3>Partnering or hosting a program</h3>
+          <p>
+            Mention it's a partner inquiry and we'll route it right away.
+            <a href="mailto:christine@rampupskate.com?subject=Partner%20Inquiry">christine@rampupskate.com</a>
+          </p>
+        </div>
+      </div>
+
+      <h2>Follow along</h2>
+      <div class="social-links">
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      </div>
+      <div class="todo">
+        Swap in your real Instagram/Facebook URLs (also used in the site
+        footer).
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <EmailBand />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+    margin: 1rem 0;
+  }
+</style>

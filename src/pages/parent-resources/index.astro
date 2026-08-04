@@ -1,0 +1,84 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import EmailBand from "../../components/EmailBand.astro";
+
+const articles = [
+  {
+    href: "/parent-resources/welcome-to-skateboarding",
+    label: "Welcome to Skateboarding",
+    blurb: "New to this? Start here. What skateboarding gives kids, and how to get started.",
+  },
+  {
+    href: "/parent-resources/first-trip-to-the-skatepark",
+    label: "First Trip to the Skatepark",
+    blurb: "Etiquette, safety, what to bring, and a guide to skateparks near Lancaster.",
+  },
+  {
+    href: "/parent-resources/buying-your-first-skateboard",
+    label: "Buying Your First Skateboard",
+    blurb: "What makes a good starter setup, sizing by age, and what to avoid.",
+  },
+  {
+    href: "/parent-resources/curriculum-and-progression",
+    label: "Curriculum & Progression",
+    blurb: "How kids move from first push to first trick in our programs.",
+  },
+  {
+    href: "/parent-resources/certification-process",
+    label: "Our Certification Process",
+    blurb: "The standard every Ramp Up coach is trained and vetted against.",
+  },
+  {
+    href: "/parent-resources/community-updates",
+    label: "Community Updates",
+    blurb: "Recaps, milestones, and the ongoing story of Ramp Up.",
+  },
+];
+---
+
+<Layout
+  title="Parent Resources"
+  description="Guides for parents new to skateboarding: safety, gear, local skateparks, and how Ramp Up trains and progresses young skaters."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Parent Resources</p>
+      <h1>Everything you need to feel ready.</h1>
+      <p class="lede">
+        Whether your kid has never touched a board or is ready for their
+        first trick, these guides are here to help.
+      </p>
+
+      <div class="grid cols-2">
+        {articles.map((article) => (
+          <a class="card link-card" href={article.href}>
+            <h3>{article.label}</h3>
+            <p>{article.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <EmailBand
+        heading="Bookmark this, and stay in the loop"
+        body="Join the movement to get new resources and free clinic dates as they're announced."
+      />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .link-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .link-card p {
+    color: var(--muted);
+    margin: 0.5rem 0 0;
+  }
+</style>

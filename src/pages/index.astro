@@ -1,0 +1,108 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Testimonials from "../components/Testimonials.astro";
+import EmailBand from "../components/EmailBand.astro";
+---
+
+<Layout title="Youth Skateboarding Programs & Camps">
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Greater Lancaster, PA</p>
+      <h1>Youth skateboarding programs &amp; camps.</h1>
+      <p class="lede">
+        A local family building resilient, confident kids &mdash; one clinic
+        at a time.
+      </p>
+      <div class="placeholder-photo" style="min-height: 320px;">
+        Hero photo/video goes here &mdash; a strong action shot or clip from
+        a clinic.
+      </div>
+      <div class="cta-row">
+        <a class="button primary" href="/programs/free-clinics">See upcoming free clinics</a>
+        <a class="button secondary" href="#join-the-movement">Join the movement</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="experience">
+    <div class="container">
+      <p class="eyebrow">The Ramp Up Experience</p>
+      <h2>
+        Resilience, resourcefulness, confidence, and creative expression
+        &mdash; through skateboarding.
+      </h2>
+      <p>
+        Our unique mobile format and certified instructors let us meet
+        communities where they are, and give kids the most fun, safest
+        pathway to get started with skateboarding.
+      </p>
+    </div>
+  </section>
+
+  <section class="free-clinics">
+    <div class="container">
+      <p class="eyebrow">Free Learn to Skate Clinics</p>
+      <h2>No experience needed. Nothing to lose.</h2>
+      <p>
+        Join us at one of our upcoming FREE Learn to Skate Clinics.
+        Pre-registration is required &mdash; registration is handled by
+        Sawyer for Business.
+      </p>
+      <a class="button primary" href="/programs/free-clinics">See clinic dates &amp; register</a>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <div class="container">
+      <Testimonials />
+    </div>
+  </section>
+
+  <section class="podcast">
+    <div class="container">
+      <p class="eyebrow">Hear Coach Mike on the Buzz About Podcast</p>
+      <h2>What we do, how it works, and where we're going.</h2>
+      <p>A deep dive into Ramp Up, straight from the van.</p>
+      <div class="todo">
+        Embed or link the podcast episode here (audio player embed or a
+        link out to the episode).
+      </div>
+    </div>
+  </section>
+
+  <section id="join-the-movement">
+    <div class="container">
+      <EmailBand />
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .hero {
+    padding-top: 2.5rem;
+  }
+
+  .hero h1 {
+    font-size: 2.5rem;
+    margin: 0.5rem 0;
+  }
+
+  .lede {
+    font-size: 1.2rem;
+    color: var(--muted);
+    max-width: 40ch;
+  }
+
+  .cta-row {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .experience h2,
+  .free-clinics h2,
+  .podcast h2 {
+    max-width: 32ch;
+  }
+</style>

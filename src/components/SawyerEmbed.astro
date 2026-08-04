@@ -1,0 +1,29 @@
+---
+interface Props {
+  label: string;
+}
+
+const { label } = Astro.props;
+---
+
+<!--
+  TODO(Christine): generate this widget from your Sawyer for Business
+  portal (My Account > Settings > Self-Embed Widgets) and paste the embed
+  code here in place of this placeholder div. Docs:
+  https://help.hisawyer.com/en/articles/11105549-self-embed-widgets
+-->
+<div class="todo sawyer-placeholder">
+  Sawyer widget goes here: <strong>{label}</strong>. Generate the embed code
+  from your Sawyer portal's Self-Embed Widgets tool and paste it in this
+  component.
+</div>
+
+<style>
+  .sawyer-placeholder {
+    min-height: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+</style>

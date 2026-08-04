@@ -1,0 +1,31 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import EmailBand from "../../components/EmailBand.astro";
+---
+
+<Layout
+  title="Private Lessons"
+  description="A limited number of one-on-one skateboarding lessons with a certified Ramp Up coach, by inquiry."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs &rsaquo; Private Lessons</p>
+      <h1>The premium, one-on-one path.</h1>
+      <p class="lede">
+        Personalized instruction, delivered by a certified Ramp Up coach.
+      </p>
+      <p>
+        We offer a limited number of private lessons each year. Reach out
+        using our <a href="/contact">contact page</a> to inquire about
+        pricing and availability.
+      </p>
+      <p>
+        <a class="button primary" href="/contact">Inquire about private lessons</a>
+      </p>
+      <EmailBand
+        heading="Not ready yet?"
+        body="Join the movement and we'll let you know as new private lesson slots open up."
+      />
+    </div>
+  </section>
+</Layout>

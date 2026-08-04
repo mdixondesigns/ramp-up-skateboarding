@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// TODO(Christine): swap in real names/photos/bios once ready. Placeholders
+// keep the grid structure so this is a find-and-replace job, not a rebuild.
+const instructors = [
+  { name: "Instructor name", bio: "Bio coming soon." },
+  { name: "Instructor name", bio: "Bio coming soon." },
+  { name: "Instructor name", bio: "Bio coming soon." },
+];
+---
+
+<Layout
+  title="The Ramp Up Team"
+  description="Meet the family and certified instructors behind Ramp Up's youth skateboarding programs."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">About &rsaquo; The Team</p>
+      <h1>The family behind Ramp Up</h1>
+
+      <div class="grid cols-2">
+        <div class="placeholder-photo">Photo: Christine &amp; Mike</div>
+        <div>
+          <p>
+            Christine and Mike are based in Lancaster, PA with their two
+            young daughters, Ryleigh (7) and Louisa (5). Mike grew up
+            skateboarding and has a decade&rsquo;s worth of youth mentoring
+            experience. Christine brings a background in design, tech, and
+            project management along with a passion for building community.
+            You&rsquo;ll often find the family enjoying downtown Lancaster
+            and spending time with friends.
+          </p>
+          <p>
+            The family at the center of Ramp Up is the brand&rsquo;s soul
+            &mdash; this is a business built by parents, for parents, because
+            we&rsquo;re raising our own kids in it too.
+          </p>
+        </div>
+      </div>
+
+      <h2>Instructors</h2>
+      <p>
+        Every Ramp Up coach is vetted and trained against the same standard
+        before they ever run a clinic.
+        <a href="/parent-resources/certification-process">See how we train and certify coaches &rarr;</a>
+      </p>
+
+      <div class="grid cols-3">
+        {instructors.map((coach) => (
+          <div class="card">
+            <div class="placeholder-photo">Photo</div>
+            <h3>{coach.name}</h3>
+            <p>{coach.bio}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

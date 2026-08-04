@@ -1,0 +1,76 @@
+---
+import EmailBand from "./EmailBand.astro";
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <EmailBand />
+
+    <div class="footer-bottom">
+      <div>
+        <strong>Ramp Up</strong>
+        <p class="muted">Youth skateboarding programs &amp; camps &mdash; Greater Lancaster, PA.</p>
+      </div>
+
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/about">About</a>
+        <a href="/programs">Programs</a>
+        <a href="/parent-resources">Parent Resources</a>
+        <a href="/get-involved">Get Involved</a>
+        <a href="/contact">Contact</a>
+      </nav>
+
+      <!--
+        TODO(Christine): once real location-page content exists (per the
+        brand blueprint, only add a town page when it has genuinely unique
+        content), add an "Areas We Serve" list here linking to those pages.
+      -->
+
+      <!-- TODO(Christine): swap in your real Instagram/Facebook URLs. -->
+      <div class="social-links">
+        <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      </div>
+    </div>
+
+    <p class="copyright">&copy; {year} Ramp Up. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2.5rem 0 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .footer-bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: space-between;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .muted {
+    color: var(--muted);
+    font-size: 0.9rem;
+  }
+
+  .footer-links,
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  .copyright {
+    margin-top: 2rem;
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+</style>

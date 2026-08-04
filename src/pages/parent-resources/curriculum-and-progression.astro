@@ -1,0 +1,65 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// TODO(Christine): confirm these stage names/descriptions match what
+// instructors actually teach and in what order — this is a reasonable
+// general framework, not pulled from your internal curriculum.
+const stages = [
+  {
+    name: "Comfort & balance",
+    body: "Standing, stance, and getting comfortable with the board moving underneath you.",
+  },
+  {
+    name: "Pushing & stopping",
+    body: "Pushing for speed, foot placement, and learning to stop safely and confidently.",
+  },
+  {
+    name: "Turning & carving",
+    body: "Weight-shift turning, carving, and controlling direction at speed.",
+  },
+  {
+    name: "Ramps & first tricks",
+    body: "Introducing ramps, transitions, and a rider's first tricks once fundamentals are solid.",
+  },
+];
+---
+
+<Layout
+  title="Curriculum & Progression"
+  description="How kids progress through Ramp Up's skateboarding curriculum, from first push to first trick."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Parent Resources &rsaquo; Curriculum &amp; Progression</p>
+      <h1>How kids actually get better.</h1>
+      <p class="lede">
+        We don't just let kids skate around &mdash; every session builds on
+        the last, at each kid's own pace.
+      </p>
+
+      <div class="grid cols-2">
+        {stages.map((stage, i) => (
+          <div class="card">
+            <p class="tag">Stage {i + 1}</p>
+            <h3>{stage.name}</h3>
+            <p>{stage.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <h2>Every kid moves at their own pace</h2>
+      <p>
+        Some kids move through these stages in a single season; others take
+        longer, and that's completely normal. Instructors meet each kid
+        where they are rather than pushing a fixed timeline &mdash; the goal
+        is real progress and confidence, not rushing to tricks.
+      </p>
+
+      <p>
+        Ready to start? <a href="/programs/free-clinics">Try a free clinic</a>
+        or look at our <a href="/programs/seasonal-sessions">seasonal sessions</a>
+        for a full progression over time.
+      </p>
+    </div>
+  </section>
+</Layout>

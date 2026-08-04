@@ -1,0 +1,60 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const links = [
+  {
+    href: "/about/history",
+    label: "Ramp Up History",
+    blurb: "How a family side project out of the back of a van became Ramp Up.",
+  },
+  {
+    href: "/about/team",
+    label: "The Team",
+    blurb: "The family behind Ramp Up, and the instructors who show up for your kid.",
+  },
+  {
+    href: "/about/philosophy",
+    label: "Our Philosophy",
+    blurb: "What we believe skateboarding does for kids, and where we're headed.",
+  },
+];
+---
+
+<Layout title="About Ramp Up">
+  <section>
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>We're parents, skaters, entrepreneurs, and advocates for kids.</h1>
+      <p class="lede">
+        This is the heart of Ramp Up &mdash; who we are, where we came from,
+        and what we believe skateboarding can do for kids.
+      </p>
+
+      <div class="grid cols-3">
+        {links.map((link) => (
+          <a class="card link-card" href={link.href}>
+            <h3>{link.label}</h3>
+            <p>{link.blurb}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .link-card {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+
+  .link-card h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .link-card p {
+    color: var(--muted);
+    margin: 0;
+  }
+</style>

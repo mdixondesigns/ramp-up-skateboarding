@@ -1,0 +1,114 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+// TODO(Christine/Mike): pull real entries from the PA Skateparks research —
+// name, town, and a one-line note on what makes it good for beginners.
+// This table is the local-SEO anchor for the whole site, so accuracy here
+// matters more than almost anything else on the page.
+const skateparks = [
+  { name: "Skatepark name", town: "Town", note: "Beginner-friendly note." },
+  { name: "Skatepark name", town: "Town", note: "Beginner-friendly note." },
+  { name: "Skatepark name", town: "Town", note: "Beginner-friendly note." },
+];
+---
+
+<Layout
+  title="Your First Trip to the Skatepark"
+  description="What to expect, skatepark etiquette, what to bring, and a guide to skateparks near Lancaster, PA."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Parent Resources &rsaquo; First Trip to the Skatepark</p>
+      <h1>Exactly what to expect, and where to go.</h1>
+      <p class="lede">
+        A skatepark full of bigger kids doing tricks can feel intimidating.
+        Here's how to walk in with a plan.
+      </p>
+
+      <h2>What to bring</h2>
+      <ul>
+        <li>A helmet &mdash; non-negotiable, every time.</li>
+        <li>Wrist guards, and knee/elbow pads for beginners.</li>
+        <li>Closed-toe shoes with flat, grippy soles.</li>
+        <li>Water, and sunscreen for outdoor parks.</li>
+      </ul>
+
+      <h2>Skatepark etiquette</h2>
+      <ul>
+        <li>
+          <strong>One rider at a time</strong> on a ramp or line &mdash; wait
+          your turn rather than dropping in on top of someone.
+        </li>
+        <li>
+          <strong>Call your line</strong> if there's any doubt about who's
+          going next &mdash; a quick "go ahead" or "I'm going" avoids
+          collisions.
+        </li>
+        <li>
+          <strong>Watch before you ride</strong> new terrain &mdash; a minute
+          of watching how others use a feature tells you a lot.
+        </li>
+        <li>
+          <strong>Give beginners room.</strong> Most skatepark communities
+          are genuinely welcoming to kids who are just starting out.
+        </li>
+      </ul>
+
+      <h2>Safety basics</h2>
+      <p>
+        Learning to fall safely is one of the first things a good instructor
+        teaches &mdash; before tricks, before speed. Falling forward onto
+        pads and rolling, rather than catching yourself with an outstretched
+        hand, is the single biggest thing that reduces injury for beginners.
+        This is exactly what we cover in a
+        <a href="/programs/free-clinics">free clinic</a>.
+      </p>
+
+      <h2>Skateparks near Lancaster</h2>
+      <p>
+        Mike has personally visited and cataloged 60+ skateparks across
+        Pennsylvania. Here are a few good starting points for beginners:
+      </p>
+
+      <table class="park-table">
+        <thead>
+          <tr>
+            <th>Skatepark</th>
+            <th>Town</th>
+            <th>Good for beginners because&hellip;</th>
+          </tr>
+        </thead>
+        <tbody>
+          {skateparks.map((park) => (
+            <tr>
+              <td>{park.name}</td>
+              <td>{park.town}</td>
+              <td>{park.note}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+
+      <div class="todo">
+        Replace the placeholder rows above with real entries from the PA
+        Skateparks research &mdash; this table is the page's main local-SEO
+        value, so accurate, specific local detail matters most here.
+      </div>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .park-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+  }
+
+  .park-table th,
+  .park-table td {
+    text-align: left;
+    padding: 0.6rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+</style>

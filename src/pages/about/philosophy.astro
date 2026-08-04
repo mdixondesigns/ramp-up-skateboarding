@@ -1,0 +1,76 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import EmailBand from "../../components/EmailBand.astro";
+
+const pillars = [
+  {
+    name: "Resilience",
+    body: "Kids fall down learning to skate &mdash; a lot. We teach them to get back up, on the board and off it.",
+  },
+  {
+    name: "Resourcefulness",
+    body: "Skateboarding rewards figuring things out for yourself. We coach kids toward their own solutions, not just ours.",
+  },
+  {
+    name: "Confidence",
+    body: "Every small win &mdash; a first push, a first roll-in &mdash; compounds into real self-belief.",
+  },
+  {
+    name: "Creative expression",
+    body: "There's no one right way to ride a skateboard. We encourage kids to find their own style.",
+  },
+];
+---
+
+<Layout
+  title="Our Philosophy"
+  description="Ramp Up's mission and vision for using skateboarding to build resilient, confident kids."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">About &rsaquo; Our Philosophy</p>
+      <h1>Our Mission</h1>
+      <p class="lede">
+        To build confident, resilient kids by providing a welcoming and
+        inclusive entry point to skateboarding for families through
+        structured, fun, and safe instruction.
+      </p>
+
+      <h2>Our Vision</h2>
+      <p class="lede">
+        To use skateboarding as a catalyst for building resilience,
+        creativity, and confidence &mdash; empowering kids to thrive in our
+        ever-changing world.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>The four pillars</h2>
+      <div class="grid cols-2">
+        {pillars.map((pillar) => (
+          <div class="card">
+            <h3>{pillar.name}</h3>
+            <p set:html={pillar.body} />
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="container">
+      <h2>Get behind the mission</h2>
+      <p>
+        Every family who joins the movement is helping us prove that a van,
+        a handful of certified coaches, and a lot of belief can change how
+        kids meet a hard new skill. We're just getting started.
+      </p>
+      <EmailBand
+        heading="Join the movement"
+        body="Follow the growth story, and be first to know as we open new sessions and locations."
+      />
+    </div>
+  </section>
+</Layout>

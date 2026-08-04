@@ -1,0 +1,59 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+}
+
+const {
+  heading = "Join the movement",
+  body = "Follow along as a local family builds something for kids — get word on free clinics, new sessions, and where we're headed next.",
+} = Astro.props;
+---
+
+<div class="email-band">
+  <div class="email-band-copy">
+    <p class="eyebrow">Join the movement</p>
+    <h3>{heading}</h3>
+    <p>{body}</p>
+  </div>
+
+  <div class="email-band-form">
+    <!--
+      TODO(Christine): replace this placeholder with your MailerLite embed
+      snippet (Integrations > embedded forms in your MailerLite account).
+      Keeping this as a distinct component means it only has to be swapped
+      in one place — it's reused on Home, the footer, and Parent Resources.
+    -->
+    <div class="todo">
+      MailerLite embed goes here. Paste your embedded-form code from
+      MailerLite in <code>src/components/EmailBand.astro</code>.
+    </div>
+  </div>
+</div>
+
+<style>
+  .email-band {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1.2fr 1fr;
+    align-items: center;
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 2rem;
+  }
+
+  .email-band h3 {
+    margin: 0.25rem 0 0.5rem;
+  }
+
+  .email-band p {
+    margin: 0;
+  }
+
+  @media (max-width: 720px) {
+    .email-band {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
