@@ -1,0 +1,71 @@
+---
+/**
+ * Stacked rows with colored numbered circles. Each point has a bold lead-in
+ * followed by explanation.
+ */
+interface Props {
+  points: { lead: string; body: string }[];
+}
+
+const { points } = Astro.props;
+
+const colors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+---
+
+<ol class="points">
+  {
+    points.map((point, i) => (
+      <li class="point">
+        <span class="marker" aria-hidden="true" style={`background: ${colors[i % colors.length]};`}>
+          {i + 1}
+        </span>
+        <span class="text">
+          <strong>{point.lead}</strong> {point.body}
+        </span>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .points {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 0 0 32px;
+    padding: 0;
+    list-style: none;
+    counter-reset: none;
+  }
+
+  .point {
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    background: var(--paper-alt);
+    border-radius: var(--r-row);
+    padding: 22px 26px;
+  }
+
+  .marker {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 19px;
+    color: var(--ink);
+  }
+
+  .text {
+    font-size: 17px;
+  }
+
+  .text strong {
+    font-weight: 700;
+  }
+</style>

@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import SawyerEmbed from "../../components/SawyerEmbed.astro";
 
 // TODO(Christine): edit this list directly each season — add/remove entries
@@ -14,7 +14,7 @@ const currentSessions = [
 ];
 ---
 
-<Layout
+<BaseLayout
   title="Seasonal Sessions"
   description="Multi-week skateboarding sessions for kids ready to progress beyond a free clinic."
 >
@@ -42,7 +42,7 @@ const currentSessions = [
       <SawyerEmbed label="Seasonal session registration" />
     </div>
   </section>
-</Layout>
+</BaseLayout>
 
 <style>
   .muted {

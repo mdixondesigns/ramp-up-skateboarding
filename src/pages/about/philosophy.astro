@@ -1,6 +1,6 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import EmailBand from "../../components/EmailBand.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
 const pillars = [
   {
@@ -22,7 +22,7 @@ const pillars = [
 ];
 ---
 
-<Layout
+<BaseLayout
   title="Our Philosophy"
   description="Ramp Up's mission and vision for using skateboarding to build resilient, confident kids."
 >
@@ -67,10 +67,11 @@ const pillars = [
         a handful of certified coaches, and a lot of belief can change how
         kids meet a hard new skill. We're just getting started.
       </p>
-      <EmailBand
-        heading="Join the movement"
-        body="Follow the growth story, and be first to know as we open new sessions and locations."
-      />
     </div>
   </section>
-</Layout>
+
+  <EmailSignupBand
+    heading="Join the movement"
+    body="Follow the growth story, and be first to know as we open new sessions and locations."
+  />
+</BaseLayout>

@@ -1,108 +1,561 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Testimonials from "../components/Testimonials.astro";
-import EmailBand from "../components/EmailBand.astro";
+import { Image } from "astro:assets";
+
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PlyStripe from "../components/PlyStripe.astro";
+import PatternOverlay from "../components/PatternOverlay.astro";
+import WheelDot from "../components/WheelDot.astro";
+import StepCard from "../components/StepCard.astro";
+import ClinicRow from "../components/ClinicRow.astro";
+import TestimonialsSection from "../components/TestimonialsSection.astro";
+import PartnerGrid from "../components/PartnerGrid.astro";
+import EmailSignupBand from "../components/EmailSignupBand.astro";
+
+import { clinics } from "../data/clinics";
+
+import heroPhoto from "../assets/photos/hero-drop-in.jpg";
+import gearPhoto from "../assets/photos/radnor-44.jpg";
+
+const steps = [
+  {
+    number: 1,
+    title: "Show up empty-handed",
+    color: "var(--cyan)",
+    texture: "dots" as const,
+    body: "Boards, helmets, and pads in every size come out of the van. Just bring closed-toe shoes.",
+  },
+  {
+    number: 2,
+    title: "Learn to fall first",
+    color: "var(--pink)",
+    texture: "hatch" as const,
+    body: "Before tricks, before speed. Falling safely is the first thing a certified coach teaches.",
+  },
+  {
+    number: 3,
+    title: "Roll away grinning",
+    color: "var(--yellow)",
+    texture: "arcs" as const,
+    body: "Small groups, sorted by age. Every kid leaves having done something they couldn't do an hour before.",
+  },
+];
+
+const pillars = [
+  { color: "var(--cyan)", label: "Certified, background-checked instructors" },
+  { color: "var(--pink)", label: "Small groups, grouped by age" },
+  { color: "var(--yellow)", label: "Helmets required, every single time" },
+];
 ---
 
-<Layout title="Youth Skateboarding Programs & Camps">
-  <section class="hero">
-    <div class="container">
-      <p class="eyebrow">Greater Lancaster, PA</p>
-      <h1>Youth skateboarding programs &amp; camps.</h1>
-      <p class="lede">
-        A local family building resilient, confident kids &mdash; one clinic
-        at a time.
+<BaseLayout
+  title="Youth Skateboarding Programs & Camps"
+  description="Never touched a board? Perfect. Free mobile skateboarding clinics for kids 5–14 across Greater Lancaster, PA. We bring the boards, helmets, and patient coaches."
+  ogImage={heroPhoto.src}
+>
+  {/* ------------------------------------------------------------- hero */}
+  <section class="hero on-dark">
+    <Image
+      src={heroPhoto}
+      alt="A coach helping a young skater drop in off a wooden ramp in a graffiti-covered indoor park"
+      widths={[720, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      class="hero-photo"
+    />
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <PatternOverlay
+      pattern="blocks"
+      opacity={0.55}
+      mask="linear-gradient(90deg, #000 0%, #000 30%, transparent 60%)"
+      parallax={0.28}
+    />
+
+    <div class="hero-content">
+      <p class="location-pill">
+        <WheelDot color="var(--cyan)" size={22} />
+        <span>Greater Lancaster, PA &middot; Ages 5&ndash;14</span>
       </p>
-      <div class="placeholder-photo" style="min-height: 320px;">
-        Hero photo/video goes here &mdash; a strong action shot or clip from
-        a clinic.
-      </div>
-      <div class="cta-row">
-        <a class="button primary" href="/programs/free-clinics">See upcoming free clinics</a>
-        <a class="button secondary" href="#join-the-movement">Join the movement</a>
-      </div>
-    </div>
-  </section>
 
-  <section class="experience">
-    <div class="container">
-      <p class="eyebrow">The Ramp Up Experience</p>
-      <h2>
-        Resilience, resourcefulness, confidence, and creative expression
-        &mdash; through skateboarding.
-      </h2>
-      <p>
-        Our unique mobile format and certified instructors let us meet
-        communities where they are, and give kids the most fun, safest
-        pathway to get started with skateboarding.
+      <h1>Never touched a board? Perfect.</h1>
+
+      <p class="hero-lede">
+        Most kids at our clinics have never stood on a skateboard before. We
+        bring the boards, the helmets, and the patient coaches.
       </p>
-    </div>
-  </section>
 
-  <section class="free-clinics">
-    <div class="container">
-      <p class="eyebrow">Free Learn to Skate Clinics</p>
-      <h2>No experience needed. Nothing to lose.</h2>
-      <p>
-        Join us at one of our upcoming FREE Learn to Skate Clinics.
-        Pre-registration is required &mdash; registration is handled by
-        Sawyer for Business.
-      </p>
-      <a class="button primary" href="/programs/free-clinics">See clinic dates &amp; register</a>
-    </div>
-  </section>
-
-  <section class="testimonials-section">
-    <div class="container">
-      <Testimonials />
-    </div>
-  </section>
-
-  <section class="podcast">
-    <div class="container">
-      <p class="eyebrow">Hear Coach Mike on the Buzz About Podcast</p>
-      <h2>What we do, how it works, and where we're going.</h2>
-      <p>A deep dive into Ramp Up, straight from the van.</p>
-      <div class="todo">
-        Embed or link the podcast episode here (audio player embed or a
-        link out to the episode).
+      <div class="hero-actions">
+        <a class="button button--primary" href="#join">Get clinic dates by email</a>
+        <a class="button button--ghost" href="#first-day">How a first clinic works</a>
       </div>
     </div>
+
+    <PlyStripe variant="a" edge />
   </section>
 
-  <section id="join-the-movement">
+  {/* -------------------------------------------------- what a first day */}
+  <section class="section" id="first-day">
     <div class="container">
-      <EmailBand />
+      <header class="section-head">
+        <h2>What a first day actually looks like</h2>
+        <p class="section-sub">
+          No experience, no equipment, no cost. Here is the whole thing.
+        </p>
+      </header>
+
+      <div class="grid grid--3">
+        {
+          steps.map((step) => (
+            <StepCard
+              number={step.number}
+              title={step.title}
+              color={step.color}
+              texture={step.texture}
+            >
+              {step.body}
+            </StepCard>
+          ))
+        }
+      </div>
     </div>
   </section>
-</Layout>
+
+  {/* -------------------------------------------------------- gear callout */}
+  <section class="inset gear-section">
+    <div class="gear-card on-dark">
+      <Image
+        src={gearPhoto}
+        alt="A line of young skaters waiting their turn at a clinic"
+        widths={[720, 1280, 1920]}
+        sizes="(max-width: 1280px) 100vw, 1200px"
+        class="gear-photo"
+      />
+      <div class="gear-scrim" aria-hidden="true"></div>
+
+      <div class="gear-content">
+        <p class="eyebrow">Gear included</p>
+        <h2>We bring 40 boards. Yours to borrow.</h2>
+        <p class="gear-body">
+          Helmets, wrist guards, knee and elbow pads in every size, sanitised
+          between sessions. Nothing to buy before you know your kid likes it.
+        </p>
+        <a class="button button--primary button--sm" href="#join">
+          Get clinic dates by email
+        </a>
+      </div>
+
+      <PlyStripe variant="a" edge />
+    </div>
+  </section>
+
+  {/* ------------------------------------------------------ philosophy band */}
+  <section class="inset">
+    <div class="block-dark on-dark philosophy">
+      <PatternOverlay
+        pattern="tile"
+        opacity={0.4}
+        mask="radial-gradient(130% 100% at 100% 100%, #000 12%, transparent 68%)"
+      />
+
+      <div class="philosophy-grid">
+        <div>
+          <p class="eyebrow">The Ramp Up experience</p>
+          <h2>Resilience, confidence, and creative expression</h2>
+          <p class="philosophy-body">
+            Our mobile format lets us meet communities where they are, and gives
+            kids the safest, most fun pathway into skateboarding. We're a local
+            family building something for kids, one clinic at a time.
+          </p>
+        </div>
+
+        <ul class="pillars">
+          {
+            pillars.map((pillar) => (
+              <li class="row-dark">
+                <WheelDot color={pillar.color} size={42} />
+                <span class="pillar-label">{pillar.label}</span>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  {/* ---------------------------------------------------------- next clinics */}
+  <section class="section section--alt clinics">
+    {/*
+      Six decorative parallax shapes, clipped by the section's overflow.
+      Purely atmospheric — aria-hidden and skipped under reduced motion.
+    */}
+    <div class="shapes" aria-hidden="true">
+      <div class="shape shape--1" data-parallax="0.5"></div>
+      <div class="shape shape--2" data-parallax="0.9"></div>
+      <div class="shape shape--3" data-parallax="0.35"></div>
+      <div class="shape shape--4" data-parallax="1.2"></div>
+      <div class="shape shape--5" data-parallax="0.7"></div>
+      <div class="shape shape--6" data-parallax="1.5"></div>
+    </div>
+
+    <div class="container clinics-inner">
+      <header class="clinics-head">
+        <h2>Next free clinics</h2>
+        <a class="link-underline" href="/programs/calendar">See all dates &amp; register</a>
+      </header>
+
+      <div class="clinic-list">
+        {clinics.map((clinic) => <ClinicRow clinic={clinic} />)}
+      </div>
+
+      <p class="clinics-note">
+        Registration is handled by Sawyer. Pre-registration required &mdash;
+        space is limited.
+      </p>
+    </div>
+  </section>
+
+  <TestimonialsSection />
+
+  <PartnerGrid />
+
+  <EmailSignupBand />
+</BaseLayout>
 
 <style>
+  /* ------------------------------------------------------------------ hero */
   .hero {
-    padding-top: 2.5rem;
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-photo {
+    display: block;
+    width: 100%;
+    height: 700px;
+    object-fit: cover;
+  }
+
+  /* Darkens left-to-right so the headline stays legible over the photo. */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(35, 32, 30, 0.94) 0%,
+      rgba(35, 32, 30, 0.74) 46%,
+      rgba(35, 32, 30, 0.05) 82%
+    );
+  }
+
+  .hero-content {
+    position: absolute;
+    left: max(var(--gutter), calc((100% - var(--max-width)) / 2 + var(--gutter)));
+    bottom: 76px;
+    width: min(680px, calc(100% - var(--gutter) * 2));
+  }
+
+  .location-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(250, 250, 248, 0.12);
+    border: 1px solid rgba(250, 250, 248, 0.22);
+    border-radius: var(--r-pill);
+    padding: 8px 18px 8px 10px;
+    margin: 0 0 24px;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--cream);
   }
 
   .hero h1 {
-    font-size: 2.5rem;
-    margin: 0.5rem 0;
+    font-size: var(--step-hero);
+    line-height: 1.02;
+    margin: 0 0 22px;
+    color: var(--paper);
   }
 
-  .lede {
-    font-size: 1.2rem;
-    color: var(--muted);
-    max-width: 40ch;
+  .hero-lede {
+    font-size: clamp(1.0625rem, 1rem + 0.5vw, 1.3125rem);
+    line-height: 1.55;
+    margin: 0 0 34px;
+    max-width: 44ch;
+    color: var(--cream-dim);
   }
 
-  .cta-row {
+  .hero-actions {
     display: flex;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    gap: 14px;
+    align-items: center;
     flex-wrap: wrap;
   }
 
-  .experience h2,
-  .free-clinics h2,
-  .podcast h2 {
-    max-width: 32ch;
+
+  @media (max-width: 900px) {
+    .hero-photo {
+      height: 560px;
+    }
+
+    .hero-content {
+      bottom: 56px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .hero-photo {
+      height: 520px;
+    }
+
+    /* The left-to-right scrim can't cover a narrow screen; go bottom-up. */
+    .hero-scrim {
+      background: linear-gradient(
+        0deg,
+        rgba(35, 32, 30, 0.95) 20%,
+        rgba(35, 32, 30, 0.7) 60%,
+        rgba(35, 32, 30, 0.25) 100%
+      );
+    }
+  }
+
+  /* -------------------------------------------------------- section heads */
+  .section-head {
+    text-align: center;
+    margin-bottom: 52px;
+  }
+
+  .section-head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 12px;
+  }
+
+  .section-sub {
+    font-size: 18px;
+    color: var(--ink-70);
+    margin: 0 auto;
+    max-width: 52ch;
+  }
+
+  /* ------------------------------------------------------------ gear card */
+  .gear-section {
+    padding-bottom: var(--section-y);
+  }
+
+  .gear-card {
+    position: relative;
+    border-radius: var(--r-photo);
+    overflow: hidden;
+  }
+
+  .gear-photo {
+    display: block;
+    width: 100%;
+    height: 560px;
+    object-fit: cover;
+  }
+
+  .gear-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      rgba(35, 32, 30, 0.9) 0%,
+      rgba(35, 32, 30, 0.6) 42%,
+      rgba(35, 32, 30, 0) 72%
+    );
+  }
+
+  .gear-content {
+    position: absolute;
+    left: var(--gutter);
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(520px, calc(100% - var(--gutter) * 2));
+    color: var(--paper);
+  }
+
+  .gear-content h2 {
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.875rem);
+    margin: 0 0 18px;
+  }
+
+  .gear-body {
+    font-size: 19px;
+    line-height: 1.55;
+    color: var(--cream-dim);
+    margin: 0 0 28px;
+  }
+
+
+  @media (max-width: 640px) {
+    .gear-photo {
+      height: 460px;
+    }
+
+    .gear-scrim {
+      background: linear-gradient(
+        0deg,
+        rgba(35, 32, 30, 0.94) 25%,
+        rgba(35, 32, 30, 0.7) 65%,
+        rgba(35, 32, 30, 0.3) 100%
+      );
+    }
+
+    .gear-content {
+      top: auto;
+      bottom: 42px;
+      transform: none;
+    }
+
+    .gear-body {
+      font-size: 17px;
+    }
+  }
+
+  /* ----------------------------------------------------------- philosophy */
+  .philosophy {
+    margin-bottom: var(--section-y);
+  }
+
+  .philosophy-grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 56px;
+    align-items: center;
+  }
+
+  .philosophy-grid h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 20px;
+  }
+
+  .philosophy-body {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .pillars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .pillar-label {
+    font-size: 17px;
+    font-weight: 700;
+  }
+
+  @media (max-width: 860px) {
+    .philosophy-grid {
+      grid-template-columns: 1fr;
+      gap: 34px;
+    }
+  }
+
+  /* -------------------------------------------------------------- clinics */
+  .clinics {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .clinics-inner {
+    position: relative;
+  }
+
+  .shape {
+    position: absolute;
+    will-change: transform;
+  }
+
+  .shape--1 {
+    top: -110px;
+    right: -90px;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background: var(--cyan);
+    opacity: 0.24;
+  }
+
+  .shape--2 {
+    top: 90px;
+    right: 300px;
+    width: 210px;
+    height: 210px;
+    background: var(--pink);
+    opacity: 0.2;
+    clip-path: polygon(0 100%, 100% 100%, 100% 0);
+  }
+
+  .shape--3 {
+    bottom: -140px;
+    left: -80px;
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+    border: 34px solid var(--green);
+    opacity: 0.18;
+  }
+
+  .shape--4 {
+    top: 320px;
+    left: 300px;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: var(--yellow);
+    opacity: 0.22;
+  }
+
+  .shape--5 {
+    bottom: 60px;
+    right: 90px;
+    width: 260px;
+    height: 130px;
+    border-top-left-radius: 260px;
+    border-top-right-radius: 260px;
+    background: var(--gold);
+    opacity: 0.16;
+  }
+
+  .shape--6 {
+    top: 40px;
+    left: 120px;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 18px solid var(--pink);
+    opacity: 0.22;
+  }
+
+  .clinics-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 34px;
+    flex-wrap: wrap;
+  }
+
+  .clinics-head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0;
+  }
+
+  .clinic-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .clinics-note {
+    font-size: 15px;
+    color: var(--ink-50);
+    margin: 22px 0 0;
   }
 </style>

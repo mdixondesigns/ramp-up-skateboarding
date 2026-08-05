@@ -1,0 +1,122 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/brand/ramp-up-logo.png";
+import { footerColumns } from "../data/navigation";
+import PlyStripe from "./PlyStripe.astro";
+import PatternOverlay from "./PatternOverlay.astro";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer on-dark">
+  <PlyStripe variant="b" />
+  <PatternOverlay
+    pattern="tile"
+    opacity={0.22}
+    mask="radial-gradient(100% 110% at 100% 0%, #000 8%, transparent 62%)"
+  />
+
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div>
+        <Image src={logo} alt="Ramp Up" height={92} densities={[1, 2]} class="footer-logo" />
+        <p class="blurb">
+          Mobile youth skateboarding programs across the Greater Lancaster area.
+        </p>
+      </div>
+
+      {
+        footerColumns.map((column) => (
+          <nav class="footer-column" aria-label={column.heading}>
+            <span class="column-heading">{column.heading}</span>
+            {column.links.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
+          </nav>
+        ))
+      }
+    </div>
+
+    <p class="copyright">&copy; {year} Ramp Up. All rights reserved.</p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    position: relative;
+    background: var(--ink-deep);
+    overflow: hidden;
+  }
+
+  .footer-inner {
+    position: relative;
+    max-width: var(--max-width);
+    margin-inline: auto;
+    padding: 48px var(--gutter) 56px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 40px;
+  }
+
+  .footer-logo {
+    height: 92px;
+    width: auto;
+    margin-bottom: 18px;
+  }
+
+  .blurb {
+    font-size: 15px;
+    color: var(--cream-dimmest);
+    margin: 0;
+    max-width: 30ch;
+  }
+
+  .footer-column {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 15px;
+  }
+
+  .column-heading {
+    font-weight: 700;
+    color: var(--cream-dimmest);
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .footer-column a {
+    transition: color var(--dur) var(--ease);
+  }
+
+  .footer-column a:hover {
+    color: var(--yellow);
+  }
+
+  .copyright {
+    font-size: 13px;
+    color: var(--cream-dimmest);
+    margin: 44px 0 0;
+  }
+
+  @media (max-width: 860px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .footer-logo {
+      height: 72px;
+    }
+  }
+</style>

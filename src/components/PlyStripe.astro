@@ -1,0 +1,73 @@
+---
+/**
+ * The 14px band imitating skateboard plywood layers — the site's signature edge.
+ * Used at the bottom of heroes and photo cards, the top of the footer, and as a
+ * 12px cap on testimonial and spec cards.
+ *
+ * The layer order is deliberately shuffled between instances so repeats don't
+ * read as mechanical. Pick a variant rather than reusing one everywhere.
+ *
+ * Positioning lives here rather than in the parent on purpose: Astro's scoped
+ * styles don't cross the component boundary, so a `class` passed in from a
+ * parent would never match its own rules.
+ */
+interface Props {
+  variant?: "a" | "b" | "c" | "d";
+  /** 14px on full-width edges, 12px when capping a card. */
+  height?: number;
+  /** Pins the stripe to the bottom edge of the nearest positioned ancestor. */
+  edge?: boolean;
+  /** Cancels the parent's horizontal padding so the stripe bleeds edge to edge. */
+  bleed?: number;
+  /** Space below, when the stripe caps a card. */
+  gap?: number;
+  class?: string;
+}
+
+const {
+  variant = "a",
+  height = 14,
+  edge = false,
+  bleed = 0,
+  gap = 0,
+  class: className,
+} = Astro.props;
+
+const layers = {
+  a: "#C9B79A 0 3px, #A8705A 3px 4px, #E6DCC9 4px 6px, #6E8299 6px 7px, #C9B79A 7px 10px, #C6A24A 10px 11px, #E6DCC9 11px 14px",
+  b: "#C9B79A 0 3px, #C6A24A 3px 4px, #E6DCC9 4px 6px, #A8705A 6px 7px, #C9B79A 7px 10px, #6E8299 10px 11px, #E6DCC9 11px 14px",
+  c: "#C9B79A 0 3px, #6E8299 3px 4px, #E6DCC9 4px 6px, #C6A24A 6px 7px, #C9B79A 7px 10px, #A8705A 10px 12px",
+  d: "#C9B79A 0 3px, #A8705A 3px 4px, #E6DCC9 4px 6px, #6E8299 6px 7px, #C9B79A 7px 10px, #C6A24A 10px 12px",
+};
+---
+
+<div
+  class:list={["ply", { "ply--edge": edge }, className]}
+  aria-hidden="true"
+  style={`--ply-layers: ${layers[variant]}; --ply-height: ${height}px; --ply-bleed: ${bleed}px; --ply-gap: ${gap}px;`}
+>
+</div>
+
+<style>
+  .ply {
+    /*
+     * Stays above sibling pattern overlays (the footer lays one across its
+     * whole box, which would otherwise wash the stripe out).
+     */
+    position: relative;
+    z-index: 1;
+    height: var(--ply-height);
+    background: linear-gradient(to bottom, var(--ply-layers));
+    margin-inline: calc(var(--ply-bleed) * -1);
+    margin-bottom: var(--ply-gap);
+    flex: none;
+  }
+
+  .ply--edge {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 0;
+  }
+</style>

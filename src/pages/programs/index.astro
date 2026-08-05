@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const links = [
   { href: "/programs/free-clinics", label: "Free Clinics", blurb: "The easiest first yes: no experience, no equipment, no cost." },
@@ -9,7 +9,7 @@ const links = [
 ];
 ---
 
-<Layout title="Programs" description="Free skateboarding clinics, seasonal sessions, and private lessons for kids across Greater Lancaster, PA.">
+<BaseLayout title="Programs" description="Free skateboarding clinics, seasonal sessions, and private lessons for kids across Greater Lancaster, PA.">
   <section>
     <div class="container">
       <p class="eyebrow">Programs</p>
@@ -26,7 +26,7 @@ const links = [
       </div>
     </div>
   </section>
-</Layout>
+</BaseLayout>
 
 <style>
   .link-card {

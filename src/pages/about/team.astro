@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 // TODO(Christine): swap in real names/photos/bios once ready. Placeholders
 // keep the grid structure so this is a find-and-replace job, not a rebuild.
@@ -10,7 +10,7 @@ const instructors = [
 ];
 ---
 
-<Layout
+<BaseLayout
   title="The Ramp Up Team"
   description="Meet the family and certified instructors behind Ramp Up's youth skateboarding programs."
 >
@@ -57,4 +57,4 @@ const instructors = [
       </div>
     </div>
   </section>
-</Layout>
+</BaseLayout>

@@ -1,0 +1,98 @@
+---
+import "@fontsource-variable/baloo-2/wght.css";
+import "@fontsource-variable/nunito-sans/wght.css";
+import "../styles/global.css";
+
+import SiteHeader from "../components/SiteHeader.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+
+interface Props {
+  title: string;
+  description?: string;
+  /** Open Graph image. Pass an imported asset's `src`. */
+  ogImage?: string;
+}
+
+const {
+  title,
+  description = "Ramp Up is a mobile youth skateboarding program building resilient, confident kids across Greater Lancaster, PA. Free clinics, all gear provided.",
+  ogImage,
+} = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const fullTitle = `${title} | Ramp Up`;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    {ogImage && <meta property="og:image" content={new URL(ogImage, Astro.site)} />}
+    <meta name="twitter:card" content="summary_large_image" />
+  </head>
+
+  <body>
+    <SiteHeader />
+    <main>
+      <slot />
+    </main>
+    <SiteFooter />
+
+    <script>
+      /*
+       * Scroll parallax for elements marked `data-parallax="<speed>"`.
+       * Decorative only — the layout is complete and correct without it, so the
+       * whole effect is skipped when the visitor prefers reduced motion.
+       */
+      const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)");
+
+      if (motionOK.matches) {
+        const layers = Array.from(
+          document.querySelectorAll<HTMLElement>("[data-parallax]")
+        );
+
+        if (layers.length > 0) {
+          let ticking = false;
+
+          const update = () => {
+            const vh = window.innerHeight || 900;
+
+            for (const el of layers) {
+              const speed = parseFloat(el.dataset.parallax ?? "0");
+              const rect = el.getBoundingClientRect();
+
+              // Skip anything more than a viewport off-screen.
+              if (rect.bottom < -vh || rect.top > vh * 2) continue;
+
+              const offset = (rect.top + rect.height / 2 - vh / 2) * -0.12 * speed;
+              el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`;
+            }
+
+            ticking = false;
+          };
+
+          const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            requestAnimationFrame(update);
+          };
+
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll, { passive: true });
+          update();
+        }
+      }
+    </script>
+  </body>
+</html>

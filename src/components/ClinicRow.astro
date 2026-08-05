@@ -1,0 +1,134 @@
+---
+import WheelDot from "./WheelDot.astro";
+import type { Clinic } from "../data/clinics";
+
+interface Props {
+  clinic: Clinic;
+}
+
+const { clinic } = Astro.props;
+
+/*
+ * Status is conveyed by color AND text — never color alone. "3 spots left"
+ * reads the same to someone who can't distinguish the red pill.
+ */
+const statusLabel =
+  clinic.status === "spots-left"
+    ? `${clinic.spotsLeft} spots left`
+    : clinic.status === "open"
+      ? "Open"
+      : "Waitlist";
+---
+
+<div class="clinic-row">
+  <WheelDot color={clinic.markerColor} dotColor="var(--white)" size={52} />
+
+  <time class="date" datetime={clinic.date}>{clinic.dateLabel}</time>
+  <div class="venue">{clinic.venue}</div>
+  <div class="meta">{clinic.time} &middot; {clinic.ages}</div>
+
+  <div class="status-wrap">
+    <span class:list={["status", `status--${clinic.status}`]}>{statusLabel}</span>
+  </div>
+</div>
+
+<style>
+  .clinic-row {
+    background: var(--white);
+    border-radius: var(--r-card-sm);
+    padding: 24px 32px;
+    display: grid;
+    grid-template-columns: 56px 132px 1fr 200px 150px;
+    gap: 22px;
+    align-items: center;
+    box-shadow: var(--shadow-row);
+  }
+
+  .date {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 25px;
+  }
+
+  .venue {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  .meta {
+    font-size: 16px;
+    color: var(--ink-55);
+  }
+
+  .status-wrap {
+    text-align: right;
+  }
+
+  .status {
+    display: inline-block;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 9px 16px;
+    border-radius: var(--r-pill);
+    white-space: nowrap;
+  }
+
+  .status--spots-left {
+    background: var(--alert);
+    color: var(--white);
+  }
+
+  .status--open {
+    background: var(--open-bg);
+    color: var(--open-fg);
+  }
+
+  .status--waitlist {
+    border: 2px solid var(--rule-light-strong);
+    padding: 7px 16px;
+  }
+
+  /* Below 900px the 5-column grid becomes a stacked card. */
+  @media (max-width: 900px) {
+    .clinic-row {
+      grid-template-columns: 52px 1fr auto;
+      grid-template-areas:
+        "wheel date status"
+        "wheel venue venue"
+        "wheel meta meta";
+      gap: 4px 18px;
+      row-gap: 6px;
+    }
+
+    .clinic-row > :global(:first-child) {
+      grid-area: wheel;
+      align-self: start;
+    }
+
+    .date {
+      grid-area: date;
+    }
+
+    .venue {
+      grid-area: venue;
+    }
+
+    .meta {
+      grid-area: meta;
+    }
+
+    .status-wrap {
+      grid-area: status;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .clinic-row {
+      padding: 20px 22px;
+    }
+
+    .date {
+      font-size: 21px;
+    }
+  }
+</style>
