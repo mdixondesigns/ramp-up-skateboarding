@@ -1,9 +1,9 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import EmailBand from "../components/EmailBand.astro";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import EmailSignupBand from "../components/EmailSignupBand.astro";
 ---
 
-<Layout title="Contact" description="Get in touch with Ramp Up.">
+<BaseLayout title="Contact" description="Get in touch with Ramp Up.">
   <section>
     <div class="container">
       <p class="eyebrow">Contact</p>
@@ -38,12 +38,8 @@ import EmailBand from "../components/EmailBand.astro";
     </div>
   </section>
 
-  <section>
-    <div class="container">
-      <EmailBand />
-    </div>
-  </section>
-</Layout>
+  <EmailSignupBand />
+</BaseLayout>
 
 <style>
   .social-links {

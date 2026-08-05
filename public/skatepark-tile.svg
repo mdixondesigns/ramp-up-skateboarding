@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="380" viewBox="0 0 400 380">
+  <title>Ramp Up isometric skatepark tile</title>
+  <desc>Seamlessly tiling isometric field of skatepark modules: quarterpipe with coping, three-stair set, ledge with rail, and a bank ramp.</desc>
+  <g stroke="#ffffff" stroke-width="1.8" stroke-linejoin="round" stroke-linecap="round" fill="none">
+
+    <g transform="translate(92,26)">
+      <path d="M-52,30 L-52,8 L0,38 L0,60 Z" fill="#ffffff" fill-opacity="0.07"></path>
+      <path d="M0,0 L-13,5.83 L-26,8.56 L-39,8.92 L-52,8 L0,38 L13,38.92 L26,38.56 L39,35.83 L52,30 Z" fill="#ffffff" fill-opacity="0.15"></path>
+      <path d="M0,0 L-13,5.83 L-26,8.56 L-39,8.92 L-52,8" stroke-opacity="0.75"></path>
+      <path d="M52,30 L39,35.83 L26,38.56 L13,38.92 L0,38" stroke-opacity="0.75"></path>
+      <path d="M-52,8 L0,38" stroke-width="4" stroke-opacity="0.9"></path>
+      <path d="M0,0 L52,30" stroke-opacity="0.5"></path>
+    </g>
+
+    <g transform="translate(288,42)">
+      <path d="M0,0 L52,30 L52,23 L0,-7 Z" fill="#ffffff" fill-opacity="0.06"></path>
+      <path d="M0,-7 L52,23 L34.7,33 L-17.3,3 Z" fill="#ffffff" fill-opacity="0.16"></path>
+      <path d="M-17.3,3 L34.7,33 L34.7,26 L-17.3,-4 Z" fill="#ffffff" fill-opacity="0.06"></path>
+      <path d="M-17.3,-4 L34.7,26 L17.3,36 L-34.7,6 Z" fill="#ffffff" fill-opacity="0.13"></path>
+      <path d="M-34.7,6 L17.3,36 L17.3,29 L-34.7,-1 Z" fill="#ffffff" fill-opacity="0.06"></path>
+      <path d="M-34.7,-1 L17.3,29 L0,39 L-52,9 Z" fill="#ffffff" fill-opacity="0.1"></path>
+      <path d="M0,-7 L-17.3,3 M-17.3,-4 L-34.7,6 M-34.7,-1 L-52,9" stroke-opacity="0.6"></path>
+    </g>
+
+    <g transform="translate(116,214)">
+      <path d="M0,-8 L52,22 L31.2,34 L-20.8,4 Z" fill="#ffffff" fill-opacity="0.16"></path>
+      <path d="M-20.8,4 L31.2,34 L31.2,42 L-20.8,12 Z" fill="#ffffff" fill-opacity="0.07"></path>
+      <path d="M0,-8 L-20.8,4 L-20.8,12 L0,0 Z" fill="#ffffff" fill-opacity="0.11"></path>
+      <path d="M-3.9,-17.75 L48.1,12.25" stroke-width="3.4" stroke-opacity="0.9"></path>
+      <path d="M1.3,-2.75 L-1.3,-14.75 M44,20 L41.4,8" stroke-width="2.4" stroke-opacity="0.7"></path>
+    </g>
+
+    <g transform="translate(306,232)">
+      <path d="M0,0 L-52,10 L-52,30 L0,20 Z" fill="#ffffff" fill-opacity="0.07"></path>
+      <path d="M0,0 L52,30 L0,40 L-52,10 Z" fill="#ffffff" fill-opacity="0.15"></path>
+      <path d="M-52,10 L0,40" stroke-width="3.2" stroke-opacity="0.8"></path>
+      <path d="M0,0 L52,30 L52,50 L0,60 L0,40" fill="#ffffff" fill-opacity="0.05" stroke-opacity="0.55"></path>
+    </g>
+
+  </g>
+</svg>

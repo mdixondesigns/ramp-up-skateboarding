@@ -1,9 +1,9 @@
 ---
-import Layout from "../../layouts/Layout.astro";
-import EmailBand from "../../components/EmailBand.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 ---
 
-<Layout
+<BaseLayout
   title="Private Lessons"
   description="A limited number of one-on-one skateboarding lessons with a certified Ramp Up coach, by inquiry."
 >
@@ -22,10 +22,11 @@ import EmailBand from "../../components/EmailBand.astro";
       <p>
         <a class="button primary" href="/contact">Inquire about private lessons</a>
       </p>
-      <EmailBand
-        heading="Not ready yet?"
-        body="Join the movement and we'll let you know as new private lesson slots open up."
-      />
     </div>
   </section>
-</Layout>
+
+  <EmailSignupBand
+    heading="Not ready yet?"
+    body="Join the movement and we'll let you know as new private lesson slots open up."
+  />
+</BaseLayout>

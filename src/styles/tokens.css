@@ -1,0 +1,115 @@
+/*
+ * Ramp Up design tokens.
+ * Source of truth: docs/design-system.md (Claude Design handoff).
+ * Change a value here, not in a component.
+ */
+
+:root {
+  /* ---- Surfaces ---- */
+  --paper: #fafaf8;
+  --paper-alt: #f3f1ec;
+  --white: #ffffff;
+  --ink: #2e2a28;
+  --ink-deep: #232120;
+
+  /* ---- Text ---- */
+  --ink-70: #56504a; /* secondary body on light */
+  --ink-55: #79726a; /* captions, tertiary meta */
+  --ink-50: #6e675f; /* eyebrow labels on light */
+  --cream: #f5f2ee; /* text on dark */
+  --cream-dim: #ddd8d2; /* body on dark */
+  --cream-dimmer: #bab3ab; /* tertiary on dark */
+  --cream-dimmest: #aba49c; /* footer meta */
+
+  /* ---- Brand ---- */
+  --yellow: #f0b93f; /* the one loud accent: all primary CTAs */
+  --cyan: #6ee0f2;
+  --pink: #ef87a6;
+  --green: #63dd86;
+  --gold: #c6a24a;
+
+  /*
+   * Brand hues fail contrast as text on light backgrounds. These darkened
+   * variants are AA-compliant and are the ONLY ones allowed for text.
+   */
+  --cat-getting-started: #2c7f94;
+  --cat-safety-gear: #c4677f;
+  --cat-at-the-clinic: #2c6b3e;
+  --cat-keeping-it-going: #8a6a16;
+
+  /* ---- Status ---- */
+  --alert: #c4362f;
+  --open-bg: #d8f5df;
+  --open-fg: #2c6b3e;
+  --star: #e0a21c;
+
+  /* ---- Hairlines on each surface ---- */
+  --rule-light: rgba(46, 42, 40, 0.08);
+  --rule-light-strong: rgba(46, 42, 40, 0.14);
+  --rule-tile: rgba(46, 42, 40, 0.1);
+  --panel-dark: rgba(245, 242, 238, 0.08); /* inset rows on ink blocks */
+  --border-on-dark: rgba(250, 250, 248, 0.4);
+
+  /* ---- Type ---- */
+  --font-display: "Baloo 2 Variable", "Baloo 2", system-ui, sans-serif;
+  --font-body: "Nunito Sans Variable", "Nunito Sans", system-ui, sans-serif;
+  --lh-body: 1.62;
+  --lh-tight: 1.06;
+
+  /*
+   * Fluid type: clamp(min at ~360px, preferred, max at 1280px).
+   * The prototype was fixed at 1280px; these scale down per the handoff's
+   * responsive table rather than shrinking everything proportionally.
+   */
+  --step-hero: clamp(2.375rem, 1.06rem + 5.85vw, 4.75rem); /* 38 → 76 */
+  --step-hero-sm: clamp(2.25rem, 1.28rem + 4.32vw, 4.125rem); /* 36 → 66 */
+  --step-article-h1: clamp(2.125rem, 1.28rem + 3.75vw, 3.875rem); /* 34 → 62 */
+  --step-h2: clamp(1.75rem, 0.94rem + 3.6vw, 3.375rem); /* 28 → 54 */
+  --step-h2-section: clamp(1.75rem, 1.06rem + 3.06vw, 3rem); /* 28 → 48 */
+  --step-h2-sub: clamp(1.625rem, 1.29rem + 1.5vw, 2.375rem); /* 26 → 38 */
+  --step-h3: clamp(1.25rem, 1.06rem + 0.83vw, 1.625rem); /* 20 → 26 */
+
+  /* ---- Rhythm ---- */
+  --max-width: 1280px;
+  --gutter: 56px; /* → 32px @1024, → 20px @640 */
+  --inset: 40px; /* full-bleed rounded blocks → 20px → 12px */
+  --section-y: 84px;
+
+  /* ---- Shape ---- */
+  --r-block: 44px; /* big inset blocks */
+  --r-photo: 36px; /* big photo cards */
+  --r-card: 28px;
+  --r-card-sm: 26px;
+  --r-row: 22px; /* list rows, inset panels */
+  --r-tile: 20px; /* partner tiles */
+  --r-pill: 999px;
+
+  --shadow-card: 0 1px 0 rgba(46, 42, 40, 0.08), 0 12px 28px rgba(46, 42, 40, 0.05);
+  --shadow-row: 0 10px 24px rgba(46, 42, 40, 0.05);
+  --shadow-card-hover: 0 1px 0 rgba(46, 42, 40, 0.08), 0 18px 38px rgba(46, 42, 40, 0.1);
+
+  /* ---- Motion ---- */
+  --ease: cubic-bezier(0.2, 0, 0.2, 1);
+  --dur: 160ms;
+
+  /* ---- Focus ---- */
+  --focus-light: #2c7f94;
+  --focus-dark: #f0b93f;
+}
+
+@media (max-width: 1024px) {
+  :root {
+    --gutter: 32px;
+    --inset: 20px;
+    --r-block: 28px;
+    --section-y: 64px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 20px;
+    --inset: 12px;
+    --section-y: 52px;
+  }
+}

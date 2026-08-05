@@ -1,0 +1,93 @@
+---
+/**
+ * Hand-built portrait avatars, copied verbatim from the design.
+ *
+ * Deliberately non-photographic, with varied face shapes and skin tones. They
+ * stand in for real reviewer photos we don't have rights to — and shouldn't be
+ * swapped for stock photography, which would misrepresent real people.
+ */
+interface Props {
+  portrait: "a" | "b" | "c" | "coach";
+  /** Ring color. Brand hues only. */
+  ring?: string;
+  size?: number;
+}
+
+const { portrait, ring = "var(--cyan)", size = 54 } = Astro.props;
+---
+
+<span
+  class="avatar"
+  aria-hidden="true"
+  style={`--avatar-size: ${size}px; --avatar-ring: ${ring};`}
+>
+  {
+    portrait === "a" && (
+      <svg viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#D7EDF2" />
+        <path d="M50 60c-22 0 -39 16 -42 40h84c-3 -24 -20 -40 -42 -40z" fill="#6EE0F2" />
+        <rect x="43" y="49" width="14" height="16" rx="6" fill="#8E71C9" />
+        <circle cx="50" cy="41" r="18" fill="#A78BD9" />
+        <path d="M28 45v20h9V45a13 13 0 0 1 26 0v20h9V45a22 22 0 0 0 -44 0z" fill="#2F6F63" />
+        <circle cx="31" cy="49" r="4.6" fill="none" stroke="#F0B93F" stroke-width="2.6" />
+        <circle cx="69" cy="49" r="4.6" fill="none" stroke="#F0B93F" stroke-width="2.6" />
+      </svg>
+    )
+  }
+  {
+    portrait === "b" && (
+      <svg viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#FBE0E8" />
+        <path d="M50 60c-22 0 -39 16 -42 40h84c-3 -24 -20 -40 -42 -40z" fill="#EF87A6" />
+        <rect x="43" y="50" width="14" height="16" rx="6" fill="#4FAE9B" />
+        <circle cx="50" cy="17" r="9" fill="#D9615A" />
+        <ellipse cx="50" cy="42" rx="17" ry="19" fill="#6FC9B8" />
+        <path d="M29 43a21 21 0 0 1 42 0c0 -7 -4 -13 -11 -16H40c-7 3 -11 9 -11 16z" fill="#D9615A" />
+        <path d="M39 65a11 9 0 0 0 22 0" fill="none" stroke="#F0B93F" stroke-width="2.6" />
+        <circle cx="32" cy="47" r="2.8" fill="#F0B93F" />
+        <circle cx="68" cy="47" r="2.8" fill="#F0B93F" />
+      </svg>
+    )
+  }
+  {
+    portrait === "c" && (
+      <svg viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#FDEFD2" />
+        <path d="M50 60c-22 0 -39 16 -42 40h84c-3 -24 -20 -40 -42 -40z" fill="#F0B93F" />
+        <rect x="43" y="50" width="14" height="16" rx="6" fill="#C97F58" />
+        <rect x="32" y="23" width="36" height="39" rx="15" fill="#EDA07C" />
+        <path d="M30 39a20 20 0 0 1 40 0v-3c0 -10 -9 -15 -20 -15s-20 5 -20 15z" fill="#4A2C52" />
+        <circle cx="70" cy="50" r="5.2" fill="none" stroke="#F0B93F" stroke-width="2.6" />
+      </svg>
+    )
+  }
+  {
+    portrait === "coach" && (
+      <svg viewBox="0 0 100 100">
+        <rect width="100" height="100" fill="#D7EDF2" />
+        <path d="M50 60c-22 0 -39 16 -42 40h84c-3 -24 -20 -40 -42 -40z" fill="#6EE0F2" />
+        <rect x="43" y="49" width="14" height="16" rx="6" fill="#C97F58" />
+        <circle cx="50" cy="41" r="18" fill="#EDA07C" />
+        <path d="M29 40a21 21 0 0 1 42 0c0 -11 -9 -18 -21 -18s-21 7 -21 18z" fill="#3B2E26" />
+      </svg>
+    )
+  }
+</span>
+
+<style>
+  .avatar {
+    width: var(--avatar-size);
+    height: var(--avatar-size);
+    border-radius: 50%;
+    border: 3px solid var(--avatar-ring);
+    overflow: hidden;
+    flex: none;
+    display: block;
+  }
+
+  .avatar svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+</style>

@@ -1,0 +1,426 @@
+---
+import { Image } from "astro:assets";
+import { render, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PlyStripe from "../../components/PlyStripe.astro";
+import PatternOverlay from "../../components/PatternOverlay.astro";
+import Avatar from "../../components/Avatar.astro";
+import GuideCard from "../../components/GuideCard.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+import { getPublishedGuides, getRelatedGuides } from "../../utils/guides";
+
+export async function getStaticPaths() {
+  const guides = await getPublishedGuides();
+
+  return guides.map((guide) => ({
+    params: { slug: guide.id },
+    props: { guide },
+  }));
+}
+
+interface Props {
+  guide: CollectionEntry<"guides">;
+}
+
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+
+const {
+  title,
+  category,
+  heroImage,
+  heroAlt,
+  author,
+  authorAvatar,
+  updated,
+  readingTime,
+  toc,
+  shortVersion,
+} = guide.data;
+
+const related = await getRelatedGuides(guide, 3);
+
+const updatedLabel = updated.toLocaleDateString("en-US", {
+  month: "long",
+  year: "numeric",
+});
+
+// The TOC's colored left borders cycle through the brand hues in order.
+const tocColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+---
+
+<BaseLayout
+  title={title}
+  description={guide.data.excerpt}
+  ogImage={heroImage.src}
+>
+  {/* ------------------------------------------------------------- hero */}
+  <section class="hero on-dark">
+    <Image
+      src={heroImage}
+      alt={heroAlt}
+      widths={[720, 1280, 1920]}
+      sizes="100vw"
+      loading="eager"
+      class="hero-photo"
+    />
+    <div class="hero-scrim" aria-hidden="true"></div>
+    <PatternOverlay
+      pattern="blocks"
+      opacity={0.35}
+      mask="linear-gradient(200deg, #000 0%, #000 22%, transparent 58%)"
+      parallax={0.22}
+    />
+
+    <div class="hero-content">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/parent-resources">Parent Resources</a>
+        <span aria-hidden="true">/</span>
+        <span class="crumb-category">{category}</span>
+      </nav>
+
+      <h1>{title}</h1>
+
+      <div class="byline">
+        <Avatar portrait={authorAvatar} ring="var(--cyan)" size={44} />
+        <span class="author">{author}</span>
+        <span class="sep" aria-hidden="true">&middot;</span>
+        <span>Updated <time datetime={updated.toISOString()}>{updatedLabel}</time></span>
+        <span class="sep" aria-hidden="true">&middot;</span>
+        <span>{readingTime} min read</span>
+      </div>
+    </div>
+
+    <PlyStripe variant="a" edge />
+  </section>
+
+  {/* --------------------------------------------------------------- body */}
+  <div class="container article-layout">
+    <article class="article">
+      <Content />
+    </article>
+
+    <aside class="sidebar">
+      {
+        toc.length > 0 && (
+          <nav class="toc card" aria-label="In this guide">
+            <p class="toc-head">In this guide</p>
+            <div class="toc-links">
+              {toc.map((item, i) => (
+                <a
+                  href={`#${item.slug}`}
+                  style={`border-left-color: ${tocColors[i % tocColors.length]};`}
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </nav>
+        )
+      }
+
+      {
+        shortVersion && (
+          <div class="short-version on-dark">
+            <h2>The short version</h2>
+            <p>{shortVersion}</p>
+            <a class="short-cta" href="/parent-resources">
+              More parent guides
+            </a>
+          </div>
+        )
+      }
+    </aside>
+  </div>
+
+  {/* ---------------------------------------------------------- read next */}
+  {
+    related.length > 0 && (
+      <section class="read-next">
+        <div class="container">
+          <h2 class="read-next-head">Read next</h2>
+          <div class="grid grid--3">
+            {related.map((item) => (
+              <GuideCard guide={item} imageHeight={180} compact />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <EmailSignupBand />
+</BaseLayout>
+
+<style>
+  /* ------------------------------------------------------------------ hero */
+  .hero {
+    position: relative;
+    background: var(--ink);
+    overflow: hidden;
+  }
+
+  .hero-photo {
+    display: block;
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+  }
+
+  /* Bottom-up, so the headline pinned to the lower edge stays readable. */
+  .hero-scrim {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      0deg,
+      rgba(35, 32, 30, 0.95) 8%,
+      rgba(35, 32, 30, 0.55) 55%,
+      rgba(35, 32, 30, 0.15) 100%
+    );
+  }
+
+  .hero-content {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 62px;
+    width: 100%;
+    max-width: var(--max-width);
+    padding-inline: var(--gutter);
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cream-dimmer);
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--paper);
+  }
+
+  .crumb-category {
+    color: var(--yellow);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    font-size: var(--step-article-h1);
+    line-height: 1.04;
+    margin: 0 0 18px;
+    color: var(--paper);
+    max-width: 20ch;
+  }
+
+  .byline {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--cream-dim);
+    font-size: 16px;
+    flex-wrap: wrap;
+  }
+
+  .author {
+    font-weight: 700;
+    color: var(--paper);
+  }
+
+  .sep {
+    opacity: 0.6;
+  }
+
+
+  @media (max-width: 640px) {
+    .hero-photo {
+      height: 460px;
+    }
+
+    .hero-content {
+      bottom: 44px;
+    }
+  }
+
+  /* ------------------------------------------------------------ layout */
+  .article-layout {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 64px;
+    padding-block: 72px 84px;
+    align-items: start;
+  }
+
+  .article {
+    max-width: 68ch;
+    min-width: 0;
+  }
+
+  /*
+   * Markdown/MDX body styles. These target generated elements, so they have
+   * to be :global — the article's own markup comes from the content file.
+   */
+  .article :global(p) {
+    font-size: 19px;
+    margin: 0 0 26px;
+  }
+
+  .article :global(.standfirst) {
+    font-size: 22px;
+    line-height: 1.55;
+    color: #3d3835;
+    font-weight: 600;
+    margin: 0 0 30px;
+  }
+
+  .article :global(h2) {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(1.625rem, 1.3rem + 1.4vw, 2.25rem);
+    line-height: 1.1;
+    margin: 44px 0 16px;
+    scroll-margin-top: 24px;
+  }
+
+  .article :global(h3) {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 24px;
+    margin: 32px 0 12px;
+  }
+
+  .article :global(ul),
+  .article :global(ol) {
+    font-size: 19px;
+    margin: 0 0 26px;
+    padding-left: 1.3em;
+  }
+
+  .article :global(li) {
+    margin-bottom: 10px;
+  }
+
+  .article :global(a) {
+    font-weight: 700;
+    border-bottom: 3px solid var(--yellow);
+    padding-bottom: 1px;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .article :global(a:hover) {
+    color: var(--ink-70);
+  }
+
+  .article :global(strong) {
+    font-weight: 700;
+  }
+
+  /* ----------------------------------------------------------- sidebar */
+  .sidebar {
+    position: sticky;
+    top: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  .toc {
+    border-radius: var(--r-card-sm);
+    padding: 26px 28px;
+  }
+
+  .toc-head {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+    margin: 0 0 14px;
+  }
+
+  .toc-links {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .toc-links a {
+    border-left: 3px solid;
+    padding-left: 12px;
+    transition: color var(--dur) var(--ease);
+  }
+
+  .toc-links a:hover {
+    color: var(--ink-70);
+  }
+
+  .short-version {
+    background: var(--ink);
+    border-radius: var(--r-card-sm);
+    padding: 28px;
+  }
+
+  .short-version h2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 22px;
+    margin: 0 0 8px;
+  }
+
+  .short-version p {
+    font-size: 16px;
+    color: var(--cream-dimmer);
+    margin: 0 0 18px;
+  }
+
+  .short-cta {
+    display: inline-block;
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 12px 22px;
+    border-radius: var(--r-pill);
+    transition: background var(--dur) var(--ease);
+  }
+
+  .short-cta:hover {
+    background: #e2a92f;
+  }
+
+  /*
+   * Below 1000px the sidebar drops beneath the article and stops sticking —
+   * a sticky element in a single-column flow just pins to the top and
+   * covers the body text.
+   */
+  @media (max-width: 1000px) {
+    .article-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .sidebar {
+      position: static;
+      max-width: 68ch;
+    }
+  }
+
+  /* --------------------------------------------------------- read next */
+  .read-next {
+    padding: 0 0 84px;
+  }
+
+  .read-next-head {
+    font-size: var(--step-h2-sub);
+    margin: 0 0 26px;
+  }
+</style>

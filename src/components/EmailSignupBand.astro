@@ -1,0 +1,184 @@
+---
+/**
+ * The yellow "Join the movement" block. Appears at the foot of every designed
+ * page; only the heading and body change.
+ */
+interface Props {
+  heading?: string;
+  body?: string;
+  id?: string;
+}
+
+const {
+  heading = "Join the movement",
+  body = "Free clinic dates go out by email first, and they fill fast. One short note a month — nothing else.",
+  id = "join",
+} = Astro.props;
+---
+
+<section class="inset">
+  <div class="band on-yellow" id={id}>
+    <div class="dots" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <h2>{heading}</h2>
+    <p class="band-body">{body}</p>
+
+    <!--
+      TODO(Christine): wire this to MailerLite. Replace the form's action with
+      your MailerLite embedded-form endpoint (Integrations > Embedded forms),
+      or swap the whole <form> for their embed snippet. The markup and styling
+      here already match the design, so only the submission target changes.
+    -->
+    <form class="signup" data-signup novalidate>
+      <label class="visually-hidden" for={`${id}-email`}>Email address</label>
+      <input
+        id={`${id}-email`}
+        type="email"
+        name="email"
+        placeholder="you@email.com"
+        autocomplete="email"
+        required
+      />
+      <button type="submit">Sign up</button>
+    </form>
+
+    <p class="success" data-signup-success hidden role="status">
+      You're on the list — first clinic email comes Monday.
+    </p>
+    <p class="error" data-signup-error hidden role="alert">
+      That doesn't look like an email address. Mind checking it?
+    </p>
+
+    <p class="fine-print">We never share your address. Unsubscribe any time.</p>
+  </div>
+</section>
+
+<style>
+  .band {
+    background: var(--yellow);
+    color: var(--ink);
+    border-radius: var(--r-block);
+    padding: 76px var(--gutter);
+    text-align: center;
+    margin-bottom: var(--section-y);
+  }
+
+  .dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+
+  .dots span {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background: var(--ink);
+  }
+
+  h2 {
+    font-size: var(--step-h2);
+    line-height: 1.04;
+    margin: 0 0 14px;
+  }
+
+  .band-body {
+    font-size: 19px;
+    margin: 0 auto 34px;
+    max-width: 54ch;
+  }
+
+  .signup {
+    display: flex;
+    gap: 12px;
+    max-width: 580px;
+    margin: 0 auto;
+  }
+
+  .signup input {
+    flex: 1;
+    min-width: 0;
+    font-family: var(--font-body);
+    font-size: 17px;
+    padding: 19px 26px;
+    border: none;
+    border-radius: var(--r-pill);
+    background: var(--white);
+    color: var(--ink);
+  }
+
+  .signup button {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 17px;
+    padding: 19px 34px;
+    border: none;
+    border-radius: var(--r-pill);
+    background: var(--ink);
+    color: var(--paper);
+    cursor: pointer;
+    transition: background var(--dur) var(--ease);
+  }
+
+  .signup button:hover {
+    background: #413b38;
+  }
+
+  .success,
+  .error {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0 auto;
+    max-width: 580px;
+  }
+
+  .error {
+    font-weight: 600;
+    margin-top: 12px;
+  }
+
+  .fine-print {
+    font-size: 15px;
+    margin: 16px 0 0;
+    opacity: 0.8;
+  }
+
+  @media (max-width: 560px) {
+    .band {
+      padding: 52px var(--gutter);
+    }
+
+    .signup {
+      flex-direction: column;
+    }
+  }
+</style>
+
+<script>
+  // Client-side validation + success state. Submission itself is not wired yet.
+  for (const form of document.querySelectorAll<HTMLFormElement>("[data-signup]")) {
+    const band = form.parentElement;
+    const success = band?.querySelector<HTMLElement>("[data-signup-success]");
+    const error = band?.querySelector<HTMLElement>("[data-signup-error]");
+    const input = form.querySelector<HTMLInputElement>("input[type=email]");
+
+    form.addEventListener("submit", (event) => {
+      event.preventDefault();
+
+      if (!input?.checkValidity() || !input.value.includes("@")) {
+        error?.removeAttribute("hidden");
+        input?.focus();
+        return;
+      }
+
+      error?.setAttribute("hidden", "");
+      form.setAttribute("hidden", "");
+      success?.removeAttribute("hidden");
+    });
+
+    input?.addEventListener("input", () => error?.setAttribute("hidden", ""));
+  }
+</script>

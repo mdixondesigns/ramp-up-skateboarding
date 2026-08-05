@@ -1,0 +1,52 @@
+---
+/**
+ * The two skatepark SVG patterns, as a decorative background layer.
+ *
+ * Both are purely decorative: they render as CSS backgrounds on an aria-hidden
+ * div so they stay out of the accessibility tree. Never swap these for <img>.
+ *
+ * `blocks` — solid isometric tessellation, fades directionally behind headlines.
+ * `tile`   — wireframe park modules, concentrates into one corner.
+ */
+interface Props {
+  pattern: "blocks" | "tile";
+  opacity?: number;
+  /** CSS mask-image. Fades the pattern so it never competes with text. */
+  mask?: string;
+  /** Scroll-parallax speed; omit for a static layer. */
+  parallax?: number;
+  class?: string;
+}
+
+const { pattern, opacity = 0.4, mask, parallax, class: className } = Astro.props;
+
+const size = pattern === "blocks" ? "415.68px 360px" : "400px 380px";
+// The blocks pattern is oversized vertically so parallax never exposes an edge.
+const inset = parallax ? "-18% 0" : "0";
+---
+
+<div
+  class:list={["pattern", className]}
+  aria-hidden="true"
+  data-parallax={parallax}
+  style={{
+    "--pattern-url": `url('/skatepark-${pattern}.svg')`,
+    "--pattern-size": size,
+    "--pattern-opacity": opacity,
+    "--pattern-inset": inset,
+    "mask-image": mask,
+    "will-change": parallax ? "transform" : undefined,
+  }}
+>
+</div>
+
+<style>
+  .pattern {
+    position: absolute;
+    inset: var(--pattern-inset);
+    background-image: var(--pattern-url);
+    background-size: var(--pattern-size);
+    opacity: var(--pattern-opacity);
+    pointer-events: none;
+  }
+</style>

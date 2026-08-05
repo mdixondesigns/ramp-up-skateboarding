@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/Layout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const links = [
   {
@@ -20,7 +20,7 @@ const links = [
 ];
 ---
 
-<Layout title="About Ramp Up">
+<BaseLayout title="About Ramp Up">
   <section>
     <div class="container">
       <p class="eyebrow">About</p>
@@ -40,7 +40,7 @@ const links = [
       </div>
     </div>
   </section>
-</Layout>
+</BaseLayout>
 
 <style>
   .link-card {

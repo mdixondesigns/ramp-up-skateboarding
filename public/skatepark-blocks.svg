@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="415.68" height="360" viewBox="0 0 415.68 360">
+  <title>Ramp Up isometric skatepark tessellation</title>
+  <desc>Seamlessly tiling flat-colour isometric cube field with stair sets and curved quarterpipe transitions.</desc>
+  <defs>
+    <g id="plain">
+      <path d="M0,-60 L51.96,-30 L0,0 L-51.96,-30 Z" fill="#fff" fill-opacity="0.27"></path>
+      <path d="M51.96,-30 L51.96,30 L0,60 L0,0 Z" fill="#fff" fill-opacity="0.15"></path>
+      <path d="M-51.96,-30 L0,0 L0,60 L-51.96,30 Z" fill="#fff" fill-opacity="0.07"></path>
+    </g>
+    <g id="stair">
+      <path d="M0,-60 L8.66,-55 L-43.3,-25 L-51.96,-30 Z" fill="#fff" fill-opacity="0.31"></path>
+      <path d="M8.66,-55 L17.32,-50 L-34.64,-20 L-43.3,-25 Z" fill="#fff" fill-opacity="0.17"></path>
+      <path d="M17.32,-50 L25.98,-45 L-25.98,-15 L-34.64,-20 Z" fill="#fff" fill-opacity="0.31"></path>
+      <path d="M25.98,-45 L34.64,-40 L-17.32,-10 L-25.98,-15 Z" fill="#fff" fill-opacity="0.17"></path>
+      <path d="M34.64,-40 L43.3,-35 L-8.66,-5 L-17.32,-10 Z" fill="#fff" fill-opacity="0.31"></path>
+      <path d="M43.3,-35 L51.96,-30 L0,0 L-8.66,-5 Z" fill="#fff" fill-opacity="0.17"></path>
+      <path d="M51.96,-30 L51.96,30 L0,60 L0,0 Z" fill="#fff" fill-opacity="0.15"></path>
+      <path d="M-51.96,-30 L0,0 L0,60 L-51.96,30 Z" fill="#fff" fill-opacity="0.07"></path>
+    </g>
+    <g id="curve">
+      <path d="M0,-60 L51.96,-30 L0,0 L-51.96,-30 Z" fill="#fff" fill-opacity="0.27"></path>
+      <path d="M51.96,-30 L51.96,30 L0,60 L0,0 Z" fill="#fff" fill-opacity="0.09"></path>
+      <path d="M51.96,-30 C41.57,21 25.98,43.2 0,60 L51.96,30 Z" fill="#fff" fill-opacity="0.23"></path>
+      <path d="M-51.96,-30 L0,0 L0,60 L-51.96,30 Z" fill="#fff" fill-opacity="0.07"></path>
+    </g>
+  </defs>
+  <use href="#plain" x="-51.96" y="-90"></use>
+  <use href="#stair" x="51.96" y="-90"></use>
+  <use href="#plain" x="155.88" y="-90"></use>
+  <use href="#curve" x="259.8" y="-90"></use>
+  <use href="#plain" x="363.72" y="-90"></use>
+  <use href="#stair" x="467.64" y="-90"></use>
+  <use href="#curve" x="-103.92" y="0"></use>
+  <use href="#plain" x="0" y="0"></use>
+  <use href="#stair" x="103.92" y="0"></use>
+  <use href="#plain" x="207.84" y="0"></use>
+  <use href="#curve" x="311.76" y="0"></use>
+  <use href="#plain" x="415.68" y="0"></use>
+  <use href="#plain" x="-51.96" y="90"></use>
+  <use href="#curve" x="51.96" y="90"></use>
+  <use href="#plain" x="155.88" y="90"></use>
+  <use href="#stair" x="259.8" y="90"></use>
+  <use href="#plain" x="363.72" y="90"></use>
+  <use href="#curve" x="467.64" y="90"></use>
+  <use href="#stair" x="-103.92" y="180"></use>
+  <use href="#plain" x="0" y="180"></use>
+  <use href="#curve" x="103.92" y="180"></use>
+  <use href="#plain" x="207.84" y="180"></use>
+  <use href="#stair" x="311.76" y="180"></use>
+  <use href="#plain" x="415.68" y="180"></use>
+  <use href="#plain" x="-51.96" y="270"></use>
+  <use href="#stair" x="51.96" y="270"></use>
+  <use href="#plain" x="155.88" y="270"></use>
+  <use href="#curve" x="259.8" y="270"></use>
+  <use href="#plain" x="363.72" y="270"></use>
+  <use href="#stair" x="467.64" y="270"></use>
+  <use href="#curve" x="-103.92" y="360"></use>
+  <use href="#plain" x="0" y="360"></use>
+  <use href="#stair" x="103.92" y="360"></use>
+  <use href="#plain" x="207.84" y="360"></use>
+  <use href="#curve" x="311.76" y="360"></use>
+  <use href="#plain" x="415.68" y="360"></use>
+</svg>

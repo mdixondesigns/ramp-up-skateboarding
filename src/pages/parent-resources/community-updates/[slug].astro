@@ -1,0 +1,86 @@
+---
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../../components/EmailSignupBand.astro";
+
+export async function getStaticPaths() {
+  const updates = await getCollection("updates", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true
+  );
+
+  return updates.map((update) => ({
+    params: { slug: update.id },
+    props: { update },
+  }));
+}
+
+interface Props {
+  update: CollectionEntry<"updates">;
+}
+
+const { update } = Astro.props;
+const { Content } = await render(update);
+
+const publishedLabel = update.data.publishedAt.toLocaleDateString("en-US", {
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+---
+
+<BaseLayout title={update.data.title} description={update.data.excerpt}>
+  <section class="section">
+    <div class="container post">
+      <p class="eyebrow">
+        Community Update &middot;
+        <time datetime={update.data.publishedAt.toISOString()}>{publishedLabel}</time>
+      </p>
+      <h1>{update.data.title}</h1>
+
+      <div class="post-body">
+        <Content />
+      </div>
+
+      <p class="back">
+        <a class="link-underline" href="/parent-resources/community-updates">
+          &larr; Back to Community Updates
+        </a>
+      </p>
+    </div>
+  </section>
+
+  <EmailSignupBand />
+</BaseLayout>
+
+<style>
+  .post {
+    max-width: 68ch;
+  }
+
+  .post h1 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 28px;
+  }
+
+  .post-body :global(p) {
+    font-size: 19px;
+    margin: 0 0 26px;
+  }
+
+  .post-body :global(h2) {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: var(--step-h2-sub);
+    margin: 44px 0 16px;
+  }
+
+  .post-body :global(a) {
+    font-weight: 700;
+    border-bottom: 3px solid var(--yellow);
+  }
+
+  .back {
+    margin-top: 40px;
+  }
+</style>

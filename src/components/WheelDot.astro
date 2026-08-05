@@ -1,0 +1,52 @@
+---
+/**
+ * A filled circle inside a larger circle — a skate wheel. Used as list bullets,
+ * the location badge icon, calendar row markers, and download row icons.
+ */
+interface Props {
+  /** Outer circle. Brand hues only — this is a shape, never text. */
+  color?: string;
+  /** Inner dot. Defaults to ink; clinic rows use white. */
+  dotColor?: string;
+  size?: number;
+  class?: string;
+}
+
+const {
+  color = "var(--cyan)",
+  dotColor = "var(--ink)",
+  size = 42,
+  class: className,
+} = Astro.props;
+
+// The hub reads right at roughly a third of the wheel at every size used.
+const dotSize = Math.round(size * 0.355);
+---
+
+<span
+  class:list={["wheel", className]}
+  aria-hidden="true"
+  style={`--wheel-size: ${size}px; --wheel-color: ${color}; --dot-size: ${dotSize}px; --dot-color: ${dotColor};`}
+>
+  <span class="hub"></span>
+</span>
+
+<style>
+  .wheel {
+    width: var(--wheel-size);
+    height: var(--wheel-size);
+    border-radius: 50%;
+    background: var(--wheel-color);
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hub {
+    width: var(--dot-size);
+    height: var(--dot-size);
+    border-radius: 50%;
+    background: var(--dot-color);
+  }
+</style>

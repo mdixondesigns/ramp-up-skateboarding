@@ -1,0 +1,75 @@
+---
+import CardCap from "./CardCap.astro";
+
+/**
+ * Numbered card for "What a first day actually looks like".
+ * The number sits in a white circle straddling the cap's bottom edge.
+ */
+interface Props {
+  number: number;
+  title: string;
+  color: string;
+  texture: "dots" | "hatch" | "arcs" | "checker";
+}
+
+const { number, title, color, texture } = Astro.props;
+---
+
+<div class="step card">
+  <CardCap color={color} texture={texture} height={78} bleed={34}>
+    <span class="badge" aria-hidden="true">
+      <span class="badge-inner" style={`background: ${color};`}>{number}</span>
+    </span>
+  </CardCap>
+
+  <h3>{title}</h3>
+  <p><slot /></p>
+</div>
+
+<style>
+  .step {
+    padding: 0 34px 38px;
+    text-align: center;
+  }
+
+  /* Overlaps the cap's bottom edge by 38px. */
+  .badge {
+    position: absolute;
+    left: 50%;
+    bottom: -38px;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--white);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .badge-inner {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 27px;
+    color: var(--ink);
+  }
+
+  /* Clears the badge, which hangs below the cap. */
+  h3 {
+    font-size: var(--step-h3);
+    font-weight: 700;
+    margin: 54px 0 10px;
+  }
+
+  p {
+    font-size: 16px;
+    color: var(--ink-70);
+    margin: 0;
+  }
+</style>

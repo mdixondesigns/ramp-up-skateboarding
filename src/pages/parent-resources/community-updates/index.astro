@@ -1,60 +1,90 @@
 ---
-import Layout from "../../../layouts/Layout.astro";
+import { getCollection } from "astro:content";
 
-// TODO(Christine): add a new entry here each time you publish an update,
-// plus a new .astro file in this folder for the post itself. Copy
-// february-2026-update.astro as a starting template.
-const posts = [
-  {
-    href: "/parent-resources/community-updates/february-2026-update",
-    date: "February 5, 2026",
-    title: "Ramp Up Community Update: February 2026",
-    excerpt: "Mike and Christine here with our first ever Ramp Up Community Update. As we enter the next phase of Ramp Up, one of our goals is to pull back the curtain and share where the organization stands and where we're heading.",
-  },
-];
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../../components/EmailSignupBand.astro";
+
+/*
+ * Publishing a new update is now a matter of adding one Markdown file to
+ * src/content/updates/ — this list and the post's page both follow from it.
+ */
+const updates = (
+  await getCollection("updates", ({ data }) =>
+    import.meta.env.PROD ? !data.draft : true
+  )
+).sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
 ---
 
-<Layout
+<BaseLayout
   title="Community Updates"
   description="Recaps, milestones, and the ongoing story of Ramp Up."
 >
-  <section>
+  <section class="section">
     <div class="container">
       <p class="eyebrow">Parent Resources &rsaquo; Community Updates</p>
       <h1>The ongoing story.</h1>
       <p class="lede">
-        Recaps, milestones, kid wins, and new locations &mdash; the living
-        story of a growing movement.
+        Recaps, milestones, kid wins, and new locations &mdash; the living story
+        of a growing movement.
       </p>
 
       <div class="post-list">
-        {posts.map((post) => (
-          <a class="card post-card" href={post.href}>
-            <p class="muted">{post.date}</p>
-            <h3>{post.title}</h3>
-            <p>{post.excerpt}</p>
-          </a>
-        ))}
+        {
+          updates.map((update) => (
+            <a class="card post-card" href={`/parent-resources/community-updates/${update.id}`}>
+              <time class="date" datetime={update.data.publishedAt.toISOString()}>
+                {update.data.publishedAt.toLocaleDateString("en-US", {
+                  month: "long",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </time>
+              <h2>{update.data.title}</h2>
+              <p>{update.data.excerpt}</p>
+            </a>
+          ))
+        }
       </div>
     </div>
   </section>
-</Layout>
+
+  <EmailSignupBand />
+</BaseLayout>
 
 <style>
+  h1 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 16px;
+  }
+
   .post-list {
     display: grid;
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 20px;
+    margin-top: 40px;
   }
 
   .post-card {
-    text-decoration: none;
-    color: inherit;
+    padding: 30px 34px;
   }
 
-  .muted {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin: 0 0 0.25rem;
+  .date {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+    margin-bottom: 8px;
+  }
+
+  .post-card h2 {
+    font-size: 26px;
+    font-weight: 700;
+    margin: 0 0 10px;
+  }
+
+  .post-card p {
+    color: var(--ink-70);
+    margin: 0;
   }
 </style>

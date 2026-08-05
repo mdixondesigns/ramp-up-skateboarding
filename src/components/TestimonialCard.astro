@@ -1,0 +1,51 @@
+---
+import PlyStripe from "./PlyStripe.astro";
+import Avatar from "./Avatar.astro";
+import type { Testimonial } from "../data/testimonials";
+
+interface Props {
+  testimonial: Testimonial;
+}
+
+const { testimonial } = Astro.props;
+const { portrait, ring, ply } = testimonial.featured!;
+---
+
+<figure class="testimonial-card">
+  <PlyStripe variant={ply} height={12} bleed={34} gap={32} />
+
+  <blockquote>&ldquo;{testimonial.quote}&rdquo;</blockquote>
+
+  <figcaption>
+    <Avatar portrait={portrait} ring={ring} size={54} />
+    <span class="name">{testimonial.author}</span>
+  </figcaption>
+</figure>
+
+<style>
+  .testimonial-card {
+    background: var(--paper);
+    color: var(--ink);
+    border-radius: var(--r-card);
+    padding: 0 34px 34px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  blockquote {
+    font-size: 18px;
+    line-height: 1.55;
+    margin: 0 0 24px;
+  }
+
+  figcaption {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .name {
+    font-size: 16px;
+    font-weight: 700;
+  }
+</style>

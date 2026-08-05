@@ -1,25 +1,26 @@
-/* Wireframe-stage styling: plain, legible, no branding yet. */
+/*
+ * Base element styling + the handful of primitives used across every page.
+ * Anything specific to one component belongs in that component's <style> block.
+ */
 
-:root {
-  --text: #1a1a1a;
-  --muted: #5a5a5a;
-  --border: #d9d9d9;
-  --bg: #ffffff;
-  --bg-alt: #f4f4f4;
-  --link: #1a1a1a;
-  --max-width: 960px;
-}
+@import "./tokens.css";
+/* Transitional styling for pages the handoff didn't cover. Remove as they land. */
+@import "./legacy.css";
 
-* {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  color: var(--text);
-  background: var(--bg);
-  line-height: 1.55;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: var(--lh-body);
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
 }
 
 img {
@@ -28,119 +29,266 @@ img {
 }
 
 a {
-  color: var(--link);
+  color: inherit;
+  text-decoration: none;
 }
 
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--lh-tight);
+  margin-top: 0;
+  text-wrap: balance;
+}
+
+h3,
+h4 {
+  font-weight: 700;
+}
+
+/* Visible focus ring — the design didn't specify one, so this is ours. */
+:focus-visible {
+  outline: 3px solid var(--focus-light);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.on-dark :focus-visible,
+.on-yellow :focus-visible {
+  outline-color: var(--focus-dark);
+}
+
+.on-yellow :focus-visible {
+  outline-color: var(--ink);
+}
+
+/* ---------------------------------------------------------------- layout */
+
+/*
+ * Horizontal rhythm. The prototype is a fixed 1280px canvas; here the content
+ * is capped at 1280px and the gutter collapses at each breakpoint.
+ */
 .container {
   max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 0 1.5rem;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
 }
 
-h1, h2, h3, h4 {
-  line-height: 1.2;
-  margin-top: 0;
+/* Full-bleed rounded blocks (dark bands, yellow CTA) sit inset from the edge. */
+.inset {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: var(--inset);
 }
 
-section {
-  padding: 3rem 0;
+.section {
+  padding-block: var(--section-y);
 }
 
-section + section {
-  border-top: 1px solid var(--border);
+.section--alt {
+  background: var(--paper-alt);
 }
+
+/* --------------------------------------------------------------- typography */
 
 .eyebrow {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.75rem;
-  color: var(--muted);
-  font-weight: 600;
+  color: var(--ink-50);
+  margin: 0 0 18px;
 }
+
+.on-dark .eyebrow {
+  color: var(--yellow);
+}
+
+.lede {
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  line-height: 1.55;
+  color: var(--ink-70);
+}
+
+.on-dark .lede {
+  color: var(--cream-dim);
+}
+
+/* ----------------------------------------------------------------- buttons */
 
 .button {
   display: inline-block;
-  padding: 0.65rem 1.25rem;
-  border: 1px solid var(--text);
-  border-radius: 4px;
-  text-decoration: none;
-  font-weight: 600;
-  color: var(--text);
-  background: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 18px;
+  padding: 18px 32px;
+  border: none;
+  border-radius: var(--r-pill);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease), transform var(--dur) var(--ease);
 }
 
-.button.primary {
-  background: var(--text);
-  color: var(--bg);
+.button--primary {
+  background: var(--yellow);
+  color: var(--ink);
 }
 
-.button.secondary {
-  border-color: var(--border);
-  color: var(--muted);
+.button--primary:hover {
+  background: #e2a92f;
 }
+
+/* Outlined, for use on dark photo/ink backgrounds. */
+.button--ghost {
+  background: transparent;
+  color: var(--paper);
+  border: 2px solid var(--border-on-dark);
+  padding: 16px 30px;
+}
+
+.button--ghost:hover {
+  background: rgba(250, 250, 248, 0.1);
+  border-color: rgba(250, 250, 248, 0.65);
+}
+
+.button--ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+.button--ink:hover {
+  background: #413b38;
+}
+
+.button--paper {
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.button--sm {
+  font-size: 17px;
+  padding: 16px 28px;
+}
+
+/* Text link with the signature yellow underline. */
+.link-underline {
+  font-size: 16px;
+  font-weight: 700;
+  border-bottom: 3px solid var(--yellow);
+  padding-bottom: 2px;
+  transition: color var(--dur) var(--ease);
+}
+
+.link-underline:hover {
+  color: var(--ink-70);
+}
+
+/* ------------------------------------------------------------------- cards */
 
 .card {
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 1.25rem;
+  background: var(--white);
+  border-radius: var(--r-card);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Only cards that are themselves links should lift. */
+a.card {
+  display: block;
+  transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease);
+}
+
+a.card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-card-hover);
 }
 
 .grid {
   display: grid;
-  gap: 1.5rem;
+  gap: 28px;
 }
 
-.grid.cols-2 {
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+.grid--3 {
+  grid-template-columns: repeat(3, 1fr);
 }
 
-.grid.cols-3 {
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+.grid--4 {
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
 }
 
-.placeholder-photo {
-  background: var(--bg-alt);
-  border: 1px dashed var(--border);
-  color: var(--muted);
+.grid--2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (max-width: 980px) {
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid--2,
+  .grid--3,
+  .grid--4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ------------------------------------------------------------- dark blocks */
+
+/*
+ * `.on-dark` flips text defaults; pair it with a background. Used by the
+ * philosophy band, downloads band, footer, and pull quotes.
+ */
+.on-dark {
+  color: var(--cream);
+}
+
+.on-dark p {
+  color: var(--cream-dimmer);
+}
+
+.block-dark {
+  position: relative;
+  background: var(--ink);
+  border-radius: var(--r-block);
+  padding: 80px var(--gutter);
+  overflow: hidden;
+}
+
+/* Translucent inset row used inside dark blocks. */
+.row-dark {
   display: flex;
+  gap: 18px;
   align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  min-height: 180px;
-  text-align: center;
-  padding: 1rem;
+  background: var(--panel-dark);
+  border-radius: var(--r-row);
+  padding: 22px 26px;
 }
 
-.tag {
-  display: inline-block;
-  font-size: 0.75rem;
-  padding: 0.15rem 0.5rem;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  color: var(--muted);
-  margin-bottom: 0.5rem;
+/* ------------------------------------------------------------------ misc */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
+/* Marks unfinished integrations (MailerLite, Sawyer) during build-out. */
 .todo {
   background: #fff8e1;
   border: 1px dashed #d8b83a;
   padding: 0.75rem 1rem;
-  border-radius: 4px;
+  border-radius: 12px;
   font-size: 0.9rem;
   color: #6b5900;
-  margin: 1rem 0;
-}
-
-.testimonial {
-  border-left: 3px solid var(--border);
-  padding-left: 1rem;
-  font-style: italic;
-}
-
-.testimonial cite {
-  display: block;
-  margin-top: 0.5rem;
-  font-style: normal;
-  font-size: 0.85rem;
-  color: var(--muted);
 }

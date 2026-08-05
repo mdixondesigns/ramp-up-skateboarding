@@ -1,0 +1,75 @@
+---
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { categorySlug, categoryColorVar } from "../utils/guides";
+
+interface Props {
+  guide: CollectionEntry<"guides">;
+  /** 190px on the index grid, 180px in "Read next". */
+  imageHeight?: number;
+  /** "Read next" cards drop the reading-time link. */
+  compact?: boolean;
+}
+
+const { guide, imageHeight = 190, compact = false } = Astro.props;
+const { title, category, excerpt, heroImage, heroAlt, readingTime } = guide.data;
+---
+
+<a
+  class="card guide-card"
+  href={`/parent-resources/${guide.id}`}
+  data-category={categorySlug(category)}
+>
+  <Image
+    src={heroImage}
+    alt={heroAlt}
+    width={520}
+    densities={[1, 2]}
+    style={`height: ${imageHeight}px;`}
+  />
+
+  <div class="body">
+    <p class="category" style={`color: var(${categoryColorVar(category)});`}>
+      {category}
+    </p>
+    <h3>{title}</h3>
+    <p class="excerpt">{excerpt}</p>
+    {!compact && <span class="link-underline read-time">{readingTime} min read</span>}
+  </div>
+</a>
+
+<style>
+  .guide-card :global(img) {
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .body {
+    padding: 24px 28px 28px;
+  }
+
+  .category {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 10px;
+  }
+
+  h3 {
+    font-size: 23px;
+    font-weight: 700;
+    line-height: 1.18;
+    margin: 0 0 10px;
+  }
+
+  .excerpt {
+    font-size: 16px;
+    color: var(--ink-70);
+    margin: 0 0 16px;
+  }
+
+  .read-time {
+    font-size: 15px;
+  }
+</style>
