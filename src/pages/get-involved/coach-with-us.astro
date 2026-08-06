@@ -64,7 +64,12 @@ const values = [
       <h2>The certification path</h2>
       <p>
         Every coach is trained and vetted against the same standard.
-        <a href="/parent-resources/certification-process">See our certification process &rarr;</a>
+        {/*
+          Points at the section index rather than the certification guide,
+          which is draft: true and so isn't built in production. Point it back
+          at /parent-resources/certification-process once that guide is real.
+        */}
+        <a href="/parent-resources">See our certification process &rarr;</a>
       </p>
 
       <h2>Common questions</h2>

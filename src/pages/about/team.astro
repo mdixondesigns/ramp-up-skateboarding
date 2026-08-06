@@ -43,7 +43,12 @@ const instructors = [
       <p>
         Every Ramp Up coach is vetted and trained against the same standard
         before they ever run a clinic.
-        <a href="/parent-resources/certification-process">See how we train and certify coaches &rarr;</a>
+        {/*
+          Points at the section index rather than the certification guide,
+          which is draft: true and so isn't built in production. Point it back
+          at /parent-resources/certification-process once that guide is real.
+        */}
+        <a href="/parent-resources">See how we train and certify coaches &rarr;</a>
       </p>
 
       <div class="grid cols-3">
