@@ -155,7 +155,8 @@ const faqs = [
             alt={featuredGuide.data.heroAlt}
             widths={[720, 1280, 1920]}
             sizes="(max-width: 1280px) 100vw, 1200px"
-            class="featured-photo"
+            class="parallax-photo"
+            data-parallax="0.5"
           />
           <div class="featured-scrim" aria-hidden="true" />
 
@@ -349,6 +350,7 @@ const faqs = [
   .featured-card {
     position: relative;
     display: block;
+    height: 480px;
     border-radius: var(--r-photo);
     overflow: hidden;
     transition: transform var(--dur) var(--ease);
@@ -356,13 +358,6 @@ const faqs = [
 
   .featured-card:hover {
     transform: translateY(-2px);
-  }
-
-  .featured-photo {
-    display: block;
-    width: 100%;
-    height: 480px;
-    object-fit: cover;
   }
 
   .featured-scrim {
@@ -412,7 +407,7 @@ const faqs = [
 
 
   @media (max-width: 640px) {
-    .featured-photo {
+    .featured-card {
       height: 440px;
     }
 

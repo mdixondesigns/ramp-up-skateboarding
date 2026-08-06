@@ -60,7 +60,8 @@ const pillars = [
       widths={[720, 1280, 1920]}
       sizes="100vw"
       loading="eager"
-      class="hero-photo"
+      class="parallax-photo"
+      data-parallax="0.5"
     />
     {/*
       No skatepark pattern here, unlike the Parent Resources and article
@@ -126,7 +127,8 @@ const pillars = [
         alt="A line of young skaters waiting their turn at a clinic"
         widths={[720, 1280, 1920]}
         sizes="(max-width: 1280px) 100vw, 1200px"
-        class="gear-photo"
+        class="parallax-photo"
+        data-parallax="0.5"
       />
       <div class="gear-scrim" aria-hidden="true"></div>
 
@@ -221,17 +223,12 @@ const pillars = [
 
 <style>
   /* ------------------------------------------------------------------ hero */
+  /* Height lives here, not on the photo — the photo is absolute and overscanned. */
   .hero {
     position: relative;
+    height: 700px;
     background: var(--ink);
     overflow: hidden;
-  }
-
-  .hero-photo {
-    display: block;
-    width: 100%;
-    height: 700px;
-    object-fit: cover;
   }
 
   /* Darkens left-to-right so the headline stays legible over the photo. */
@@ -293,7 +290,7 @@ const pillars = [
 
 
   @media (max-width: 900px) {
-    .hero-photo {
+    .hero {
       height: 560px;
     }
 
@@ -303,7 +300,7 @@ const pillars = [
   }
 
   @media (max-width: 640px) {
-    .hero-photo {
+    .hero {
       height: 520px;
     }
 
@@ -343,15 +340,9 @@ const pillars = [
 
   .gear-card {
     position: relative;
+    height: 560px;
     border-radius: var(--r-photo);
     overflow: hidden;
-  }
-
-  .gear-photo {
-    display: block;
-    width: 100%;
-    height: 560px;
-    object-fit: cover;
   }
 
   .gear-scrim {
@@ -388,7 +379,7 @@ const pillars = [
 
 
   @media (max-width: 640px) {
-    .gear-photo {
+    .gear-card {
       height: 460px;
     }
 

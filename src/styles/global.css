@@ -270,6 +270,41 @@ a.card:hover {
   padding: 22px 26px;
 }
 
+/* -------------------------------------------------------- parallax photo */
+
+/*
+ * A photo that drifts behind its frame as the page scrolls. Pair with
+ * `data-parallax` on the image and an explicit height on the frame, which
+ * must be `position: relative; overflow: hidden`.
+ *
+ * The image is deliberately taller than its frame and offset upward by half
+ * the excess. That overscan is what the drift travels through — without it,
+ * translating the image would expose a bare edge inside the frame.
+ *
+ * Overscan and speed are coupled: travel scales linearly with the speed on
+ * `data-parallax`, so raising one without the other is what tears an edge
+ * open. 20% each side covers the 0.5 speed used here with room to spare,
+ * verified by sweeping every scroll position on each page.
+ *
+ * Under prefers-reduced-motion the shared script never applies a transform,
+ * and the image simply sits centred in its frame.
+ */
+/*
+ * Deliberately no `will-change: transform`. It would permanently promote a
+ * full-bleed image to its own compositing layer for the whole life of the
+ * page, which is a real memory cost on a hero-sized photo. The script's
+ * translate3d already promotes the layer while scrolling, which is the only
+ * time it earns its keep.
+ */
+.parallax-photo {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 100%;
+  height: 140%;
+  object-fit: cover;
+}
+
 /* ------------------------------------------------------------------ misc */
 
 .visually-hidden {
