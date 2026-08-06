@@ -299,14 +299,20 @@ const tocColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"
     margin-bottom: 10px;
   }
 
-  .article :global(a) {
+  /*
+   * Prose links only. Body components put real buttons in the article — the
+   * inline CTA's pill, for one — and this rule was landing a yellow underline
+   * across the bottom of them and replacing their 16px bottom padding with
+   * 1px, which left the label sitting low in a lopsided pill.
+   */
+  .article :global(a:not(.button)) {
     font-weight: 700;
     border-bottom: 3px solid var(--yellow);
     padding-bottom: 1px;
     transition: color var(--dur) var(--ease);
   }
 
-  .article :global(a:hover) {
+  .article :global(a:not(.button):hover) {
     color: var(--ink-70);
   }
 
