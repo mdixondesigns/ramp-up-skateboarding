@@ -33,11 +33,23 @@ const {
   class: className,
 } = Astro.props;
 
+/*
+ * Four bands per variant, not seven. The original 1px glue lines blurred into
+ * a flat grey-beige at 100% zoom — halving the count and roughly doubling each
+ * band's thickness is what makes the layering readable without zooming in.
+ *
+ * Two wide light plies alternating with two narrower accent lines keeps the
+ * plywood reading; the ordering is shuffled between variants so repeats on one
+ * page don't look mechanical.
+ *
+ * Stops are percentages so every band survives at any height — the card caps
+ * render at 12px and the old absolute-px stops clipped their last band off.
+ */
 const layers = {
-  a: "#C9B79A 0 3px, #A8705A 3px 4px, #E6DCC9 4px 6px, #6E8299 6px 7px, #C9B79A 7px 10px, #C6A24A 10px 11px, #E6DCC9 11px 14px",
-  b: "#C9B79A 0 3px, #C6A24A 3px 4px, #E6DCC9 4px 6px, #A8705A 6px 7px, #C9B79A 7px 10px, #6E8299 10px 11px, #E6DCC9 11px 14px",
-  c: "#C9B79A 0 3px, #6E8299 3px 4px, #E6DCC9 4px 6px, #C6A24A 6px 7px, #C9B79A 7px 10px, #A8705A 10px 12px",
-  d: "#C9B79A 0 3px, #A8705A 3px 4px, #E6DCC9 4px 6px, #6E8299 6px 7px, #C9B79A 7px 10px, #C6A24A 10px 12px",
+  a: "#E6DCC9 0 34%, #A8705A 34% 48%, #C9B79A 48% 82%, #6E8299 82% 100%",
+  b: "#C9B79A 0 34%, #C6A24A 34% 48%, #E6DCC9 48% 82%, #A8705A 82% 100%",
+  c: "#E6DCC9 0 32%, #6E8299 32% 46%, #C9B79A 46% 80%, #C6A24A 80% 100%",
+  d: "#C9B79A 0 34%, #A8705A 34% 50%, #E6DCC9 50% 84%, #6E8299 84% 100%",
 };
 ---
 
