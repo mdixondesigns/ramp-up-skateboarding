@@ -8,6 +8,9 @@ import { primaryNav } from "../data/navigation";
 const path = Astro.url.pathname;
 const isActive = (href: string) =>
   href === "/" ? path === "/" : path === href || path.startsWith(`${href}/`);
+
+/** aria-controls needs a stable id per section. */
+const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/^-|-$/g, "")}`;
 ---
 
 <header class="site-header">
@@ -29,15 +32,78 @@ const isActive = (href: string) =>
 
     <nav id="primary-nav" class="primary-nav" aria-label="Primary">
       {
-        primaryNav.map((link) => (
-          <a
-            href={link.href}
-            class:list={["nav-link", { active: isActive(link.href) }]}
-            aria-current={isActive(link.href) ? "page" : undefined}
-          >
-            {link.label}
-          </a>
-        ))
+        primaryNav.map((item) => {
+          const active = isActive(item.href);
+
+          /*
+           * Sections without subpages stay a plain link — no button, no
+           * dropdown, nothing extra in the tab order.
+           */
+          if (!item.children?.length) {
+            return (
+              <a
+                href={item.href}
+                class:list={["nav-link", "nav-link--solo", { active }]}
+                aria-current={active ? "page" : undefined}
+              >
+                {item.label}
+              </a>
+            );
+          }
+
+          const id = menuId(item.href);
+
+          return (
+            <div class:list={["nav-group", { active }]} data-nav-group>
+              <div class="nav-row">
+                <a
+                  href={item.href}
+                  class="nav-link"
+                  aria-current={active ? "page" : undefined}
+                >
+                  {item.label}
+                </a>
+
+                {/*
+                  A button separate from the link: the link navigates, the
+                  button opens the submenu. One element can't honestly do both.
+                */}
+                <button
+                  class="nav-chevron"
+                  type="button"
+                  aria-expanded="false"
+                  aria-controls={id}
+                  aria-label={`${item.label} submenu`}
+                  data-nav-toggle
+                >
+                  <svg viewBox="0 0 10 6" aria-hidden="true" focusable="false">
+                    <path
+                      d="M1 1.5 5 5l4-3.5"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </button>
+              </div>
+
+              <ul class="dropdown" id={id} data-nav-menu>
+                {item.children.map((child) => (
+                  <li>
+                    <a
+                      href={child.href}
+                      aria-current={path === child.href ? "page" : undefined}
+                    >
+                      {child.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })
       }
     </nav>
 
@@ -50,6 +116,8 @@ const isActive = (href: string) =>
     position: relative;
     background: var(--paper);
     border-bottom: 1px solid var(--rule-light);
+    /* Dropdowns escape the header, so it has to stack above the page. */
+    z-index: 50;
   }
 
   .header-inner {
@@ -78,9 +146,21 @@ const isActive = (href: string) =>
 
   .primary-nav {
     display: flex;
-    gap: 6px;
+    gap: 2px;
     font-size: 15px;
     font-weight: 700;
+  }
+
+  /* ------------------------------------------------------------ L1 items */
+  .nav-group {
+    position: relative;
+  }
+
+  .nav-row {
+    display: flex;
+    align-items: center;
+    border-radius: var(--r-pill);
+    transition: background var(--dur) var(--ease);
   }
 
   .nav-link {
@@ -90,13 +170,111 @@ const isActive = (href: string) =>
     transition: background var(--dur) var(--ease);
   }
 
-  .nav-link:hover {
+  /* Inside a group the pill is drawn by .nav-row, not the link. */
+  .nav-group .nav-link {
+    padding-right: 4px;
+    background: none;
+  }
+
+  .nav-link--solo:hover {
     background: rgba(46, 42, 40, 0.06);
   }
 
-  .nav-link.active {
+  .nav-row:hover,
+  .nav-group.open .nav-row {
+    background: rgba(46, 42, 40, 0.06);
+  }
+
+  .nav-group.active .nav-row,
+  .nav-link--solo.active {
     background: var(--ink);
     color: var(--paper);
+  }
+
+  .nav-chevron {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 34px;
+    padding: 0 8px 0 2px;
+    background: none;
+    border: none;
+    border-radius: var(--r-pill);
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .nav-chevron svg {
+    width: 10px;
+    height: 6px;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .nav-group.open .nav-chevron svg {
+    transform: rotate(180deg);
+  }
+
+  /* ----------------------------------------------------------- dropdown */
+  .dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 232px;
+    margin: 10px 0 0;
+    padding: 8px;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid var(--rule-light);
+    border-radius: 20px;
+    box-shadow: var(--shadow-card);
+    font-size: 15px;
+    font-weight: 600;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition:
+      opacity var(--dur) var(--ease),
+      transform var(--dur) var(--ease),
+      visibility var(--dur);
+  }
+
+  /*
+   * Keeps hover alive while the pointer crosses the gap between the nav row
+   * and the panel, which would otherwise close the menu mid-reach.
+   */
+  .dropdown::before {
+    content: "";
+    position: absolute;
+    top: -12px;
+    left: 0;
+    right: 0;
+    height: 12px;
+  }
+
+  .nav-group.open .dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .dropdown a {
+    display: block;
+    padding: 10px 14px;
+    border-radius: 12px;
+    color: var(--ink);
+    white-space: nowrap;
+    transition: background var(--dur) var(--ease);
+  }
+
+  .dropdown a:hover {
+    background: var(--paper-alt);
+  }
+
+  .dropdown a[aria-current="page"] {
+    background: var(--paper-alt);
+    color: var(--ink);
   }
 
   .header-cta {
@@ -136,9 +314,21 @@ const isActive = (href: string) =>
     border-radius: 2px;
   }
 
+  /* Chevrons add width; buy it back before the nav collapses. */
+  @media (max-width: 1180px) {
+    .primary-nav {
+      font-size: 14px;
+    }
+
+    .nav-link {
+      padding-inline: 12px;
+    }
+  }
+
   /*
-   * Under ~980px the nav collapses, but the yellow CTA stays in the bar —
-   * it's the site's primary conversion action.
+   * Under ~980px the nav collapses into the hamburger panel and the dropdowns
+   * become inline accordions — there is no hover on a touch screen, so the
+   * chevron button is the only way in.
    */
   @media (max-width: 980px) {
     .nav-toggle {
@@ -157,6 +347,7 @@ const isActive = (href: string) =>
       gap: 2px;
       width: 100%;
       padding-top: 12px;
+      font-size: 16px;
     }
 
     .primary-nav.open {
@@ -167,8 +358,58 @@ const isActive = (href: string) =>
       flex-wrap: wrap;
     }
 
+    .nav-row {
+      justify-content: space-between;
+    }
+
     .nav-link {
-      padding: 12px 16px;
+      flex: 1;
+      padding: 13px 16px;
+    }
+
+    .nav-group .nav-link {
+      padding-right: 8px;
+    }
+
+    .nav-chevron {
+      width: 48px;
+      height: 48px;
+      padding: 0;
+    }
+
+    .nav-chevron svg {
+      width: 13px;
+      height: 8px;
+    }
+
+    /* Static, so the panel grows instead of overlaying the page. */
+    .dropdown {
+      position: static;
+      min-width: 0;
+      margin: 0;
+      padding: 0 0 6px 16px;
+      background: none;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+
+      display: none;
+      opacity: 1;
+      visibility: visible;
+      transform: none;
+      transition: none;
+    }
+
+    .dropdown::before {
+      display: none;
+    }
+
+    .nav-group.open .dropdown {
+      display: block;
+    }
+
+    .dropdown a {
+      padding: 11px 16px;
     }
   }
 
@@ -202,11 +443,125 @@ const isActive = (href: string) =>
 </style>
 
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>(".nav-toggle");
+  const header = document.querySelector<HTMLElement>(".site-header");
+  const navToggle = header?.querySelector<HTMLButtonElement>(".nav-toggle");
   const nav = document.getElementById("primary-nav");
+  const groups = Array.from(
+    header?.querySelectorAll<HTMLElement>("[data-nav-group]") ?? []
+  );
 
-  toggle?.addEventListener("click", () => {
-    const isOpen = nav?.classList.toggle("open");
-    toggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+  /*
+   * Hover only applies to pointer devices wide enough to show the bar nav.
+   * Below that the chevron button is the only affordance.
+   */
+  const canHover = window.matchMedia("(hover: hover) and (min-width: 981px)");
+
+  /*
+   * JS owns the open state rather than CSS :hover/:focus-within, so
+   * aria-expanded can never disagree with what's on screen.
+   */
+  function setOpen(group: HTMLElement, open: boolean) {
+    group.classList.toggle("open", open);
+    group
+      .querySelector<HTMLButtonElement>("[data-nav-toggle]")
+      ?.setAttribute("aria-expanded", String(open));
+  }
+
+  function closeAll(except?: HTMLElement) {
+    for (const group of groups) {
+      if (group !== except) setOpen(group, false);
+    }
+  }
+
+  /*
+   * Escape has to park focus on the chevron, but that would immediately
+   * re-trigger the focusin auto-open below. This flag holds the menu shut
+   * until the user genuinely leaves and comes back.
+   */
+  const dismissed = new WeakSet<HTMLElement>();
+
+  for (const group of groups) {
+    const toggle = group.querySelector<HTMLButtonElement>("[data-nav-toggle]");
+
+    toggle?.addEventListener("click", () => {
+      const willOpen = !group.classList.contains("open");
+
+      /*
+       * On a hover device the pointer arriving already opened this menu, so a
+       * click is a request to close. Mark it dismissed or the hover we're
+       * still sitting inside would reopen it immediately and the chevron
+       * would look dead. Moving away (mouseleave) clears the flag.
+       */
+      if (willOpen) dismissed.delete(group);
+      else dismissed.add(group);
+
+      closeAll(group);
+      setOpen(group, willOpen);
+    });
+
+    group.addEventListener("mouseenter", () => {
+      if (!canHover.matches) return;
+      dismissed.delete(group);
+      closeAll(group);
+      setOpen(group, true);
+    });
+
+    group.addEventListener("mouseleave", () => {
+      // Don't yank the menu away from a keyboard user who's inside it.
+      if (!canHover.matches || group.contains(document.activeElement)) return;
+      dismissed.delete(group);
+      setOpen(group, false);
+    });
+
+    /*
+     * Tabbing into the section reveals its subpages, so they're reachable
+     * without having to activate the chevron first.
+     */
+    group.addEventListener("focusin", () => {
+      if (!canHover.matches || dismissed.has(group)) return;
+      closeAll(group);
+      setOpen(group, true);
+    });
+
+    group.addEventListener("focusout", (event) => {
+      const next = event.relatedTarget;
+      if (next instanceof Node && group.contains(next)) return;
+      dismissed.delete(group);
+      setOpen(group, false);
+    });
+  }
+
+  // Escape closes the open menu and returns focus to its chevron.
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+
+    const open = groups.find((group) => group.classList.contains("open"));
+    if (!open) return;
+
+    /*
+     * Order matters. Hiding the panel while focus is still inside it makes the
+     * browser dump focus on <body>, which would clobber the focus() below — so
+     * move focus to the chevron first, then close. Marking it dismissed before
+     * focusing stops focusin from reopening what Escape just closed.
+     */
+    dismissed.add(open);
+    open.querySelector<HTMLButtonElement>("[data-nav-toggle]")?.focus();
+    setOpen(open, false);
   });
+
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Node)) return;
+    if (header?.contains(event.target)) return;
+    closeAll();
+  });
+
+  navToggle?.addEventListener("click", () => {
+    const isOpen = nav?.classList.toggle("open");
+    navToggle.setAttribute("aria-expanded", String(Boolean(isOpen)));
+    // Collapsing the panel shouldn't leave submenus open behind it.
+    if (!isOpen) closeAll();
+  });
+
+  // Leaving the hover breakpoint can strand a menu open.
+  canHover.addEventListener("change", () => closeAll());
 </script>
