@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import StatBand from "../../components/StatBand.astro";
 ---
 
 <BaseLayout
@@ -38,22 +39,22 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
         back of a van?
       </p>
 
-      <h2>Growth so far</h2>
-      <div class="grid cols-3">
-        <div class="card stat">
-          <span class="stat-number">90</span>
-          <span class="stat-label">skaters served in 2023</span>
-        </div>
-        <div class="card stat">
-          <span class="stat-number">250+</span>
-          <span class="stat-label">skaters served in 2024</span>
-        </div>
-        <div class="card stat">
-          <span class="stat-number">400+</span>
-          <span class="stat-label">skaters served in 2025</span>
-        </div>
-      </div>
+    </div>
+  </section>
 
+  <StatBand
+    eyebrow="Growth so far"
+    heading="From one van to four hundred kids a year"
+    stats={[
+      { value: "90", label: "skaters served in 2023" },
+      { value: "250+", label: "skaters served in 2024" },
+      { value: "400+", label: "skaters served in 2025" },
+    ]}
+    note="Every one of them on a board we brought, in a helmet we brought."
+  />
+
+  <section class="closing">
+    <div class="container">
       <p>
         Ramp Up has enjoyed steady growth from that moment forward. Our
         ambitions are epic, and we&rsquo;re just getting started &mdash;
@@ -62,25 +63,33 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
       </p>
 
       <p>
-        <a class="button primary" href="/about/team">Meet the team &rarr;</a>
+        <a class="button button--primary" href="/about/team">Meet the team &rarr;</a>
       </p>
     </div>
   </section>
 </BaseLayout>
 
 <style>
-  .stat {
-    text-align: center;
+  /*
+   * Carries a class so the legacy bare-section rules skip it — the stat band
+   * above already ends in its own bottom margin, and a second helping of
+   * section padding on top of that opens a hole in the page.
+   */
+  .closing {
+    padding-bottom: var(--section-y);
   }
 
-  .stat-number {
-    display: block;
-    font-size: 2.5rem;
+  /*
+   * This section carries a class, so the legacy stylesheet's inline-link rule
+   * doesn't reach it. Same treatment, stated locally.
+   */
+  .closing a:not(.button) {
     font-weight: 700;
+    border-bottom: 3px solid var(--yellow);
+    padding-bottom: 1px;
   }
 
-  .stat-label {
-    color: var(--muted);
-    font-size: 0.9rem;
+  .closing p:last-child {
+    margin-top: 32px;
   }
 </style>

@@ -1,23 +1,41 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import CheckerboardSection from "../../components/CheckerboardSection.astro";
 import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+import resiliencePhoto from "../../assets/photos/rootdown-37.jpg";
+import resourcefulnessPhoto from "../../assets/photos/rootdown-54.jpg";
+import confidencePhoto from "../../assets/photos/ramp_up-54.jpg";
+import expressionPhoto from "../../assets/photos/radnor-144.jpg";
 
 const pillars = [
   {
-    name: "Resilience",
-    body: "Kids fall down learning to skate &mdash; a lot. We teach them to get back up, on the board and off it.",
+    title: "Resilience",
+    body: "Kids fall down learning to skate — a lot. We teach them to get back up, on the board and off it.",
+    image: resiliencePhoto,
+    imageAlt:
+      "A coach holding a young skater's hand as he rolls down a wooden ramp, with other kids watching their turn",
   },
   {
-    name: "Resourcefulness",
+    title: "Resourcefulness",
     body: "Skateboarding rewards figuring things out for yourself. We coach kids toward their own solutions, not just ours.",
+    image: resourcefulnessPhoto,
+    imageAlt:
+      "A coach talking a group of kids through a trick indoors, each of them holding their own board",
   },
   {
-    name: "Confidence",
-    body: "Every small win &mdash; a first push, a first roll-in &mdash; compounds into real self-belief.",
+    title: "Confidence",
+    body: "Every small win — a first push, a first roll-in — compounds into real self-belief.",
+    image: confidencePhoto,
+    imageAlt:
+      "A girl in a tie-dye shirt riding a board with her arms out for balance while a coach walks beside her",
   },
   {
-    name: "Creative expression",
+    title: "Creative expression",
     body: "There's no one right way to ride a skateboard. We encourage kids to find their own style.",
+    image: expressionPhoto,
+    imageAlt:
+      "Three young skaters in helmets and pads waiting with their boards at an outdoor skatepark",
   },
 ];
 ---
@@ -45,19 +63,12 @@ const pillars = [
     </div>
   </section>
 
-  <section>
-    <div class="container">
-      <h2>The four pillars</h2>
-      <div class="grid cols-2">
-        {pillars.map((pillar) => (
-          <div class="card">
-            <h3>{pillar.name}</h3>
-            <p set:html={pillar.body} />
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <CheckerboardSection
+    heading="The four pillars"
+    sub="What we are actually teaching, underneath the pushing and the falling."
+    rows={pillars}
+    background="alt"
+  />
 
   <section>
     <div class="container">

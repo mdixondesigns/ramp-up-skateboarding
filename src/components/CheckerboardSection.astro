@@ -1,0 +1,185 @@
+---
+import { Image } from "astro:assets";
+import WheelDot from "./WheelDot.astro";
+
+/**
+ * Alternating photo/text rows — the standard antidote to a wall of paragraphs.
+ * Each row flips which side the photo sits on, so a run of them reads as a
+ * rhythm rather than a list.
+ *
+ * Rows come from a prop rather than slots because the flip has to know each
+ * row's index, and because every row is the same shape by design.
+ */
+interface Row {
+  title: string;
+  body: string;
+  image: ImageMetadata;
+  imageAlt: string;
+  /** Wheel-dot color beside the title. Cycles the brand hues when omitted. */
+  color?: string;
+  cta?: { label: string; href: string };
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  rows: Row[];
+  /** `alt` puts the section on the paper-alt background. */
+  background?: "paper" | "alt";
+}
+
+const {
+  eyebrow,
+  heading,
+  sub,
+  rows,
+  background = "paper",
+} = Astro.props;
+
+const dotColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+---
+
+<section class:list={["section", "checkerboard", { "section--alt": background === "alt" }]}>
+  <div class="container">
+    {
+      (eyebrow || heading || sub) && (
+        <header class="head">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {heading && <h2>{heading}</h2>}
+          {sub && <p class="sub">{sub}</p>}
+        </header>
+      )
+    }
+
+    <div class="rows">
+      {
+        rows.map((row, i) => (
+          <div class="row">
+            <div class="media">
+              <Image
+                src={row.image}
+                alt={row.imageAlt}
+                widths={[520, 760]}
+                sizes="(max-width: 860px) 100vw, 560px"
+              />
+            </div>
+
+            <div class="text">
+              <h3>
+                <WheelDot color={row.color ?? dotColors[i % dotColors.length]} size={34} />
+                <span>{row.title}</span>
+              </h3>
+              <p>{row.body}</p>
+              {row.cta && (
+                <a class="link-underline" href={row.cta.href}>
+                  {row.cta.label}
+                </a>
+              )}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .head {
+    margin-bottom: 52px;
+    max-width: 52ch;
+  }
+
+  .head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 12px;
+  }
+
+  .sub {
+    font-size: 18px;
+    color: var(--ink-70);
+    margin: 0;
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /*
+   * The flip. Both children are placed explicitly on even rows rather than
+   * reordering one of them, so the DOM order stays photo-then-text throughout —
+   * that is the order a screen reader and a narrow screen both want.
+   */
+  .row:nth-child(even) .media {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .row:nth-child(even) .text {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .media {
+    border-radius: var(--r-photo);
+    overflow: hidden;
+    /* Steadies the row height whatever the photo's own aspect ratio is. */
+    aspect-ratio: 4 / 3;
+  }
+
+  .media :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-size: var(--step-h3);
+    font-weight: 700;
+    margin: 0 0 14px;
+  }
+
+  .text p {
+    font-size: 18px;
+    color: var(--ink-70);
+    margin: 0 0 20px;
+  }
+
+  .text p:last-child {
+    margin-bottom: 0;
+  }
+
+  @media (max-width: 860px) {
+    .rows {
+      gap: 48px;
+    }
+
+    /* One column, so the flip has nothing to flip. */
+    .row:nth-child(even) .media,
+    .row:nth-child(even) .text {
+      grid-column: auto;
+      grid-row: auto;
+    }
+
+    .row {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+
+    .media {
+      aspect-ratio: 16 / 10;
+    }
+  }
+</style>

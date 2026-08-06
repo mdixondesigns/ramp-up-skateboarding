@@ -1,0 +1,186 @@
+---
+import PatternOverlay from "./PatternOverlay.astro";
+
+/**
+ * A row of numbers as its own section — the growth figures, reach, whatever
+ * needs to land before the paragraph explaining it.
+ *
+ * Two tones. `dark` is the ink block from the design system and is the loud
+ * one: use it when the numbers are the point of the page. `light` sits on
+ * paper-alt and is for when the stats support the prose around them rather
+ * than interrupting it.
+ */
+interface Stat {
+  value: string;
+  label: string;
+  /** Accent bar color. Cycles the brand hues when omitted. */
+  color?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  stats: Stat[];
+  tone?: "dark" | "light";
+  note?: string;
+}
+
+const { eyebrow, heading, body, stats, tone = "dark", note } = Astro.props;
+
+const accents = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+const isDark = tone === "dark";
+---
+
+<section class="inset stat-section">
+  <div class:list={["band", isDark ? "band--dark on-dark" : "band--light"]}>
+    {
+      isDark && (
+        <PatternOverlay
+          pattern="tile"
+          opacity={0.3}
+          mask="radial-gradient(120% 110% at 0% 0%, #000 10%, transparent 62%)"
+        />
+      )
+    }
+
+    <div class="inner">
+      {
+        (eyebrow || heading || body) && (
+          <header class="head">
+            {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+            {heading && <h2>{heading}</h2>}
+            {body && <p class="body">{body}</p>}
+          </header>
+        )
+      }
+
+      <dl class="stats">
+        {
+          stats.map((stat, i) => (
+            <div class="stat">
+              <span
+                class="accent"
+                aria-hidden="true"
+                style={`background: ${stat.color ?? accents[i % accents.length]};`}
+              />
+              <dt class="value">{stat.value}</dt>
+              <dd class="label">{stat.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      {note && <p class="note">{note}</p>}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stat-section {
+    margin-bottom: var(--section-y);
+  }
+
+  .band {
+    position: relative;
+    border-radius: var(--r-block);
+    padding: 72px var(--gutter);
+    overflow: hidden;
+  }
+
+  .band--dark {
+    background: var(--ink);
+  }
+
+  .band--light {
+    background: var(--paper-alt);
+  }
+
+  .inner {
+    position: relative;
+  }
+
+  .head {
+    max-width: 52ch;
+    margin-bottom: 52px;
+  }
+
+  .head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 14px;
+  }
+
+  .body {
+    font-size: 18px;
+    margin: 0;
+  }
+
+  .band--light .body {
+    color: var(--ink-70);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 40px;
+    margin: 0;
+  }
+
+  .stat {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* A short colored rule above each figure, standing in for the wheel dots. */
+  .accent {
+    width: 46px;
+    height: 6px;
+    border-radius: var(--r-pill);
+    margin-bottom: 20px;
+  }
+
+  .value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: clamp(2.75rem, 1.9rem + 3.8vw, 4.25rem);
+    line-height: 1;
+  }
+
+  .band--dark .value {
+    color: var(--paper);
+  }
+
+  .label {
+    font-size: 17px;
+    line-height: 1.45;
+    margin: 12px 0 0;
+    max-width: 22ch;
+  }
+
+  .band--dark .label {
+    color: var(--cream-dim);
+  }
+
+  .band--light .label {
+    color: var(--ink-70);
+  }
+
+  .note {
+    font-size: 15px;
+    margin: 44px 0 0;
+  }
+
+  .band--light .note {
+    color: var(--ink-50);
+  }
+
+  @media (max-width: 640px) {
+    .band {
+      padding: 48px var(--gutter);
+    }
+
+    .stats {
+      gap: 32px;
+    }
+  }
+</style>

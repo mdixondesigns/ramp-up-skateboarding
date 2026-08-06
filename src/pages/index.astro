@@ -9,6 +9,7 @@ import StepCard from "../components/StepCard.astro";
 import ClinicRow from "../components/ClinicRow.astro";
 import TestimonialsSection from "../components/TestimonialsSection.astro";
 import PartnerGrid from "../components/PartnerGrid.astro";
+import VideoFeature from "../components/VideoFeature.astro";
 import EmailSignupBand from "../components/EmailSignupBand.astro";
 
 import { clinics } from "../data/clinics";
@@ -217,6 +218,18 @@ const pillars = [
   <TestimonialsSection />
 
   <PartnerGrid />
+
+  {/*
+    Carried over from the old homepage — heading and body are the client's
+    own copy. The player itself only loads once someone presses play.
+  */}
+  <VideoFeature
+    videoId="eaulmma259M"
+    videoTitle="Buzz About Ramp Up Skateboarding"
+    eyebrow="Listen in"
+    heading="Hear Coach Mike on the Buzz About Podcast"
+    body="Take a deep dive into Ramp Up: what we do, how it works, and where we're going."
+  />
 
   <EmailSignupBand />
 </BaseLayout>

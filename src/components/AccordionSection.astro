@@ -1,0 +1,222 @@
+---
+/**
+ * A stack of expand/collapse rows, built on native <details>/<summary>.
+ *
+ * No JavaScript: the browser already owns the open/closed state, the keyboard
+ * behaviour, and the correct announcement to a screen reader. Anything we wrote
+ * on top of a <div> would be a worse version of all three.
+ *
+ * Note the design system's own position on this — the Parent Resources FAQ is
+ * deliberately an always-open grid, because parents scan. Reach for the
+ * accordion where the answers are long or most readers only want one of them,
+ * not to tidy up a short list of short answers.
+ */
+interface Item {
+  question: string;
+  answer: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  sub?: string;
+  items: Item[];
+  /** Open the first row on load, so the pattern is obvious. */
+  openFirst?: boolean;
+  /**
+   * Exclusive mode: opening a row closes the others. Uses the `name` attribute,
+   * which browsers without support simply ignore — leaving rows independent.
+   */
+  single?: boolean;
+  background?: "paper" | "alt";
+}
+
+const {
+  eyebrow,
+  heading,
+  sub,
+  items,
+  openFirst = false,
+  single = false,
+  background = "paper",
+} = Astro.props;
+
+/*
+ * Exclusive rows share a `name`, so it has to be unique per accordion but
+ * stable across builds — derived from the heading rather than randomised, which
+ * would churn the HTML on every rebuild for no reason.
+ */
+const groupName = single
+  ? `accordion-${(heading ?? items[0]?.question ?? "group")
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-|-$/g, "")}`
+  : undefined;
+---
+
+<section class:list={["section", { "section--alt": background === "alt" }]}>
+  <div class="container">
+    {
+      (eyebrow || heading || sub) && (
+        <header class="head">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {heading && <h2>{heading}</h2>}
+          {sub && <p class="sub">{sub}</p>}
+        </header>
+      )
+    }
+
+    <div class="rows">
+      {
+        items.map((item, i) => (
+          <details class="row" name={groupName} open={openFirst && i === 0}>
+            <summary>
+              <span class="question">{item.question}</span>
+              <span class="marker" aria-hidden="true" />
+            </summary>
+            <div class="answer">
+              <p>{item.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .head {
+    margin-bottom: 34px;
+    max-width: 52ch;
+  }
+
+  .head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 12px;
+  }
+
+  .sub {
+    font-size: 18px;
+    color: var(--ink-70);
+    margin: 0;
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    max-width: 82ch;
+  }
+
+  .row {
+    background: var(--white);
+    border-radius: var(--r-row);
+    box-shadow: var(--shadow-row);
+  }
+
+  /* On paper-alt the white rows need an edge, or they float. */
+  .section--alt .row {
+    border: 1px solid var(--rule-light);
+  }
+
+  summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 22px 28px;
+    cursor: pointer;
+    list-style: none;
+    border-radius: var(--r-row);
+  }
+
+  /* Safari draws its own triangle unless this is removed too. */
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .question {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 21px;
+    line-height: 1.25;
+  }
+
+  /*
+   * A plus that becomes a minus: two bars, the vertical one collapsing to
+   * nothing when the row opens.
+   */
+  .marker {
+    position: relative;
+    flex: none;
+    width: 22px;
+    height: 22px;
+  }
+
+  .marker::before,
+  .marker::after {
+    content: "";
+    position: absolute;
+    inset: 50% auto auto 50%;
+    background: var(--ink);
+    border-radius: 2px;
+    transition: transform var(--dur) var(--ease);
+  }
+
+  .marker::before {
+    width: 18px;
+    height: 3px;
+    transform: translate(-50%, -50%);
+  }
+
+  .marker::after {
+    width: 3px;
+    height: 18px;
+    transform: translate(-50%, -50%);
+  }
+
+  .row[open] .marker::after {
+    transform: translate(-50%, -50%) scaleY(0);
+  }
+
+  .answer {
+    padding: 0 28px 24px;
+  }
+
+  .answer p {
+    font-size: 17px;
+    line-height: var(--lh-body);
+    color: var(--ink-70);
+    margin: 0;
+    max-width: 68ch;
+  }
+
+  /*
+   * Height animation, where the browser can do it. `interpolate-size` is what
+   * makes `height: auto` animatable; without it the block is skipped entirely
+   * and the row just snaps open, which is the honest fallback.
+   */
+  @supports (interpolate-size: allow-keywords) {
+    .row {
+      interpolate-size: allow-keywords;
+    }
+
+    .row::details-content {
+      height: 0;
+      overflow: hidden;
+      transition: height 220ms var(--ease), content-visibility 220ms allow-discrete;
+    }
+
+    .row[open]::details-content {
+      height: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marker::before,
+    .marker::after,
+    .row::details-content {
+      transition: none;
+    }
+  }
+</style>

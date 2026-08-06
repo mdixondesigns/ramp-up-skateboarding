@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import AccordionSection from "../../components/AccordionSection.astro";
 
 const values = [
   {
@@ -21,6 +22,20 @@ const values = [
   {
     name: "Beyond the Board",
     body: "We use skateboarding as a catalyst for building great humans, focusing on developing qualities such as resilience, confidence, and self-discipline. Our program empowers kids to embrace challenges and grow both on and off the board.",
+  },
+];
+
+// TODO(Christine): the original site had these two questions but the answers
+// weren't available to migrate. Replace the placeholder text below with the
+// real answers — the section is otherwise ready to go.
+const faqs = [
+  {
+    question: "What skateboarding skills are required?",
+    answer: "[Answer]",
+  },
+  {
+    question: "Is this a paid opportunity?",
+    answer: "[Answer]",
   },
 ];
 ---
@@ -73,17 +88,14 @@ const values = [
         <a href="/parent-resources">See our certification process &rarr;</a>
       </p>
 
-      <h2>Common questions</h2>
-      <div class="todo">
-        The original site had an FAQ here ("What skateboarding skills are
-        required?" / "Is this a paid opportunity?") but the answer text
-        wasn't available to migrate. Add the real answers here &mdash;
-        placeholder questions are below so the structure is ready.
-      </div>
-      <h3>What skateboarding skills are required?</h3>
-      <p>[Answer]</p>
-      <h3>Is this a paid opportunity?</h3>
-      <p>[Answer]</p>
     </div>
   </section>
+
+  <AccordionSection
+    heading="Common questions"
+    items={faqs}
+    openFirst
+    single
+    background="alt"
+  />
 </BaseLayout>
