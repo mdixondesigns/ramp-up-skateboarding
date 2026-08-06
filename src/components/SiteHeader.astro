@@ -1,7 +1,9 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/brand/ramp-up-logo.png";
-import { primaryNav } from "../data/navigation";
+import { getHeaderNav } from "../data/navigation";
+
+const navItems = await getHeaderNav();
 
 // Mark the active section from the current URL so /programs/calendar still
 // highlights "Programs".
@@ -32,7 +34,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
 
     <nav id="primary-nav" class="primary-nav" aria-label="Primary">
       {
-        primaryNav.map((item) => {
+        navItems.map((item) => {
           const active = isActive(item.href);
 
           /*
@@ -221,6 +223,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
     top: 100%;
     left: 0;
     min-width: 232px;
+    max-width: 300px;
     margin: 10px 0 0;
     padding: 8px;
     list-style: none;
@@ -259,12 +262,16 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
     transform: none;
   }
 
+  /*
+   * Guide titles are full sentences, so they wrap inside a capped width
+   * rather than stretching the panel across the header.
+   */
   .dropdown a {
     display: block;
     padding: 10px 14px;
     border-radius: 12px;
     color: var(--ink);
-    white-space: nowrap;
+    line-height: 1.35;
     transition: background var(--dur) var(--ease);
   }
 
@@ -386,6 +393,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
     .dropdown {
       position: static;
       min-width: 0;
+      max-width: none;
       margin: 0;
       padding: 0 0 6px 16px;
       background: none;

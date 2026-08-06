@@ -6,6 +6,8 @@
  * add a subpage here and it appears in both places.
  */
 
+import { getPublishedGuides } from "../utils/guides";
+
 export interface NavLink {
   href: string;
   label: string;
@@ -34,12 +36,6 @@ const getInvolvedChildren: NavLink[] = [
   { href: "/get-involved/partner-with-ramp-up", label: "Partner With Ramp Up" },
 ];
 
-/*
- * Parent Resources has one true subsection. The guides themselves are
- * deliberately not listed: the section's own index page is a filterable grid
- * built for browsing them, and mirroring a growing collection into the header
- * would make the dropdown grow without bound.
- */
 const parentResourcesChildren: NavLink[] = [
   { href: "/parent-resources/community-updates", label: "Community Updates" },
 ];
@@ -70,3 +66,28 @@ export const footerColumns: { heading: string; links: NavLink[] }[] = [
   },
   { heading: "Get involved", links: [...getInvolvedChildren, ...socialLinks] },
 ];
+
+/**
+ * The header's nav, with the published guides folded into Parent Resources.
+ *
+ * Use this rather than `primaryNav` anywhere the dropdowns are rendered —
+ * `primaryNav` alone has the static sections only.
+ *
+ * NOTE: this list grows with every guide Christine publishes. At roughly a
+ * dozen the dropdown stops being scannable, and the section's own filterable
+ * index becomes the better answer. Revisit then.
+ */
+export async function getHeaderNav(): Promise<NavItem[]> {
+  const guides = await getPublishedGuides();
+
+  const guideLinks: NavLink[] = guides.map((guide) => ({
+    href: `/parent-resources/${guide.id}`,
+    label: guide.data.title,
+  }));
+
+  return primaryNav.map((item) =>
+    item.href === "/parent-resources"
+      ? { ...item, children: [...guideLinks, ...parentResourcesChildren] }
+      : item
+  );
+}
