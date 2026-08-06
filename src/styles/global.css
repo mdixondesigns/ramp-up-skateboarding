@@ -84,6 +84,21 @@ h4 {
   padding-inline: var(--inset);
 }
 
+/*
+ * Two full-width color bands in a row read as one continuous slab — the dark
+ * testimonial band running straight into the yellow signup block has no seam
+ * to tell you a new section started. `.band-bleed` marks a section whose color
+ * runs edge to edge; `.band-inset` marks one whose color sits in a rounded
+ * block. Either following a bleed band gets the page's paper back between them.
+ *
+ * On the pages that put a normal light section in between (the home page's
+ * partner logos) nothing matches, so nothing is added.
+ */
+.band-bleed + .band-bleed,
+.band-bleed + .band-inset {
+  margin-top: var(--section-y);
+}
+
 .section {
   padding-block: var(--section-y);
 }
