@@ -109,7 +109,18 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
       }
     </nav>
 
-    <a href="/#join" class="header-cta">Get clinic dates by email</a>
+    {/*
+      The accessible name adds the context "Roll with us" leaves implicit, for
+      anyone hearing this link out of its visual context. It deliberately
+      starts with the visible text so speech input still matches it.
+    */}
+    <a
+      href="/#join"
+      class="header-cta"
+      aria-label="Roll with us — get free clinic dates by email"
+    >
+      Roll with us
+    </a>
   </div>
 </header>
 
@@ -431,13 +442,13 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
   /* Keep the logo, CTA, and toggle on one row rather than wrapping. */
   @media (max-width: 480px) {
     .header-inner {
-      gap: 10px;
+      gap: 12px;
       padding-inline: 16px;
     }
 
+    /* Stays at the full 15px — "Roll with us" fits without shrinking. */
     .header-cta {
-      font-size: 13px;
-      padding: 10px 14px;
+      padding: 11px 18px;
     }
 
     .nav-toggle {
