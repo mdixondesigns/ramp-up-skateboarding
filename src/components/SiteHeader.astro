@@ -343,8 +343,14 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
       order: 3;
     }
 
+    /*
+     * Without this the row is logo | CTA | toggle under space-between, which
+     * strands the CTA in the middle. Pushing it right pairs it with the
+     * hamburger, separated by the row gap.
+     */
     .header-cta {
       order: 2;
+      margin-left: auto;
     }
 
     .primary-nav {
@@ -363,6 +369,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
 
     .header-inner {
       flex-wrap: wrap;
+      gap: 14px;
     }
 
     .nav-row {
