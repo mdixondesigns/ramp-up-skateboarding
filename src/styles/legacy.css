@@ -24,19 +24,6 @@
   padding: 1rem;
 }
 
-.tag {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 2px solid var(--rule-light-strong);
-  border-radius: var(--r-pill);
-  color: var(--ink-70);
-  margin-bottom: 0.5rem;
-}
-
 .testimonial {
   border-left: 3px solid var(--yellow);
   padding-left: 1rem;
@@ -50,25 +37,32 @@
   color: var(--ink-55);
 }
 
-/* Legacy button modifiers — the design system uses .button--primary etc. */
-.button.primary {
-  background: var(--yellow);
-  color: var(--ink);
-}
-
-.button.secondary {
-  background: transparent;
-  color: var(--ink);
-  border: 2px solid var(--rule-light-strong);
-}
-
-/* Legacy grid modifiers. */
+/*
+ * Legacy grid modifiers.
+ *
+ * These were `auto-fit, minmax(260px, 1fr)`, which meant `cols-2` laid five
+ * cards out in four columns on a wide screen — the name promised two. Explicit
+ * counts, stepping down the way the design system's own grids do.
+ */
 .grid.cols-2 {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(2, 1fr);
 }
 
 .grid.cols-3 {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 980px) {
+  .grid.cols-3 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .grid.cols-2,
+  .grid.cols-3 {
+    grid-template-columns: 1fr;
+  }
 }
 
 /*
@@ -88,4 +82,94 @@ main > section:not([class]) + section:not([class]) {
 /* The legacy .card was a bordered box with internal padding. */
 main > section:not([class]) .card {
   padding: 26px 30px;
+}
+
+/*
+ * Vertical rhythm.
+ *
+ * Every h1–h4 carries `margin-top: 0` from global.css, which is right for the
+ * designed sections — they position their own headings and would fight an
+ * inherited margin. These pages are plain document flow instead, so a heading
+ * that follows a card grid or a photo lands hard against it. The space has to
+ * come back, and it belongs here rather than in global.css so it disappears
+ * along with the rest of this file as pages get designed.
+ */
+main > section:not([class]) h2 {
+  margin-top: 56px;
+  margin-bottom: 20px;
+}
+
+main > section:not([class]) h3 {
+  margin-top: 32px;
+  margin-bottom: 12px;
+}
+
+/* Inside a card the rhythm is the card's, not the page's. */
+main > section:not([class]) .card h3 {
+  margin-top: 20px;
+}
+
+/*
+ * Anything opening its container already has the section's padding above it,
+ * and a heading directly under its own parent heading is one unit.
+ */
+main > section:not([class]) > .container > :first-child,
+main > section:not([class]) .card > :first-child,
+main > section:not([class]) .grid > * > :first-child,
+main > section:not([class]) h2 + h3 {
+  margin-top: 0;
+}
+
+/*
+ * Card grids and the build-out notes are blocks, and need to breathe as blocks.
+ * Not `.placeholder-photo` — it is a grid item on the team page, where a top
+ * margin would drop it out of line with the prose column beside it.
+ */
+main > section:not([class]) .grid,
+main > section:not([class]) .todo {
+  margin-block: 32px;
+}
+
+/*
+ * Reading measure.
+ *
+ * These pages drop prose straight into the 1280px container, which runs a
+ * paragraph out to roughly 140 characters — about twice the distance anyone
+ * wants to track back across to find the next line. The numbers match what the
+ * designed pages already use: 68ch for body copy, 44–46ch for a lede.
+ *
+ * Direct children of the container only. Text inside a card or a grid column
+ * is already narrow, and a second cap there would just strand a ragged gap
+ * inside the card.
+ */
+main > section:not([class]) > .container > :is(p, ul, ol) {
+  max-width: 68ch;
+}
+
+main > section:not([class]) > .container > .lede {
+  max-width: 46ch;
+}
+
+/*
+ * `ch` scales with the element's own font size, so headings need their own
+ * number — 68ch of an h1 is most of the viewport again.
+ */
+main > section:not([class]) > .container > :is(h1, h2, h3) {
+  max-width: 28ch;
+}
+
+/*
+ * Inline links, wearing the design system's yellow underline. Without it these
+ * pages render links in the body color with no underline at all — there is
+ * nothing to tell a reader they are links.
+ */
+main > section:not([class]) :is(p, li) a:not(.button) {
+  font-weight: 700;
+  border-bottom: 3px solid var(--yellow);
+  padding-bottom: 1px;
+  transition: color var(--dur) var(--ease);
+}
+
+main > section:not([class]) :is(p, li) a:not(.button):hover {
+  color: var(--ink-70);
 }
