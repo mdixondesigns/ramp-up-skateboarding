@@ -1,0 +1,43 @@
+---
+import GuideCard from "../../components/GuideCard.astro";
+import { getPublishedGuides } from "../../utils/guides";
+
+export const meta = {
+  title: "Guide card",
+  group: "Cards",
+  description:
+    "Parent Resources grid card, and the shorter `compact` variant used in \"Read next\". Category labels were removed — the card is photo, title, excerpt, reading time.",
+  order: 3,
+};
+
+const guides = await getPublishedGuides();
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="grid grid--3">
+      {guides.map((guide) => <GuideCard guide={guide} />)}
+    </div>
+
+    <p class="label">compact, 180px image — the "Read next" row</p>
+
+    <div class="grid grid--3">
+      {guides.map((guide) => <GuideCard guide={guide} imageHeight={180} compact />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+    margin: 48px 0 20px;
+  }
+</style>

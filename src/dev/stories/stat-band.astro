@@ -1,0 +1,34 @@
+---
+import StatBand from "../../components/StatBand.astro";
+
+export const meta = {
+  title: "Stat band",
+  group: "Sections",
+  description:
+    "Numbers as their own section. Dark when the figures are the point of the page; light when they support the prose around them.",
+  order: 3,
+};
+
+const stats = [
+  { value: "90", label: "skaters served in 2023" },
+  { value: "250+", label: "skaters served in 2024" },
+  { value: "400+", label: "skaters served in 2025" },
+];
+---
+
+<StatBand
+  eyebrow="Growth so far"
+  heading="From one van to four hundred kids a year"
+  stats={stats}
+  note="Every one of them on a board we brought, in a helmet we brought."
+/>
+
+<StatBand
+  tone="light"
+  stats={[
+    { value: "40", label: "boards in the van" },
+    { value: "5–14", label: "the ages we coach" },
+    { value: "$0", label: "to try a community clinic" },
+    { value: "100%", label: "of coaches background-checked" },
+  ]}
+/>

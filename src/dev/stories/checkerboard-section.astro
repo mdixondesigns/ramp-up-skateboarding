@@ -1,0 +1,41 @@
+---
+import CheckerboardSection from "../../components/CheckerboardSection.astro";
+
+import photoOne from "../../assets/photos/rootdown-37.jpg";
+import photoTwo from "../../assets/photos/ramp_up-54.jpg";
+import photoThree from "../../assets/photos/radnor-144.jpg";
+
+export const meta = {
+  title: "Checkerboard",
+  group: "Sections",
+  description:
+    "Alternating photo/text rows. Every row flips the photo to the other side, so a run of them reads as a rhythm rather than a list.",
+  order: 4,
+};
+---
+
+<CheckerboardSection
+  heading="The four pillars"
+  sub="What we are actually teaching, underneath the pushing and the falling."
+  rows={[
+    {
+      title: "Resilience",
+      body: "Kids fall down learning to skate — a lot. We teach them to get back up, on the board and off it.",
+      image: photoOne,
+      imageAlt: "A coach holding a young skater's hand as he rolls down a wooden ramp",
+    },
+    {
+      title: "Confidence",
+      body: "Every small win — a first push, a first roll-in — compounds into real self-belief.",
+      image: photoTwo,
+      imageAlt: "A girl riding a board with her arms out for balance while a coach walks beside her",
+      cta: { label: "How a first clinic works", href: "/programs/free-clinics" },
+    },
+    {
+      title: "Creative expression",
+      body: "There's no one right way to ride a skateboard. We encourage kids to find their own style.",
+      image: photoThree,
+      imageAlt: "Three young skaters in helmets and pads waiting with their boards",
+    },
+  ]}
+/>

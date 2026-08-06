@@ -1,0 +1,417 @@
+---
+import "@fontsource-variable/baloo-2/wght.css";
+import "@fontsource-variable/nunito-sans/wght.css";
+import "../../styles/global.css";
+
+import { loadStories, groupStories, storySlugs } from "../../dev/registry";
+
+/**
+ * The component gallery — one component at a time, away from the page it
+ * normally lives on.
+ *
+ * Dev only. `getStaticPaths` returns nothing in a production build, so none of
+ * this ships: no /dev route, no story markup, nothing to notice you left it in.
+ *
+ * Adding a component is one file: drop a `.astro` file in src/dev/stories/ and
+ * it appears in the sidebar. See the registry for what it can export.
+ */
+export function getStaticPaths() {
+  return [
+    // `undefined` is the index at /dev itself.
+    ...(storySlugs.length > 0 ? [{ params: { story: undefined } }] : []),
+    ...storySlugs.map((slug) => ({ params: { story: slug } })),
+  ];
+}
+
+const stories = await loadStories();
+const storyGroups = groupStories(stories);
+
+const { story: slug } = Astro.params;
+const current = stories.find((entry) => entry.slug === slug);
+
+// A slug that doesn't match is a link gone stale, not a page.
+if (slug && !current) {
+  return Astro.redirect("/dev");
+}
+
+const Story = current?.Component;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{current ? `${current.title} · Components` : "Ramp Up components"}</title>
+    <meta name="robots" content="noindex" />
+  </head>
+
+  <body class="dev">
+    <div class="shell">
+      <nav class="sidebar" aria-label="Components">
+        <a class="brand" href="/dev">
+          <span class="brand-name">Ramp Up</span>
+          <span class="brand-sub">components</span>
+        </a>
+
+        {
+          storyGroups.map((group) => (
+            <section class="group">
+              <h2>{group.name}</h2>
+              <ul>
+                {group.stories.map((entry) => (
+                  <li>
+                    <a
+                      href={`/dev/${entry.slug}`}
+                      aria-current={entry.slug === slug ? "page" : undefined}
+                    >
+                      {entry.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))
+        }
+
+        <p class="footnote">Dev only — this route is not built for production.</p>
+      </nav>
+
+      <main class="stage">
+        {
+          current && Story ? (
+            <>
+              <header class="toolbar">
+                <div class="titles">
+                  <h1>{current.title}</h1>
+                  {current.description && <p>{current.description}</p>}
+                </div>
+
+                <div class="controls">
+                  <div class="control" role="group" aria-label="Canvas width">
+                    {[
+                      { value: "full", label: "Full" },
+                      { value: "1280", label: "1280" },
+                      { value: "768", label: "768" },
+                      { value: "375", label: "375" },
+                    ].map((option) => (
+                      <button type="button" data-width={option.value}>
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+
+                  <div class="control" role="group" aria-label="Canvas background">
+                    {[
+                      { value: "paper", label: "Paper" },
+                      { value: "alt", label: "Alt" },
+                      { value: "ink", label: "Ink" },
+                    ].map((option) => (
+                      <button type="button" data-bg={option.value}>
+                        {option.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </header>
+
+              <div
+                class="canvas"
+                data-canvas
+                data-default-bg={current.background}
+                data-default-width={current.width}
+              >
+                <div class="canvas-inner">
+                  <Story />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div class="intro">
+              <h1>Ramp Up components</h1>
+              <p>
+                Every component on its own, at any width, on any of the three
+                backgrounds it has to work on. Pick one from the left.
+              </p>
+              <p class="intro-meta">
+                {stories.length} components. Add another by dropping a file in
+                <code>src/dev/stories/</code>.
+              </p>
+            </div>
+          )
+        }
+      </main>
+    </div>
+
+    <script>
+      /*
+       * Width and background are view state, not content — they live in the URL
+       * hash-free world of localStorage so a choice survives clicking through
+       * the whole list, which is the point of having the controls at all.
+       */
+      const canvas = document.querySelector<HTMLElement>("[data-canvas]");
+
+      if (canvas) {
+        const apply = (kind: "width" | "bg", value: string) => {
+          canvas.dataset[kind === "width" ? "width" : "bg"] = value;
+          localStorage.setItem(`dev-canvas-${kind}`, value);
+
+          for (const button of document.querySelectorAll<HTMLButtonElement>(
+            `[data-${kind}]`
+          )) {
+            button.setAttribute(
+              "aria-pressed",
+              String(button.dataset[kind === "width" ? "width" : "bg"] === value)
+            );
+          }
+        };
+
+        apply(
+          "width",
+          localStorage.getItem("dev-canvas-width") ??
+            canvas.dataset.defaultWidth ??
+            "full"
+        );
+        apply(
+          "bg",
+          localStorage.getItem("dev-canvas-bg") ?? canvas.dataset.defaultBg ?? "paper"
+        );
+
+        for (const button of document.querySelectorAll<HTMLButtonElement>("[data-width]")) {
+          button.addEventListener("click", () => apply("width", button.dataset.width!));
+        }
+
+        for (const button of document.querySelectorAll<HTMLButtonElement>("[data-bg]")) {
+          button.addEventListener("click", () => apply("bg", button.dataset.bg!));
+        }
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  /*
+   * The gallery's own chrome. Deliberately plain and a little cool in tone —
+   * it should never be mistaken for part of the site being previewed.
+   */
+  .dev {
+    background: #f6f6f4;
+  }
+
+  .shell {
+    display: grid;
+    grid-template-columns: 248px 1fr;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    overflow-y: auto;
+    padding: 22px 18px 28px;
+    background: var(--ink-deep);
+    color: var(--cream);
+  }
+
+  .brand {
+    display: block;
+    margin-bottom: 26px;
+    padding: 0 10px;
+  }
+
+  .brand-name {
+    display: block;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 20px;
+  }
+
+  .brand-sub {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--yellow);
+  }
+
+  .group {
+    margin-bottom: 22px;
+  }
+
+  .group h2 {
+    font-family: var(--font-body);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cream-dimmest);
+    margin: 0 0 8px;
+    padding: 0 10px;
+  }
+
+  .group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .group a {
+    display: block;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--cream-dim);
+  }
+
+  .group a:hover {
+    background: rgba(245, 242, 238, 0.08);
+    color: var(--paper);
+  }
+
+  .group a[aria-current="page"] {
+    background: var(--yellow);
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .footnote {
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--cream-dimmest);
+    padding: 0 10px;
+    margin: 26px 0 0;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    padding: 18px 24px;
+    background: #fff;
+    border-bottom: 1px solid rgba(46, 42, 40, 0.12);
+  }
+
+  .titles h1 {
+    font-size: 21px;
+    margin: 0;
+  }
+
+  .titles p {
+    font-size: 13px;
+    color: var(--ink-55);
+    margin: 4px 0 0;
+    max-width: 70ch;
+  }
+
+  .controls {
+    display: flex;
+    gap: 10px;
+  }
+
+  .control {
+    display: flex;
+    gap: 2px;
+    padding: 3px;
+    background: #eeece8;
+    border-radius: 9px;
+  }
+
+  .control button {
+    font-family: var(--font-body);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--ink-70);
+    cursor: pointer;
+  }
+
+  .control button[aria-pressed="true"] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  /* The canvas. Only the inner element is width-constrained, so the surround
+     stays full-bleed and it's obvious where the component's edges are. */
+  .canvas {
+    flex: 1;
+    padding: 28px;
+    overflow-x: auto;
+  }
+
+  .canvas-inner {
+    margin-inline: auto;
+    background: var(--paper);
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(46, 42, 40, 0.12);
+  }
+
+  .canvas[data-bg="alt"] .canvas-inner {
+    background: var(--paper-alt);
+  }
+
+  .canvas[data-bg="ink"] .canvas-inner {
+    background: var(--ink-deep);
+  }
+
+  .canvas[data-width="1280"] .canvas-inner {
+    width: 1280px;
+  }
+
+  .canvas[data-width="768"] .canvas-inner {
+    width: 768px;
+  }
+
+  .canvas[data-width="375"] .canvas-inner {
+    width: 375px;
+  }
+
+  .intro {
+    padding: 64px 40px;
+    max-width: 60ch;
+  }
+
+  .intro h1 {
+    font-size: 34px;
+    margin: 0 0 14px;
+  }
+
+  .intro p {
+    font-size: 17px;
+    color: var(--ink-70);
+    margin: 0 0 12px;
+  }
+
+  .intro-meta code {
+    font-size: 14px;
+    background: #eeece8;
+    padding: 2px 6px;
+    border-radius: 5px;
+  }
+
+  @media (max-width: 860px) {
+    .shell {
+      grid-template-columns: 1fr;
+    }
+
+    .sidebar {
+      position: static;
+      height: auto;
+    }
+  }
+</style>

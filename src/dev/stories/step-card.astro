@@ -1,0 +1,60 @@
+---
+import StepCard from "../../components/StepCard.astro";
+
+export const meta = {
+  title: "Step card",
+  group: "Cards",
+  description:
+    "The numbered cards from \"What a first day actually looks like\". Each cap pairs a brand hue with a different texture.",
+  order: 1,
+};
+
+const steps = [
+  {
+    number: 1,
+    title: "Show up empty-handed",
+    color: "var(--cyan)",
+    texture: "dots" as const,
+    body: "Boards, helmets, and pads in every size come out of the van. Just bring closed-toe shoes.",
+  },
+  {
+    number: 2,
+    title: "Learn to fall first",
+    color: "var(--pink)",
+    texture: "hatch" as const,
+    body: "Before tricks, before speed. Falling safely is the first thing a certified coach teaches.",
+  },
+  {
+    number: 3,
+    title: "Roll away grinning",
+    color: "var(--yellow)",
+    texture: "arcs" as const,
+    body: "Small groups, sorted by age. Every kid leaves having done something they couldn't do an hour before.",
+  },
+];
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="grid grid--3">
+      {
+        steps.map((step) => (
+          <StepCard
+            number={step.number}
+            title={step.title}
+            color={step.color}
+            texture={step.texture}
+          >
+            {step.body}
+          </StepCard>
+        ))
+      }
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+</style>

@@ -1,0 +1,19 @@
+---
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+export const meta = {
+  title: "Email signup band",
+  group: "Sections",
+  description:
+    "The primary conversion on every page. Submit an invalid address to see the error state, a valid one to see the success state.",
+  order: 1,
+};
+---
+
+<EmailSignupBand />
+
+<EmailSignupBand
+  id="join-alt"
+  heading="Still have a question?"
+  body="Email us and a coach answers — usually the same day. Or get clinic dates in your inbox before they fill."
+/>

@@ -1,0 +1,38 @@
+---
+import AccordionSection from "../../components/AccordionSection.astro";
+
+export const meta = {
+  title: "Accordion",
+  group: "Sections",
+  description:
+    "Native <details> rows — no JavaScript. `single` closes the others when one opens. Reach for it when answers run long; short answers belong in the always-open FAQ grid.",
+  background: "alt",
+  order: 5,
+};
+
+const items = [
+  {
+    question: "What skateboarding skills are required?",
+    answer:
+      "Enough to be steady on a board and to demonstrate a push, a turn, and a controlled stop. You are teaching five-year-olds their first hour, not filming a part.",
+  },
+  {
+    question: "Is this a paid opportunity?",
+    answer: "Yes. Coaches are paid per clinic, and the rate goes up as you certify.",
+  },
+  {
+    question: "What if I haven't skated in fifteen years?",
+    answer:
+      "Then you remember exactly how the first week felt, which is most of the job. We will get you back to steady before you run a session.",
+  },
+];
+---
+
+<AccordionSection
+  heading="Common questions"
+  sub="The ones we get most often from people thinking about coaching."
+  items={items}
+  openFirst
+  single
+  background="alt"
+/>

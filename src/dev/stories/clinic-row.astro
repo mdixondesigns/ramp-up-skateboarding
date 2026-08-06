@@ -1,0 +1,33 @@
+---
+import ClinicRow from "../../components/ClinicRow.astro";
+import { clinics } from "../../data/clinics";
+
+export const meta = {
+  title: "Clinic row",
+  group: "Cards",
+  description:
+    "All three status variants. Status is carried by color and text together — never color alone. Below 900px the five columns stack.",
+  background: "alt",
+  order: 5,
+};
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="rows">
+      {clinics.map((clinic) => <ClinicRow clinic={clinic} />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+</style>

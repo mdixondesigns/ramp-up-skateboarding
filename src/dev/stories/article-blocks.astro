@@ -1,0 +1,106 @@
+---
+import SpecCard from "../../components/article/SpecCard.astro";
+import NumberedPoints from "../../components/article/NumberedPoints.astro";
+import PullQuote from "../../components/article/PullQuote.astro";
+import Figure from "../../components/article/Figure.astro";
+import InlineCta from "../../components/article/InlineCta.astro";
+
+import figurePhoto from "../../assets/photos/radnor-11.jpg";
+
+export const meta = {
+  title: "Article blocks",
+  group: "Article",
+  description:
+    "The five body components a guide can drop into its Markdown. Shown inside an .article wrapper at the real 68ch measure, because the article's own prose rules reach into them.",
+  order: 1,
+};
+---
+
+{/*
+  The `.article` wrapper is not decoration. The guide template styles generated
+  markup through `:global()` selectors scoped to `.article`, so these components
+  render differently inside one than out — which is exactly where a bug like the
+  prose-link rule flattening the inline CTA's button hides. Preview them under
+  the same roof they ship under.
+*/}
+<div class="stage">
+  <div class="container">
+    <article class="article">
+      <p class="standfirst">
+        A standfirst, so the blocks below sit against the type they normally
+        follow.
+      </p>
+
+      <p>
+        Body copy at 19px on a 68ch measure, with an{" "}
+        <a href="#">inline prose link</a> in it — the underline belongs to links
+        like this one, and must not reach the CTA button further down.
+      </p>
+
+      <SpecCard
+        title="Deck width by age"
+        rows={[
+          { label: "Ages 5–7", body: "7.25\" to 7.5\" — narrow enough to turn without fighting it." },
+          { label: "Ages 8–11", body: "7.5\" to 7.75\" — the size most kids stay on for years." },
+          { label: "Ages 12+", body: "7.75\" and up, or whatever their friends are riding." },
+        ]}
+      />
+
+      <NumberedPoints
+        points={[
+          { lead: "Start with the helmet.", body: "It is the one thing we will not let a kid skate without." },
+          { lead: "Then the deck.", body: "A complete from a real skate shop beats a big-box board every time." },
+          { lead: "Pads last.", body: "Wrists first, then knees and elbows." },
+        ]}
+      />
+
+      <PullQuote>
+        The board sold next to the scooters looks like the board in the skate
+        shop. It isn't.
+      </PullQuote>
+
+      <Figure
+        src={figurePhoto}
+        alt="A young skater in a helmet and pads rolling across a concrete park"
+        caption="A caption, at 15px in ink-55."
+      />
+
+      <InlineCta
+        heading="Not sure yet? Come try ours."
+        body="Free clinics, all gear provided. See if it sticks before you spend a dollar."
+        href="/programs/free-clinics"
+        label="See clinic dates"
+      />
+    </article>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+
+  /* The guide template's body measure and type scale, in miniature. */
+  .article {
+    max-width: 68ch;
+  }
+
+  .article :global(p) {
+    font-size: 19px;
+    margin: 0 0 26px;
+  }
+
+  .article :global(.standfirst) {
+    font-size: 22px;
+    line-height: 1.55;
+    color: #3d3835;
+    font-weight: 600;
+    margin: 0 0 30px;
+  }
+
+  .article :global(a:not(.button)) {
+    font-weight: 700;
+    border-bottom: 3px solid var(--yellow);
+    padding-bottom: 1px;
+  }
+</style>

@@ -1,0 +1,95 @@
+---
+import PlyStripe from "../../components/PlyStripe.astro";
+import WheelDot from "../../components/WheelDot.astro";
+import CardCap from "../../components/CardCap.astro";
+import Avatar from "../../components/Avatar.astro";
+
+export const meta = {
+  title: "Signature motifs",
+  group: "Primitives",
+  description:
+    "The four things that make the site look like itself: the ply stripe, the wheel dot, the textured card cap, and the hand-drawn avatars.",
+  order: 2,
+};
+
+const plyVariants = ["a", "b", "c", "d"] as const;
+const capTextures = ["dots", "hatch", "arcs", "checker"] as const;
+const capColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+const dotColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"];
+const portraits = ["a", "b", "c", "coach"] as const;
+---
+
+<div class="stage">
+  <div class="container">
+    <h2 class="label">Ply stripe — four variants, shuffled so repeats don't read as mechanical</h2>
+    <div class="plys">
+      {plyVariants.map((variant) => <PlyStripe variant={variant} height={14} />)}
+    </div>
+
+    <h2 class="label">Wheel dot — a ring, so the backdrop shows through the hub</h2>
+    <div class="dots">
+      {dotColors.map((color, i) => <WheelDot color={color} size={[22, 34, 42, 52][i]} />)}
+    </div>
+
+    <h2 class="label">Card caps — one texture per brand hue</h2>
+    <div class="grid grid--4">
+      {
+        capTextures.map((texture, i) => (
+          <div class="card cap-card">
+            <CardCap color={capColors[i]} texture={texture} height={62} bleed={24} />
+            <p>{texture}</p>
+          </div>
+        ))
+      }
+    </div>
+
+    <h2 class="label">Avatars — hand-built, deliberately not photographic</h2>
+    <div class="avatars">
+      {portraits.map((portrait, i) => <Avatar portrait={portrait} ring={dotColors[i]} size={54} />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+
+  .label {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+    margin: 0 0 16px;
+  }
+
+  .label:not(:first-child) {
+    margin-top: 48px;
+  }
+
+  .plys {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dots,
+  .avatars {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .cap-card {
+    padding: 0 24px 20px;
+  }
+
+  .cap-card p {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-70);
+    margin: 18px 0 0;
+  }
+</style>

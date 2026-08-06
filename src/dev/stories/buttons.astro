@@ -1,0 +1,49 @@
+---
+export const meta = {
+  title: "Buttons & links",
+  group: "Primitives",
+  description:
+    "Yellow is the one loud accent and belongs to primary actions only. Ghost and paper variants are for dark backgrounds — switch the canvas to Ink.",
+  order: 1,
+};
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="row">
+      <a class="button button--primary" href="#">Get clinic dates by email</a>
+      <a class="button button--ink" href="#">Sign up</a>
+      <a class="button button--primary button--sm" href="#">Small primary</a>
+    </div>
+
+    <div class="row on-dark">
+      <a class="button button--ghost" href="#">How a first clinic works</a>
+      <a class="button button--paper button--sm" href="#">Read the guide</a>
+    </div>
+
+    <div class="row">
+      <a class="link-underline" href="#">See all dates &amp; register</a>
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-bottom: 28px;
+  }
+
+  /* The dark-background variants need something dark behind them to be read. */
+  .row.on-dark {
+    background: var(--ink);
+    border-radius: var(--r-row);
+    padding: 24px 26px;
+  }
+</style>

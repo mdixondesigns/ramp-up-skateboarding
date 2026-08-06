@@ -1,0 +1,15 @@
+---
+import TestimonialsSection from "../../components/TestimonialsSection.astro";
+
+export const meta = {
+  title: "Testimonials band",
+  group: "Sections",
+  description:
+    "Full-bleed dark band with the three featured quotes. The Google reviews pill is optional — hide it where the page already links out.",
+  order: 2,
+};
+---
+
+<TestimonialsSection />
+
+<TestimonialsSection heading="What first-timers are saying" showReviewsLink={false} />

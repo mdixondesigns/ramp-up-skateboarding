@@ -1,0 +1,29 @@
+---
+import TestimonialCard from "../../components/TestimonialCard.astro";
+import { featuredTestimonials } from "../../data/testimonials";
+
+export const meta = {
+  title: "Testimonial card",
+  group: "Cards",
+  description:
+    "Paper card with a 12px ply cap and a hand-drawn avatar. Designed to sit on the ink band — switch the canvas to Paper to see why it needs one.",
+  background: "ink",
+  order: 4,
+};
+
+const featured = featuredTestimonials();
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="grid grid--3">
+      {featured.map((testimonial) => <TestimonialCard testimonial={testimonial} />)}
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+</style>

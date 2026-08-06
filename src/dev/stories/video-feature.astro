@@ -1,0 +1,28 @@
+---
+import VideoFeature from "../../components/VideoFeature.astro";
+
+export const meta = {
+  title: "Video feature",
+  group: "Sections",
+  description:
+    "A poster and a play button; the YouTube iframe is only created on click. Nothing is requested from YouTube until then except the thumbnail.",
+  order: 6,
+};
+---
+
+<VideoFeature
+  videoId="eaulmma259M"
+  videoTitle="Buzz About Ramp Up Skateboarding"
+  eyebrow="Listen in"
+  heading="Hear Coach Mike on the Buzz About Podcast"
+  body="Take a deep dive into Ramp Up: what we do, how it works, and where we're going."
+  cta={{ label: "More about us", href: "/about" }}
+/>
+
+<VideoFeature
+  videoId="eaulmma259M"
+  videoTitle="Buzz About Ramp Up Skateboarding"
+  heading="Same thing, copy on the right"
+  body="A mediaSide of left puts the player first on wide screens. Below 860px the copy always comes first, whichever side it was asked to sit on."
+  mediaSide="left"
+/>

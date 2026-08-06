@@ -1,0 +1,47 @@
+---
+import SessionCard from "../../components/SessionCard.astro";
+
+import photo from "../../assets/photos/ramp_up-66.jpg";
+
+export const meta = {
+  title: "Session card",
+  group: "Cards",
+  description:
+    "One seasonal session. With a `registerUrl` it gets a Register button; without one it says registration opens soon, so nothing ever links to a dead Sawyer page.",
+  order: 2,
+};
+
+const base = {
+  location: "Lancaster Rec Center",
+  ages: "Ages 6-12",
+  blurb: "A multi-week progression session for kids ready to go beyond a single clinic.",
+  image: photo,
+  imageAlt:
+    "A Ramp Up coach crouching to talk to a group of kids standing on their boards",
+};
+---
+
+<div class="stage">
+  <div class="container">
+    <div class="grid grid--3">
+      <SessionCard
+        {...base}
+        name="Fall 2026 Skate Club"
+        registerUrl="https://hisawyer.com/"
+      />
+      <SessionCard {...base} name="Spring 2027 Skate Club" />
+      <SessionCard
+        {...base}
+        name="A session with a much longer name that wraps onto three lines"
+        blurb="A short blurb, to check that the button still lines up with the ones beside it."
+        registerUrl="https://hisawyer.com/"
+      />
+    </div>
+  </div>
+</div>
+
+<style>
+  .stage {
+    padding-block: 56px;
+  }
+</style>
