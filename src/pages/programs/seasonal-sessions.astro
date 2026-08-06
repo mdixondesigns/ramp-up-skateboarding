@@ -1,15 +1,24 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import SawyerEmbed from "../../components/SawyerEmbed.astro";
+import SessionCard from "../../components/SessionCard.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
-// TODO(Christine): edit this list directly each season — add/remove entries
-// as sessions open and close. This is the "Fall 2026, etc." content.
+import sessionPhoto from "../../assets/photos/ramp_up-66.jpg";
+
+// TODO(Christine): edit this list directly each season — add and remove entries
+// as sessions open and close, and give each one its Sawyer listing URL and a
+// photo from src/assets/photos/. A session with no `registerUrl` shows
+// "Registration opens soon" instead of a button, so nothing links to a 404.
 const currentSessions = [
   {
     name: "Fall 2026 Skate Club",
     location: "Lancaster Rec Center",
     ages: "Ages 6-12",
     blurb: "A multi-week progression session for kids ready to go beyond a single clinic.",
+    image: sessionPhoto,
+    imageAlt:
+      "A Ramp Up coach crouching to talk to a group of kids standing on their boards, two of them with a hand raised",
+    registerUrl: "",
   },
 ];
 ---
@@ -18,34 +27,55 @@ const currentSessions = [
   title="Seasonal Sessions"
   description="Multi-week skateboarding sessions for kids ready to progress beyond a free clinic."
 >
-  <section>
+  <section class="section">
     <div class="container">
       <p class="eyebrow">Programs &rsaquo; Seasonal Sessions</p>
       <h1>The next step after a free clinic.</h1>
       <p class="lede">
         A real progression over a season &mdash; for kids who tried a free
-        clinic and want more.
+        clinic and want more. Each session registers on Sawyer.
       </p>
 
-      <div class="grid cols-2">
-        {currentSessions.map((session) => (
-          <div class="card">
-            <p class="tag">{session.location}</p>
-            <h3>{session.name}</h3>
-            <p class="muted">{session.ages}</p>
-            <p>{session.blurb}</p>
-          </div>
-        ))}
+      <div class="grid grid--3 sessions">
+        {currentSessions.map((session) => <SessionCard {...session} />)}
       </div>
 
-      <h2>Register</h2>
-      <SawyerEmbed label="Seasonal session registration" />
+      <p class="note">
+        Scholarship spots are held in every session &mdash;
+        <a class="link-underline" href="/contact">just ask</a>, no forms.
+      </p>
     </div>
   </section>
+
+  <EmailSignupBand
+    heading="Between seasons?"
+    body="Session dates go out by email first. One short note a month — nothing else."
+  />
 </BaseLayout>
 
 <style>
-  .muted {
-    color: var(--muted);
+  h1 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 18px;
+  }
+
+  .lede {
+    max-width: 48ch;
+    margin: 0;
+  }
+
+  .sessions {
+    margin-top: 44px;
+    /*
+     * Cards are sized for a full row. With one or two sessions running, a
+     * stretched card would read as a banner rather than one of a set.
+     */
+    align-items: start;
+  }
+
+  .note {
+    font-size: 15px;
+    color: var(--ink-50);
+    margin: 32px 0 0;
   }
 </style>
