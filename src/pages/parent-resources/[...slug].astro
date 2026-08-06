@@ -29,7 +29,6 @@ const { Content } = await render(guide);
 
 const {
   title,
-  category,
   heroImage,
   heroAlt,
   author,
@@ -76,10 +75,13 @@ const tocColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"
     />
 
     <div class="hero-content">
+      {/*
+        Just the parent section — the category crumb went with the rest of the
+        category tags. `category` still drives which guides show up in
+        "Read next", it simply isn't shown to the reader anywhere.
+      */}
       <nav class="breadcrumb" aria-label="Breadcrumb">
         <a href="/parent-resources">Parent Resources</a>
-        <span aria-hidden="true">/</span>
-        <span class="crumb-category">{category}</span>
       </nav>
 
       <h1>{title}</h1>
@@ -200,12 +202,6 @@ const tocColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"
 
   .breadcrumb a:hover {
     color: var(--paper);
-  }
-
-  .crumb-category {
-    color: var(--yellow);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
   }
 
   .hero h1 {

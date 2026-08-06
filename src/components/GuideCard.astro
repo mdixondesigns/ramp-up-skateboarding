@@ -1,7 +1,6 @@
 ---
 import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { categorySlug, categoryColorVar } from "../utils/guides";
 
 interface Props {
   guide: CollectionEntry<"guides">;
@@ -12,14 +11,10 @@ interface Props {
 }
 
 const { guide, imageHeight = 190, compact = false } = Astro.props;
-const { title, category, excerpt, heroImage, heroAlt, readingTime } = guide.data;
+const { title, excerpt, heroImage, heroAlt, readingTime } = guide.data;
 ---
 
-<a
-  class="card guide-card"
-  href={`/parent-resources/${guide.id}`}
-  data-category={categorySlug(category)}
->
+<a class="card guide-card" href={`/parent-resources/${guide.id}`}>
   <Image
     src={heroImage}
     alt={heroAlt}
@@ -29,9 +24,6 @@ const { title, category, excerpt, heroImage, heroAlt, readingTime } = guide.data
   />
 
   <div class="body">
-    <p class="category" style={`color: var(${categoryColorVar(category)});`}>
-      {category}
-    </p>
     <h3>{title}</h3>
     <p class="excerpt">{excerpt}</p>
     {!compact && <span class="link-underline read-time">{readingTime} min read</span>}
@@ -46,14 +38,6 @@ const { title, category, excerpt, heroImage, heroAlt, readingTime } = guide.data
 
   .body {
     padding: 24px 28px 28px;
-  }
-
-  .category {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin: 0 0 10px;
   }
 
   h3 {

@@ -9,12 +9,7 @@ import CardCap from "../../components/CardCap.astro";
 import GuideCard from "../../components/GuideCard.astro";
 import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
-import { GUIDE_CATEGORIES } from "../../content.config";
-import {
-  getPublishedGuides,
-  getFeaturedGuide,
-  categorySlug,
-} from "../../utils/guides";
+import { getPublishedGuides, getFeaturedGuide } from "../../utils/guides";
 
 const allGuides = await getPublishedGuides();
 const featuredGuide = await getFeaturedGuide();
@@ -176,33 +171,16 @@ const faqs = [
   {/* -------------------------------------------------------- all guides */}
   <section class="all-guides">
     <div class="container">
-      <header class="guides-head">
-        <h2 class="sub-head">All guides</h2>
+      {/*
+        No category filter here on purpose. A dozen guides is a scannable
+        grid, not a search problem, and the chips cost a row of chrome to
+        narrow a list nobody struggles with. Revisit if this passes ~16.
+      */}
+      <h2 class="sub-head guides-head">All guides</h2>
 
-        {/*
-          Client-side filter over the pre-rendered grid — every card stays in
-          the HTML, so this costs nothing for SEO and degrades to a plain
-          full list if the script never runs.
-        */}
-        <div class="filters" role="group" aria-label="Filter guides by category">
-          <button class="chip chip--active" data-filter="all" aria-pressed="true">All</button>
-          {
-            GUIDE_CATEGORIES.map((category) => (
-              <button class="chip" data-filter={categorySlug(category)} aria-pressed="false">
-                {category}
-              </button>
-            ))
-          }
-        </div>
-      </header>
-
-      <div class="grid grid--3" data-guide-grid>
+      <div class="grid grid--3">
         {otherGuides.map((guide) => <GuideCard guide={guide} />)}
       </div>
-
-      <p class="no-results" data-no-results hidden>
-        No guides in that category yet — more are on the way.
-      </p>
     </div>
   </section>
 
@@ -437,50 +415,7 @@ const faqs = [
   }
 
   .guides-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 20px;
     margin-bottom: 26px;
-    flex-wrap: wrap;
-  }
-
-  .filters {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
-
-  .chip {
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 700;
-    padding: 8px 16px;
-    border-radius: var(--r-pill);
-    border: 2px solid var(--rule-light-strong);
-    background: transparent;
-    color: var(--ink);
-    cursor: pointer;
-    transition:
-      background var(--dur) var(--ease),
-      color var(--dur) var(--ease),
-      border-color var(--dur) var(--ease);
-  }
-
-  .chip:hover {
-    background: rgba(46, 42, 40, 0.06);
-  }
-
-  .chip--active {
-    background: var(--ink);
-    color: var(--paper);
-    border-color: var(--ink);
-  }
-
-  .no-results {
-    font-size: 17px;
-    color: var(--ink-70);
-    margin: 24px 0 0;
   }
 
   /* ----------------------------------------------------------- downloads */
@@ -598,36 +533,3 @@ const faqs = [
     }
   }
 </style>
-
-<script>
-  // Filters the pre-rendered card grid. Cards stay in the DOM either way.
-  const chips = document.querySelectorAll<HTMLButtonElement>(".chip");
-  const grid = document.querySelector<HTMLElement>("[data-guide-grid]");
-  const noResults = document.querySelector<HTMLElement>("[data-no-results]");
-
-  if (grid) {
-    const cards = Array.from(grid.querySelectorAll<HTMLElement>("[data-category]"));
-
-    for (const chip of chips) {
-      chip.addEventListener("click", () => {
-        const filter = chip.dataset.filter;
-
-        for (const other of chips) {
-          const isActive = other === chip;
-          other.classList.toggle("chip--active", isActive);
-          other.setAttribute("aria-pressed", String(isActive));
-        }
-
-        let visible = 0;
-
-        for (const card of cards) {
-          const matches = filter === "all" || card.dataset.category === filter;
-          card.hidden = !matches;
-          if (matches) visible += 1;
-        }
-
-        noResults?.toggleAttribute("hidden", visible > 0);
-      });
-    }
-  }
-</script>
