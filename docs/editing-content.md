@@ -499,6 +499,51 @@ until someone clicks play, which keeps the page fast.
 
 No properties. Edit the logos in `src/data/partners.ts`.
 
+<a id="contributiondonut"></a>
+#### `ContributionDonut` — where the money we put back goes
+
+```astro
+<ContributionDonut
+  eyebrow="Beyond the board"
+  heading="Every dollar goes back into skateboarding"
+  body="We are a customer of the scene we serve."
+  items={[
+    { label: "Coaches", amount: 28500, note: "Paid session rates and certification" },
+    { label: "Local skate shops", amount: 9400, note: "Boards and hardware bought locally" },
+    { label: "Photography", amount: 6200 },
+    { label: "Skateparks and ramps", amount: 14750 },
+  ]}
+  centerLabel="back into the scene"
+  note="Figures cover January to December 2025."
+/>
+```
+
+| Property | Required | Notes |
+|---|---|---|
+| `items` | **yes** | **Maximum four.** Each needs `label` and `amount`; `note` is one optional line of context. |
+| `amount` | **yes** | A plain number — `28500`, not `"$28,500"`. The dollar formatting and the percentages are worked out for you. |
+| `centerLabel` | no | Sits under the total in the middle of the ring |
+| `eyebrow`, `heading`, `body`, `note` | no | |
+| `id` | no | Anchor, so another page can link straight to this section |
+| `background` | no | `"alt"` (default) or `"paper"` |
+
+Hovering a slice — or tabbing to a legend row — shows that category's amount in
+the middle of the ring. Clicking pins it so it stays while you read; clicking
+again or pressing Escape releases it. Every figure is also printed in the legend
+and in the "View as a table" panel, so nothing is only reachable by hovering.
+
+**Four categories is a hard limit, and the order is not free.** The four colors
+were chosen by running a color-vision check against this site's background:
+they're the only combination from the brand's hue families that stays
+distinguishable to a reader with red-green color blindness — and only while the
+green and the pink sit *opposite* each other in the ring, where they never touch.
+Reordering `items`, or adding a fifth, breaks that. The component will refuse to
+build if you pass more than four, with a message saying so. If you need a fifth
+category, fold the smallest ones into a single "Everything else" slice.
+
+**On the numbers:** these are public claims about money. Put in real figures or
+leave the component off the page — there is no placeholder mode, on purpose.
+
 ### Cards
 
 <a id="sessioncard"></a>

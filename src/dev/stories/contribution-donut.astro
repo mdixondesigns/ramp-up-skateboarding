@@ -1,0 +1,79 @@
+---
+import ContributionDonut from "../../components/ContributionDonut.astro";
+
+export const meta = {
+  title: "Contribution donut",
+  group: "Sections",
+  description:
+    "Part-to-whole at a glance. Hover or focus a legend row to preview a slice, click to pin it, Escape to release. Every figure is also in the legend and the table, so nothing is gated behind the interaction.",
+  background: "alt",
+  order: 8,
+};
+
+/*
+ * PLACEHOLDER FIGURES — invented for this preview so the shape of the chart is
+ * visible. They are not Ramp Up's numbers and must not be published. This story
+ * is dev-only, so nothing here reaches the live site.
+ */
+const items = [
+  {
+    label: "Coaches",
+    amount: 28500,
+    note: "Paid session rates and certification costs",
+  },
+  {
+    label: "Local skate shops",
+    amount: 9400,
+    note: "Boards, decks, and hardware bought locally",
+  },
+  {
+    label: "Photography",
+    amount: 6200,
+    note: "Working photographers at clinics and sessions",
+  },
+  {
+    label: "Skateparks and ramps",
+    amount: 14750,
+    note: "Direct donations to build and repair",
+  },
+];
+---
+
+<ContributionDonut
+  eyebrow="Beyond the board"
+  heading="Every dollar goes back into skateboarding"
+  body="We are a customer of the scene we serve. Here is where the money went last year."
+  items={items}
+  centerLabel="back into the scene"
+  note="Figures cover January to December 2025. Shares are rounded to the nearest percent."
+/>
+
+<div class="stage">
+  <div class="container">
+    <p class="label">Two slices, and one that is nearly all of it</p>
+  </div>
+</div>
+
+<ContributionDonut
+  heading="A lopsided split, to check the small-slice case"
+  items={[
+    { label: "Coaches", amount: 41000 },
+    { label: "Local skate shops", amount: 900 },
+  ]}
+  background="paper"
+/>
+
+<style>
+  .stage {
+    padding-block: 8px 0;
+  }
+
+  .label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-50);
+    margin: 0;
+  }
+</style>

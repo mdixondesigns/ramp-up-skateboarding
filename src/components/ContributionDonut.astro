@@ -1,0 +1,598 @@
+---
+/**
+ * Where the money we put back into skateboarding goes — a donut, a legend that
+ * carries the actual numbers, and a table underneath.
+ *
+ * A donut is a weak form for *comparing* values: nobody reads two arcs and
+ * knows which is bigger when they're close. It's used here because the job is
+ * part-to-whole at a glance, which it does well, and because the comparison
+ * never rests on the arcs — every amount and share is printed in the legend and
+ * again in the table. The ring shows the shape of the giving; the text carries
+ * the figures.
+ *
+ * Works with JavaScript off: the segments, the legend, the total, and the table
+ * are all rendered here. The script only adds highlighting.
+ */
+
+interface Slice {
+  label: string;
+  /** Whole dollars. Formatting happens here — don't pass a pre-formatted string. */
+  amount: number;
+  /** One short line of context, shown under the label in the legend. */
+  note?: string;
+}
+
+interface Props {
+  eyebrow?: string;
+  heading?: string;
+  body?: string;
+  items: Slice[];
+  /** Sits under the total in the middle of the ring. */
+  centerLabel?: string;
+  /** Small print under the chart — the place to say what period this covers. */
+  note?: string;
+  /** Anchor, for linking to this section from another page. */
+  id?: string;
+  background?: "paper" | "alt";
+}
+
+const {
+  eyebrow,
+  heading,
+  body,
+  items,
+  centerLabel = "given back",
+  note,
+  id,
+  background = "alt",
+} = Astro.props;
+
+/*
+ * Fixed colour slots, and the order is load-bearing — not a preference.
+ *
+ * These four were picked by running the palette validator against the paper
+ * surface: all sit inside the OKLCH lightness band, clear the chroma floor,
+ * and hold 3:1 against the background. The one soft spot is gold against green
+ * at ΔE 6.5 under deuteranopia, which sits in the band that is only allowed
+ * when colour isn't the sole channel — hence the 2px gaps between segments and
+ * the amounts printed in the legend and the table.
+ *
+ * Rose and green collapse into each other under deuteranopia (ΔE 3.6), so the
+ * order puts them opposite each other in the ring where they never touch.
+ * Reordering this array, or sorting the segments by value, would seat them
+ * side by side and undo that. If the categories change, re-run:
+ *
+ *   node scripts/validate_palette.js "#00789A,#3FA05A,#A9750A,#D93C74" \
+ *     --mode light --surface "#FAFAF8"
+ */
+const SLOT_COLORS = ["#00789A", "#3FA05A", "#A9750A", "#D93C74"];
+
+if (items.length > SLOT_COLORS.length) {
+  throw new Error(
+    `ContributionDonut takes at most ${SLOT_COLORS.length} slices, got ${items.length}. ` +
+      `A fifth colour can't be invented — the palette is validated for four and a ` +
+      `generated hue would be indistinguishable from one of these under colour-vision ` +
+      `deficiency. Fold the smallest categories into one "Everything else" slice.`
+  );
+}
+
+const total = items.reduce((sum, item) => sum + item.amount, 0);
+
+const money = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  maximumFractionDigits: 0,
+});
+
+/* ------------------------------------------------------------------ geometry */
+
+const SIZE = 250;
+const CENTER = SIZE / 2;
+const RADIUS = 92;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
+/*
+ * The 2px surface gap that separates touching marks. Drawn as a hole in the
+ * dash rather than a stroke around each segment, so it costs no extra ink.
+ */
+const GAP = 3;
+
+let walked = 0;
+
+const segments = items.map((item, i) => {
+  const share = total > 0 ? item.amount / total : 0;
+  const arc = share * CIRCUMFERENCE;
+  // Never let the gap eat a small slice entirely.
+  const dash = Math.max(arc - GAP, 1.5);
+  const segment = {
+    ...item,
+    color: SLOT_COLORS[i],
+    share,
+    percent: Math.round(share * 100),
+    amountLabel: money.format(item.amount),
+    dashArray: `${dash} ${CIRCUMFERENCE - dash}`,
+    dashOffset: -walked,
+  };
+  walked += arc;
+  return segment;
+});
+
+const totalLabel = money.format(total);
+---
+
+<section id={id} class:list={["section giving", { "section--alt": background === "alt" }]}>
+  <div class="container">
+    {
+      (eyebrow || heading || body) && (
+        <header class="head">
+          {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+          {heading && <h2>{heading}</h2>}
+          {body && <p class="head-body">{body}</p>}
+        </header>
+      )
+    }
+
+    <div class="layout" data-donut>
+      <figure class="chart">
+        {/*
+          Decorative: every figure in here is also printed in the legend and the
+          table below, so the ring has nothing of its own to announce. Marking it
+          hidden also keeps the readout from chattering as the pointer moves.
+        */}
+        <svg viewBox={`0 0 ${SIZE} ${SIZE}`} class="ring" aria-hidden="true">
+          <g transform={`rotate(-90 ${CENTER} ${CENTER})`}>
+            {
+              segments.map((segment, i) => (
+                <circle
+                  class="segment"
+                  data-slice={i}
+                  cx={CENTER}
+                  cy={CENTER}
+                  r={RADIUS}
+                  fill="none"
+                  stroke={segment.color}
+                  stroke-dasharray={segment.dashArray}
+                  stroke-dashoffset={segment.dashOffset}
+                />
+              ))
+            }
+          </g>
+        </svg>
+
+        <div class="readout" aria-hidden="true">
+          <span class="readout-value" data-readout-value>{totalLabel}</span>
+          <span class="readout-label" data-readout-label>{centerLabel}</span>
+        </div>
+      </figure>
+
+      <p class="visually-hidden">
+        {totalLabel} {centerLabel}, across {segments.length} areas.
+      </p>
+
+      <ul class="legend">
+        {
+          segments.map((segment, i) => (
+            <li>
+              <button
+                type="button"
+                class="legend-row"
+                data-slice={i}
+                aria-pressed="false"
+                style={`--slice-color: ${segment.color};`}
+              >
+                <span class="swatch" aria-hidden="true" />
+                <span class="legend-text">
+                  <span class="legend-label">{segment.label}</span>
+                  {segment.note && <span class="legend-note">{segment.note}</span>}
+                </span>
+                <span class="legend-figures">
+                  <span class="legend-amount">{segment.amountLabel}</span>
+                  <span class="legend-share">{segment.percent}%</span>
+                </span>
+              </button>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <details class="table-view">
+      <summary>View as a table</summary>
+      <table>
+        <caption class="visually-hidden">
+          Community contributions by area
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col">Area</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Share</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            segments.map((segment) => (
+              <tr>
+                <th scope="row">{segment.label}</th>
+                <td>{segment.amountLabel}</td>
+                <td>{segment.percent}%</td>
+              </tr>
+            ))
+          }
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="row">Total</th>
+            <td>{totalLabel}</td>
+            <td>100%</td>
+          </tr>
+        </tfoot>
+      </table>
+    </details>
+
+    {note && <p class="note">{note}</p>}
+  </div>
+</section>
+
+<style>
+  .head {
+    max-width: 54ch;
+    margin-bottom: 52px;
+  }
+
+  .head h2 {
+    font-size: var(--step-h2-section);
+    margin: 0 0 14px;
+  }
+
+  .head-body {
+    font-size: 18px;
+    color: var(--ink-70);
+    margin: 0;
+  }
+
+  .layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 64px;
+    align-items: center;
+  }
+
+  /* ----------------------------------------------------------------- ring */
+
+  .chart {
+    position: relative;
+    margin: 0;
+    width: 250px;
+    flex: none;
+  }
+
+  .ring {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+
+  .segment {
+    stroke-width: 34;
+    transform-origin: center;
+    /*
+     * The stroke is the hit target — with no fill there is nothing to catch the
+     * pointer in the middle of the ring, which is what we want. Keyboard access
+     * comes from the legend buttons, so these stay out of the tab order.
+     */
+    cursor: pointer;
+    transition:
+      stroke-width var(--dur) var(--ease),
+      opacity var(--dur) var(--ease);
+    /*
+     * In forced-colours mode the browser repaints every stroke to the same
+     * system colour, which would leave four identical arcs. The legend and
+     * table still carry the numbers, but the ring may as well stay readable.
+     */
+    forced-color-adjust: none;
+  }
+
+  /* Thickens radially, so the segment keeps its angle and its neighbours' gaps. */
+  .layout[data-active] .segment[data-state="active"] {
+    stroke-width: 42;
+  }
+
+  .layout[data-active] .segment:not([data-state="active"]) {
+    opacity: 0.24;
+  }
+
+  .readout {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    text-align: center;
+    pointer-events: none;
+    padding-inline: 46px;
+  }
+
+  .readout-value {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 34px;
+    line-height: 1;
+    color: var(--ink);
+  }
+
+  .readout-label {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+    text-wrap: balance;
+  }
+
+  /* --------------------------------------------------------------- legend */
+
+  .legend {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    max-width: 56ch;
+  }
+
+  .legend-row {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: baseline;
+    gap: 16px;
+    width: 100%;
+    font-family: var(--font-body);
+    text-align: left;
+    background: transparent;
+    border: 0;
+    border-radius: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: background var(--dur) var(--ease);
+  }
+
+  .legend-row:hover {
+    background: rgba(46, 42, 40, 0.05);
+  }
+
+  .legend-row[aria-pressed="true"] {
+    background: rgba(46, 42, 40, 0.08);
+  }
+
+  .swatch {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background: var(--slice-color);
+    /* Nudged down so it optically centres on the label's first line. */
+    transform: translateY(2px);
+    forced-color-adjust: none;
+  }
+
+  .legend-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  /*
+   * Text wears text colours, never the series colour — the swatch beside it is
+   * what carries identity. A label tinted to match its segment reads as a
+   * second, weaker copy of the same information.
+   */
+  .legend-label {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .legend-note {
+    font-size: 15px;
+    color: var(--ink-55);
+  }
+
+  .legend-figures {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    white-space: nowrap;
+  }
+
+  .legend-amount {
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 21px;
+    color: var(--ink);
+  }
+
+  .legend-share {
+    font-size: 15px;
+    color: var(--ink-55);
+    /* Holds the column steady whether the share is 7% or 47%. */
+    min-width: 4ch;
+    text-align: right;
+  }
+
+  /* ----------------------------------------------------------- table view */
+
+  .table-view {
+    margin-top: 40px;
+    max-width: 56ch;
+  }
+
+  .table-view summary {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--ink-70);
+    cursor: pointer;
+    padding: 6px 0;
+  }
+
+  .table-view table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 12px;
+    font-size: 16px;
+  }
+
+  .table-view th,
+  .table-view td {
+    text-align: left;
+    padding: 10px 14px 10px 0;
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .table-view td {
+    text-align: right;
+  }
+
+  .table-view thead th {
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-55);
+  }
+
+  .table-view thead th:not(:first-child) {
+    text-align: right;
+  }
+
+  .table-view tbody th {
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .table-view tfoot th,
+  .table-view tfoot td {
+    font-weight: 700;
+    border-bottom: 0;
+  }
+
+  .note {
+    font-size: 15px;
+    color: var(--ink-50);
+    margin: 32px 0 0;
+    max-width: 60ch;
+  }
+
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+      gap: 36px;
+      justify-items: center;
+    }
+
+    .legend {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .legend-row {
+      grid-template-columns: 14px 1fr;
+      gap: 8px 14px;
+    }
+
+    /* Figures drop under the label rather than squeezing it to two words. */
+    .legend-figures {
+      grid-column: 2;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .segment,
+    .legend-row {
+      transition: none;
+    }
+  }
+</style>
+
+<script>
+  /*
+   * Highlighting. Hover and keyboard focus preview a slice; clicking pins it so
+   * it survives the pointer leaving, which is what you want on a phone and when
+   * reading the figure rather than hunting for it.
+   *
+   * The legend rows are the real controls — they are buttons, so they are in the
+   * tab order and announce their pressed state for free. The ring mirrors them.
+   */
+  for (const root of document.querySelectorAll<HTMLElement>("[data-donut]")) {
+    const segments = root.querySelectorAll<SVGCircleElement>(".segment");
+    const rows = root.querySelectorAll<HTMLButtonElement>(".legend-row");
+    const value = root.querySelector<HTMLElement>("[data-readout-value]");
+    const label = root.querySelector<HTMLElement>("[data-readout-label]");
+
+    if (!value || !label) continue;
+
+    // The untouched state, to restore when nothing is selected.
+    const totalValue = value.textContent ?? "";
+    const totalLabel = label.textContent ?? "";
+
+    let pinned: number | null = null;
+
+    const show = (index: number | null) => {
+      if (index === null) {
+        delete root.dataset.active;
+        value.textContent = totalValue;
+        label.textContent = totalLabel;
+      } else {
+        root.dataset.active = String(index);
+        const row = rows[index];
+        value.textContent = row.querySelector(".legend-amount")?.textContent ?? "";
+        // Labels come from page content — assign as text, never as markup.
+        label.textContent = row.querySelector(".legend-label")?.textContent ?? "";
+      }
+
+      segments.forEach((segment, i) => {
+        if (i === index) segment.dataset.state = "active";
+        else delete segment.dataset.state;
+      });
+
+      rows.forEach((row, i) => {
+        row.setAttribute("aria-pressed", String(pinned === i));
+      });
+    };
+
+    const preview = (index: number) => show(index);
+    const clear = () => show(pinned);
+
+    const togglePin = (index: number) => {
+      pinned = pinned === index ? null : index;
+      show(pinned);
+    };
+
+    rows.forEach((row, i) => {
+      row.addEventListener("pointerenter", () => preview(i));
+      row.addEventListener("pointerleave", clear);
+      row.addEventListener("focus", () => preview(i));
+      row.addEventListener("blur", clear);
+      row.addEventListener("click", () => togglePin(i));
+    });
+
+    segments.forEach((segment, i) => {
+      segment.addEventListener("pointerenter", () => preview(i));
+      segment.addEventListener("pointerleave", clear);
+      segment.addEventListener("click", () => togglePin(i));
+    });
+
+    root.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && pinned !== null) {
+        pinned = null;
+        show(null);
+      }
+    });
+  }
+</script>
