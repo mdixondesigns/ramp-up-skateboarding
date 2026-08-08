@@ -1,12 +1,33 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CheckerboardSection from "../../components/CheckerboardSection.astro";
+import ContributionDonut from "../../components/ContributionDonut.astro";
 import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+import {
+  contributions,
+  contributionPeriod,
+  hasContributionFigures,
+} from "../../data/contributions";
 
 import resiliencePhoto from "../../assets/photos/rootdown-37.jpg";
 import resourcefulnessPhoto from "../../assets/photos/rootdown-54.jpg";
 import confidencePhoto from "../../assets/photos/ramp_up-54.jpg";
 import expressionPhoto from "../../assets/photos/radnor-144.jpg";
+
+/*
+ * Written once and used by both branches below — the chart carries this copy
+ * as its own header when there are figures to show, and the fallback section
+ * says the same thing above a build-out note when there aren't.
+ *
+ * TODO(Christine): this is a first draft of the copy. It describes what the
+ * four spending categories are, so check it says what you actually do.
+ */
+const givingCopy = {
+  eyebrow: "Engage the community",
+  heading: "We're a customer of the scene we serve",
+  body: "A program that takes from skateboarding and puts nothing back isn't really part of it. We pay our coaches for their time, buy from the shops down the road rather than online, hire the photographers who shoot our sessions, and give directly to the parks and ramps our kids ride.",
+};
 
 const pillars = [
   {
@@ -69,6 +90,47 @@ const pillars = [
     rows={pillars}
     background="alt"
   />
+
+  {
+    /*
+     * The chart only exists once there are real figures. Until then the section
+     * keeps its copy and shows a build-out note where the chart goes — the same
+     * treatment the Sawyer spots get. What it never does is draw a donut out of
+     * stand-in numbers, which would read as a factual claim about money.
+     */
+    hasContributionFigures ? (
+      <ContributionDonut
+        id="supporting-the-scene"
+        eyebrow={givingCopy.eyebrow}
+        heading={givingCopy.heading}
+        body={givingCopy.body}
+        items={contributions}
+        centerLabel="back into the scene"
+        note={
+          contributionPeriod
+            ? `Figures cover ${contributionPeriod}. Shares are rounded to the nearest percent.`
+            : undefined
+        }
+        background="paper"
+      />
+    ) : (
+      <section id="supporting-the-scene">
+        <div class="container">
+          <p class="eyebrow">{givingCopy.eyebrow}</p>
+          <h2>{givingCopy.heading}</h2>
+          <p>{givingCopy.body}</p>
+
+          <div class="todo">
+            TODO(Christine): the breakdown chart appears here as soon as
+            <code>src/data/contributions.ts</code> has real figures in it. It is
+            deliberately not drawn with stand-in amounts &mdash; these are public
+            claims about money, and a wrong one reads as a fact rather than as an
+            obvious placeholder.
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section>
     <div class="container">

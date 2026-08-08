@@ -541,8 +541,12 @@ Reordering `items`, or adding a fifth, breaks that. The component will refuse to
 build if you pass more than four, with a message saying so. If you need a fifth
 category, fold the smallest ones into a single "Everything else" slice.
 
-**On the numbers:** these are public claims about money. Put in real figures or
-leave the component off the page — there is no placeholder mode, on purpose.
+**On the numbers:** these are public claims about money, so there is no
+placeholder mode on purpose. On the Philosophy page the amounts come from
+`src/data/contributions.ts`, and until that file has real figures the section
+shows its copy above a build-out note instead of the chart. Fill the file in and
+the chart appears; there is no other switch to flip. See
+[The data files](#10-the-data-files).
 
 ### Cards
 
@@ -1005,6 +1009,37 @@ The `featured` line is what puts a quote in the dark band on the home page — o
 three should have it. To swap which three, move the `featured` line to different
 entries, keeping the `portrait`/`ring`/`ply` values distinct so the trio doesn't
 look repetitive. Quotes without it are still stored for later use.
+
+### `src/data/contributions.ts` — the giving breakdown
+
+Feeds the chart in the "We're a customer of the scene we serve" section on
+[Our Philosophy](/about/philosophy). Four lines sit commented out, ready to fill
+in:
+
+```ts
+export const contributionPeriod = "January to December 2025";
+
+export const contributions: Contribution[] = [
+  { label: "Coaches", amount: 28500, note: "Paid session rates and certification costs" },
+  { label: "Local skate shops", amount: 9400, note: "Boards and hardware bought locally" },
+  { label: "Photography", amount: 6200, note: "Working photographers at clinics" },
+  { label: "Skateparks and ramps", amount: 14750, note: "Direct donations to build and repair" },
+];
+```
+
+Delete the `//` from the start of each line, put in the real amounts, and set
+`contributionPeriod`. The chart appears on the page as soon as the list has
+entries — nothing else to switch on.
+
+`amount` is a plain number: `28500`, not `"$28,500"`. The dollar formatting, the
+percentages, and the total are all worked out for you.
+
+⚠️ **Until this file is filled in, the section on Philosophy shows its copy above
+a yellow build-out note where the chart goes.** That is deliberate. Every other
+placeholder on this site is obviously a placeholder — a stand-in venue name
+fools nobody — but a stand-in dollar figure reads as a fact, and it would be a
+public claim about money that isn't true. Four entries maximum; see
+[ContributionDonut](#contributiondonut) for why.
 
 ### `src/data/partners.ts` — logo wall
 
