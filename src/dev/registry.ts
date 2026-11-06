@@ -10,21 +10,21 @@
  *     title: "Stat band",
  *     group: "Sections",
  *     description: "Both tones, with and without a heading.",
- *     background: "alt",   // paper | alt | ink — the canvas it looks right on
- *     width: "1280",       // full | 1280 | 768 | 375 — a sensible opening width
+ *     background: "alt",   // paper | alt | ink. The canvas it looks right on
+ *     width: "1280",       // full | 1280 | 768 | 375. A sensible opening width
  *     order: 2,            // position within its group
  *   };
  *   ---
  *
  * Nothing here reaches production. The glob is behind `import.meta.env.DEV`,
- * which Vite replaces with a literal `false` in a build — the object literal
+ * which Vite replaces with a literal `false` in a build. The object literal
  * holding the dynamic imports is then dead code, so the stories and their
  * styles are never emitted at all, not merely never linked.
  */
 
 /*
  * The renderable a story module exports. Astro's own generated types reach into
- * the runtime for this — `import.meta.glob` can't know it, so we say it here
+ * the runtime for this. `import.meta.glob` can't know it, so we say it here
  * once rather than casting at every use.
  */
 type AstroComponent = (props: Record<string, unknown>) => unknown;
@@ -68,7 +68,7 @@ function titleFromSlug(slug: string): string {
   return words.charAt(0).toUpperCase() + words.slice(1);
 }
 
-/** Slugs alone, for `getStaticPaths` — no need to load a module to route. */
+/** Slugs alone, for `getStaticPaths`: no need to load a module to route. */
 export const storySlugs: string[] = Object.keys(loaders).map(slugFromPath);
 
 export async function loadStories(): Promise<Story[]> {

@@ -20,17 +20,17 @@ import gearPhoto from "../assets/photos/radnor-44.jpg";
 const steps = [
   {
     number: 1,
-    title: "Show up empty-handed",
+    title: "Bring a helmet",
     color: "var(--cyan)",
     texture: "dots" as const,
-    body: "Boards, helmets, and pads in every size come out of the van. Just bring closed-toe shoes.",
+    body: "Boards come out of the van, sized for every kid. You bring a helmet and closed-toe shoes. That's the whole list.",
   },
   {
     number: 2,
-    title: "Learn to fall first",
+    title: "Start with the wheels locked",
     color: "var(--pink)",
     texture: "hatch" as const,
-    body: "Before tricks, before speed. Falling safely is the first thing a certified coach teaches.",
+    body: "Every kid's first minutes are on a board that can't roll away. Then we unlock it. Nobody gets moving before they're ready.",
   },
   {
     number: 3,
@@ -42,15 +42,17 @@ const steps = [
 ];
 
 const pillars = [
-  { color: "var(--cyan)", label: "Certified, background-checked instructors" },
+  // "lead" is load-bearing. Assistant coaches are not USSEA certified, and the
+  // ones under 18 do not carry the PA clearances. See docs/kb/operations.md.
+  { color: "var(--cyan)", label: "USSEA-certified, background-checked lead coaches" },
   { color: "var(--pink)", label: "Small groups, grouped by age" },
   { color: "var(--yellow)", label: "Helmets required, every single time" },
 ];
 ---
 
 <BaseLayout
-  title="Youth Skateboarding Programs & Camps"
-  description="Never touched a board? Perfect. Free mobile skateboarding clinics for kids 5–14 across Greater Lancaster, PA. We bring the boards, helmets, and patient coaches."
+  title="Youth Skateboarding Programs"
+  description="Never touched a board? Perfect. Free mobile skateboarding clinics for kids 5–14 across Greater Lancaster, PA. We bring the boards and the patient coaches. You bring a helmet."
   ogImage={heroPhoto.src}
 >
   {/* ------------------------------------------------------------- hero */}
@@ -81,7 +83,7 @@ const pillars = [
 
       <p class="hero-lede">
         Most kids at our clinics have never stood on a skateboard before. We
-        bring the boards, the helmets, and the patient coaches.
+        bring the boards and the patient coaches. You bring a helmet.
       </p>
 
       <div class="hero-actions">
@@ -99,7 +101,8 @@ const pillars = [
       <header class="section-head">
         <h2>What a first day actually looks like</h2>
         <p class="section-sub">
-          No experience, no equipment, no cost. Here is the whole thing.
+          No experience needed, nothing to buy, and it costs nothing. Here is
+          the whole thing.
         </p>
       </header>
 
@@ -134,11 +137,12 @@ const pillars = [
       <div class="gear-scrim" aria-hidden="true"></div>
 
       <div class="gear-content">
-        <p class="eyebrow">Gear included</p>
-        <h2>We bring 40 boards. Yours to borrow.</h2>
+        <p class="eyebrow">Boards included</p>
+        <h2>We bring the boards. Yours to borrow.</h2>
         <p class="gear-body">
-          Helmets, wrist guards, knee and elbow pads in every size, sanitised
-          between sessions. Nothing to buy before you know your kid likes it.
+          A board for every kid, sized to them, so there's nothing to buy before
+          you know your kid likes it. Bring a helmet. Pads are up to you, and we
+          strongly recommend wrist guards for kids over 100 pounds.
         </p>
         <a class="button button--primary button--sm" href="#join">
           Get clinic dates by email
@@ -187,7 +191,7 @@ const pillars = [
   <section class="section section--alt clinics">
     {/*
       Six decorative parallax shapes, clipped by the section's overflow.
-      Purely atmospheric — aria-hidden and skipped under reduced motion.
+      Purely atmospheric. Aria-hidden and skipped under reduced motion.
     */}
     <div class="shapes" aria-hidden="true">
       <div class="shape shape--1" data-parallax="0.5"></div>
@@ -209,8 +213,7 @@ const pillars = [
       </div>
 
       <p class="clinics-note">
-        Registration is handled by Sawyer. Pre-registration required &mdash;
-        space is limited.
+        Registration is handled by Sawyer. Pre-registration required, space is limited.
       </p>
     </div>
   </section>
@@ -220,7 +223,7 @@ const pillars = [
   <PartnerGrid />
 
   {/*
-    Carried over from the old homepage — heading and body are the client's
+    Carried over from the old homepage. Heading and body are the client's
     own copy. The player itself only loads once someone presses play.
   */}
   <VideoFeature
@@ -236,7 +239,7 @@ const pillars = [
 
 <style>
   /* ------------------------------------------------------------------ hero */
-  /* Height lives here, not on the photo — the photo is absolute and overscanned. */
+  /* Height lives here, not on the photo. The photo is absolute and overscanned. */
   .hero {
     position: relative;
     height: 700px;

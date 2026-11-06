@@ -22,8 +22,33 @@ fears, usually unspoken:
    quit in a week.
 2. This looks dangerous.
 
+Every page answers both without waiting to be asked.
+
 They are not skaters. Assume no vocabulary. Explain any skate term on first
 use, in the sentence, not in a glossary link. See `terminology.md`.
+
+## What good sounds like
+
+Real lines already on the site, kept here as reference:
+
+- "Never touched a board? Perfect."
+- "We bring the boards. Yours to borrow."
+- "Then you spent a Saturday morning outside and it cost you nothing."
+- "Good. Skateboarding has no bench and no scoreboard."
+- "A friendly door, not a form wall."
+- "The success rate for brick-and-mortar skate shops is criminally low."
+
+That last one is the most important line on the site. Admitting something
+unflattering is what makes everything else believable. Do not polish honesty out.
+
+## What bad sounds like
+
+- "Structured progression over a season" instead of "week 3 is the day they
+  drop in on a ramp"
+- "Certified and background-checked" with nothing concrete behind it
+- "Unlock your child's potential"
+- "We are passionate about empowering youth"
+- Any sentence a parks department could have written
 
 ## Specificity beats warmth
 

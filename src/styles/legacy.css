@@ -1,5 +1,5 @@
 /*
- * TRANSITIONAL — delete a rule when the page using it gets redesigned.
+ * TRANSITIONAL. Delete a rule when the page using it gets redesigned.
  *
  * The Claude Design handoff covers Home, Parent Resources, and the Article
  * template. The remaining pages (Programs, About, Get involved, Contact) still
@@ -41,7 +41,7 @@
  * Legacy grid modifiers.
  *
  * These were `auto-fit, minmax(260px, 1fr)`, which meant `cols-2` laid five
- * cards out in four columns on a wide screen — the name promised two. Explicit
+ * cards out in four columns on a wide screen. The name promised two. Explicit
  * counts, stepping down the way the design system's own grids do.
  */
 .grid.cols-2 {
@@ -88,7 +88,7 @@ main > section:not([class]) .card {
  * Vertical rhythm.
  *
  * Every h1–h4 carries `margin-top: 0` from global.css, which is right for the
- * designed sections — they position their own headings and would fight an
+ * designed sections. They position their own headings and would fight an
  * inherited margin. These pages are plain document flow instead, so a heading
  * that follows a card grid or a photo lands hard against it. The space has to
  * come back, and it belongs here rather than in global.css so it disappears
@@ -122,7 +122,7 @@ main > section:not([class]) h2 + h3 {
 
 /*
  * Card grids and the build-out notes are blocks, and need to breathe as blocks.
- * Not `.placeholder-photo` — it is a grid item on the team page, where a top
+ * Not `.placeholder-photo`. It is a grid item on the team page, where a top
  * margin would drop it out of line with the prose column beside it.
  */
 main > section:not([class]) .grid,
@@ -134,7 +134,7 @@ main > section:not([class]) .todo {
  * Reading measure.
  *
  * These pages drop prose straight into the 1280px container, which runs a
- * paragraph out to roughly 140 characters — about twice the distance anyone
+ * paragraph out to roughly 140 characters. About twice the distance anyone
  * wants to track back across to find the next line. The numbers match what the
  * designed pages already use: 68ch for body copy, 44–46ch for a lede.
  *
@@ -152,7 +152,7 @@ main > section:not([class]) > .container > .lede {
 
 /*
  * `ch` scales with the element's own font size, so headings need their own
- * number — 68ch of an h1 is most of the viewport again.
+ * number. 68ch of an h1 is most of the viewport again.
  */
 main > section:not([class]) > .container > :is(h1, h2, h3) {
   max-width: 28ch;
@@ -160,7 +160,7 @@ main > section:not([class]) > .container > :is(h1, h2, h3) {
 
 /*
  * Inline links, wearing the design system's yellow underline. Without it these
- * pages render links in the body color with no underline at all — there is
+ * pages render links in the body color with no underline at all. There is
  * nothing to tell a reader they are links.
  */
 main > section:not([class]) :is(p, li) a:not(.button) {

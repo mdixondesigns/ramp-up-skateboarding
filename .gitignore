@@ -32,3 +32,6 @@ pnpm-debug.log*
 # and the handoff spec lives at docs/design-system.md.
 design_handoff_ramp_up_site/
 design_insp/
+
+# Working drafts and briefs from Claude sessions, not site source.
+Claude outputs/

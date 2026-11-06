@@ -1,29 +1,81 @@
 ---
+/**
+ * Wraps a Sawyer self-embed widget.
+ *
+ * TO ADD A WIDGET: generate the embed code in Sawyer (My Account > Settings >
+ * Self-Embed Widgets), then paste it between the tags on the page:
+ *
+ *   <SawyerEmbed label="Foundations programs">
+ *     <div id="sawyer-xxxxx"></div>
+ *     <script is:inline src="https://..."></script>
+ *   </SawyerEmbed>
+ *
+ * Note the `is:inline` on the script tag. Without it Astro tries to bundle the
+ * script and Sawyer's loader won't run.
+ *
+ * Docs: https://help.hisawyer.com/en/articles/11105549-self-embed-widgets
+ *
+ * WITH NO WIDGET PASTED IN, this renders a plain card written for a parent. It
+ * must never show a note written to ourselves. The previous version published
+ * build instructions on live pages. See docs/kb/content-rules.md.
+ */
 interface Props {
+  /** What this widget lists. Used for the accessible label, not shown as body copy. */
   label: string;
+  /** Overrides the fallback card's body when a page needs different wording. */
+  fallbackBody?: string;
+  /** Anchor for the fallback's email button. Matches the EmailSignupBand id on the page. */
+  signupHref?: string;
 }
 
-const { label } = Astro.props;
+const {
+  label,
+  fallbackBody = "We're setting the next round of dates right now. They go out to our email list first, so that's the best place to catch them.",
+  signupHref = "#join",
+} = Astro.props;
+
+const hasWidget = Astro.slots.has("default");
 ---
 
-<!--
-  TODO(Christine): generate this widget from your Sawyer for Business
-  portal (My Account > Settings > Self-Embed Widgets) and paste the embed
-  code here in place of this placeholder div. Docs:
-  https://help.hisawyer.com/en/articles/11105549-self-embed-widgets
--->
-<div class="todo sawyer-placeholder">
-  Sawyer widget goes here: <strong>{label}</strong>. Generate the embed code
-  from your Sawyer portal's Self-Embed Widgets tool and paste it in this
-  component.
-</div>
+{
+  hasWidget ? (
+    <div class="sawyer" role="region" aria-label={label}>
+      <slot />
+    </div>
+  ) : (
+    <div class="card sawyer-soon">
+      <h3>Dates are on the way</h3>
+      <p>{fallbackBody}</p>
+      <p class="actions">
+        <a class="button button--primary button--sm" href={signupHref}>
+          Get dates by email
+        </a>
+        <a class="button button--ghost button--sm" href="/contact">
+          Ask us a question
+        </a>
+      </p>
+    </div>
+  )
+}
 
 <style>
-  .sawyer-placeholder {
-    min-height: 120px;
+  .sawyer {
+    margin: 24px 0;
+  }
+
+  .sawyer-soon {
+    margin: 24px 0;
+    max-width: 56ch;
+  }
+
+  .sawyer-soon h3 {
+    margin-bottom: 0.5rem;
+  }
+
+  .actions {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 16px 0 0;
   }
 </style>

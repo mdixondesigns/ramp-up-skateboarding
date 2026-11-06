@@ -5,10 +5,10 @@ import { glob } from "astro/loaders";
 /**
  * Content collections.
  *
- * `guides`  — Parent Resources articles. Adding one is a matter of dropping a
+ * `guides`: Parent Resources articles. Adding one is a matter of dropping a
  *             .md file in src/content/guides/; the route, card, category filter,
  *             and "read next" picks all follow from the frontmatter.
- * `updates` — Community Updates posts, same idea with a lighter schema.
+ * `updates`: Community Updates posts, same idea with a lighter schema.
  */
 
 /** Matches the category label colors in tokens.css. Keep the two in sync. */

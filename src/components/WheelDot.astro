@@ -5,12 +5,12 @@
  *
  * The ring is a border, not a filled circle with a second circle on top, so
  * whatever sits behind shows through the hub. That matters because these land
- * on white cards, ink blocks, and translucent pills over photography — a
+ * on white cards, ink blocks, and translucent pills over photography. A
  * faked hub would have to know its backdrop, and would be wrong the moment
  * the backdrop changed.
  */
 interface Props {
-  /** Ring color. Brand hues only — this is a shape, never text. */
+  /** Ring color. Brand hues only. This is a shape, never text. */
   color?: string;
   size?: number;
   class?: string;

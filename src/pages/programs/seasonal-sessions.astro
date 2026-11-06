@@ -1,81 +1,28 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SessionCard from "../../components/SessionCard.astro";
-import EmailSignupBand from "../../components/EmailSignupBand.astro";
-
-import sessionPhoto from "../../assets/photos/ramp_up-66.jpg";
-
-// TODO(Christine): edit this list directly each season — add and remove entries
-// as sessions open and close, and give each one its Sawyer listing URL and a
-// photo from src/assets/photos/. A session with no `registerUrl` shows
-// "Registration opens soon" instead of a button, so nothing links to a 404.
-const currentSessions = [
-  {
-    name: "Fall 2026 Skate Club",
-    location: "Lancaster Rec Center",
-    ages: "Ages 6-12",
-    blurb: "A multi-week progression session for kids ready to go beyond a single clinic.",
-    image: sessionPhoto,
-    imageAlt:
-      "A Ramp Up coach crouching to talk to a group of kids standing on their boards, two of them with a hand raised",
-    registerUrl: "",
-  },
-];
+/**
+ * Retired. Foundations and Intermediate replaced this page, and /programs is
+ * now the live listing. Kept only as a redirect so old links, bookmarks and
+ * search results land somewhere useful instead of a 404.
+ *
+ * If the host supports real 301s (Netlify _redirects, Vercel, Cloudflare),
+ * move the rule there and delete this file. A meta refresh works everywhere,
+ * but a server-side 301 passes link equity properly.
+ */
+const target = "/programs";
+const canonical = new URL(target, Astro.site ?? "https://rampupskateboarding.com").href;
 ---
 
-<BaseLayout
-  title="Seasonal Sessions"
-  description="Multi-week skateboarding sessions for kids ready to progress beyond a free clinic."
->
-  <section class="section">
-    <div class="container">
-      <p class="eyebrow">Programs &rsaquo; Seasonal Sessions</p>
-      <h1>The next step after a free clinic.</h1>
-      <p class="lede">
-        A real progression over a season &mdash; for kids who tried a free
-        clinic and want more. Each session registers on Sawyer.
-      </p>
-
-      <div class="grid grid--3 sessions">
-        {currentSessions.map((session) => <SessionCard {...session} />)}
-      </div>
-
-      <p class="note">
-        Scholarship spots are held in every session &mdash;
-        <a class="link-underline" href="/contact">just ask</a>, no forms.
-      </p>
-    </div>
-  </section>
-
-  <EmailSignupBand
-    heading="Between seasons?"
-    body="Session dates go out by email first. One short note a month — nothing else."
-  />
-</BaseLayout>
-
-<style>
-  h1 {
-    font-size: var(--step-h2-section);
-    margin: 0 0 18px;
-  }
-
-  .lede {
-    max-width: 48ch;
-    margin: 0;
-  }
-
-  .sessions {
-    margin-top: 44px;
-    /*
-     * Cards are sized for a full row. With one or two sessions running, a
-     * stretched card would read as a banner rather than one of a set.
-     */
-    align-items: start;
-  }
-
-  .note {
-    font-size: 15px;
-    color: var(--ink-50);
-    margin: 32px 0 0;
-  }
-</style>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Moved to Programs</title>
+    <meta http-equiv="refresh" content={`0; url=${target}`} />
+    <link rel="canonical" href={canonical} />
+    <meta name="robots" content="noindex, follow" />
+  </head>
+  <body>
+    <p>This page has moved. <a href={target}>Go to Programs</a>.</p>
+  </body>
+</html>

@@ -2,7 +2,7 @@
  * What Ramp Up puts back into the skateboarding community, by area.
  *
  * TODO(Christine): fill this in with real figures. Uncomment the four lines
- * below, put in the amounts, and set the period — the chart appears on
+ * below, put in the amounts, and set the period. The chart appears on
  * /about/philosophy the moment this list has entries, and the section falls
  * back to a build-out note until then.
  *
@@ -11,7 +11,7 @@
  * mistake; a wrong dollar figure reads as a fact and would be a public claim
  * about money that isn't true.
  *
- * Four entries maximum. The chart's colours are validated as a set of four —
+ * Four entries maximum. The chart's colours are validated as a set of four,
  * see the note in ContributionDonut.astro for why a fifth can't just be added.
  * If you need more areas, fold the smallest into one "Everything else" row.
  */

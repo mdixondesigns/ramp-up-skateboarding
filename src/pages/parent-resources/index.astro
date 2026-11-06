@@ -4,7 +4,6 @@ import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PlyStripe from "../../components/PlyStripe.astro";
 import PatternOverlay from "../../components/PatternOverlay.astro";
-import WheelDot from "../../components/WheelDot.astro";
 import CardCap from "../../components/CardCap.astro";
 import GuideCard from "../../components/GuideCard.astro";
 import EmailSignupBand from "../../components/EmailSignupBand.astro";
@@ -18,19 +17,19 @@ const otherGuides = allGuides.filter((g) => g.id !== featuredGuide?.id);
 const quickAnswers = [
   {
     question: "What should they wear?",
-    answer: "Closed-toe sneakers, long pants if you have them. That's the whole list.",
+    answer: "A helmet, closed-toe sneakers, and long pants if you have them.",
     color: "var(--cyan)",
     texture: "dots" as const,
   },
   {
     question: "Do we bring a board?",
-    answer: "No. We bring 40 boards plus helmets and pads in every size, free to borrow.",
+    answer: "No, we bring the boards, sized for every kid and free to borrow. Do bring a helmet.",
     color: "var(--pink)",
     texture: "hatch" as const,
   },
   {
     question: "Is it actually safe?",
-    answer: "Helmets are required every session, and falling is the first skill we teach.",
+    answer: "Helmets are required every session, beginners start on boards with the wheels locked, and one coach never has more than six kids.",
     color: "var(--yellow)",
     texture: "arcs" as const,
   },
@@ -42,31 +41,11 @@ const quickAnswers = [
   },
 ];
 
-// TODO(Christine): these need real PDFs. Drop them in public/downloads/ and
-// give each row an `href` — they are deliberately not links until then.
-const downloads = [
-  {
-    title: "Participant waiver",
-    meta: "PDF · one page · one per child",
-    color: "var(--cyan)",
-  },
-  {
-    title: "Clinic day checklist",
-    meta: "PDF · what to bring, what to skip",
-    color: "var(--pink)",
-  },
-  {
-    title: "Beginner gear shopping list",
-    meta: "PDF · price ranges, no brand deals",
-    color: "var(--yellow)",
-  },
-];
-
 const faqs = [
   {
     question: "What does a clinic cost?",
     answer:
-      "Our community clinics are free. Seasonal sessions and private lessons are paid, with scholarship spots in every session — just ask, no forms.",
+      "Our community clinics are free. Foundations, Intermediate and private lessons are paid. Scholarship spots and payment plans are sometimes available, so just ask. There are no forms.",
   },
   {
     question: "What if it rains?",
@@ -84,9 +63,14 @@ const faqs = [
       "Each child needs their own registration so we have the right gear sizes and coach ratio, but we always try to keep siblings in the same session.",
   },
   {
+    question: "Does my kid need pads?",
+    answer:
+      "We require a helmet. Pads are your call. Foundations is the opposite of the X Games, all bunny slopes and slow speeds, and we find the discomfort of pads bothers a kid more than the thing they protect against. Plenty of families use them anyway and we are all for it. For bigger kids we strongly recommend wrist guards.",
+  },
+  {
     question: "Are the coaches vetted?",
     answer:
-      "Every coach is background-checked and certified, and there is never a session with a single adult on site.",
+      "Every coach 18 and older carries all three Pennsylvania clearances, and we keep them on file. Lead coaches are certified through USSEA, which covers First Aid, CPR, concussion training, and abuse prevention. Assistant coaches under 18 always work alongside a lead coach.",
   },
   {
     question: "What if they hate it?",
@@ -184,60 +168,13 @@ const faqs = [
     </div>
   </section>
 
-  {/* --------------------------------------------------------- downloads */}
-  <section class="inset">
-    <div class="block-dark on-dark downloads">
-      <PatternOverlay
-        pattern="tile"
-        opacity={0.36}
-        mask="radial-gradient(130% 100% at 100% 100%, #000 12%, transparent 68%)"
-      />
-
-      <div class="downloads-grid">
-        <div>
-          <p class="eyebrow">Print and go</p>
-          <h2>Paperwork, handled early</h2>
-          <p class="downloads-body">
-            Fill the waiver at home and check-in takes two minutes instead of ten.
-          </p>
-        </div>
-
-        <ul class="download-list">
-          {
-            downloads.map((item) => (
-              <li>
-                <div class="row-dark download-row">
-                  <WheelDot color={item.color} size={42} />
-                  <span class="download-text">
-                    <span class="download-title">{item.title}</span>
-                    <span class="download-meta">{item.meta}</span>
-                  </span>
-                  <span class="download-icon" aria-hidden="true">
-                    &#8595;
-                  </span>
-                </div>
-              </li>
-            ))
-          }
-        </ul>
-      </div>
-
-      <p class="downloads-todo todo">
-        TODO(Christine): these three rows need real PDFs before launch. Add them
-        to <code>public/downloads/</code> and give each row an <code>href</code>
-        in this page's frontmatter — they're intentionally not clickable yet so
-        nobody lands on a 404.
-      </p>
-    </div>
-  </section>
-
   {/* --------------------------------------------------------------- faq */}
   <section class="faq">
     <div class="container">
       <h2 class="faq-head">Still wondering</h2>
       <p class="faq-sub">The questions we get most often in the parking lot.</p>
 
-      {/* An always-open grid, not an accordion — parents scan. */}
+      {/* An always-open grid, not an accordion. Parents scan. */}
       <div class="faq-grid">
         {
           faqs.map((faq) => (
@@ -253,7 +190,7 @@ const faqs = [
 
   <EmailSignupBand
     heading="Still have a question?"
-    body="Email us and a coach answers — usually the same day. Or get clinic dates in your inbox before they fill."
+    body="Email us and a coach answers, usually the same day. Or get clinic dates in your inbox before they fill."
   />
 </BaseLayout>
 
@@ -416,72 +353,6 @@ const faqs = [
 
   .guides-head {
     margin-bottom: 26px;
-  }
-
-  /* ----------------------------------------------------------- downloads */
-  .downloads {
-    margin-bottom: var(--section-y);
-    padding-block: 72px;
-  }
-
-  .downloads-grid {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1.15fr;
-    gap: 56px;
-    align-items: center;
-  }
-
-  .downloads-grid h2 {
-    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.75rem);
-    margin: 0 0 16px;
-  }
-
-  .downloads-body {
-    font-size: 18px;
-    margin: 0;
-  }
-
-  .download-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .download-text {
-    flex: 1;
-  }
-
-  .download-title {
-    display: block;
-    font-size: 17px;
-    font-weight: 700;
-  }
-
-  .download-meta {
-    display: block;
-    font-size: 15px;
-    color: var(--cream-dimmest);
-  }
-
-  .download-icon {
-    font-size: 20px;
-    color: var(--yellow);
-  }
-
-  .downloads-todo {
-    position: relative;
-    margin: 32px 0 0;
-  }
-
-  @media (max-width: 860px) {
-    .downloads-grid {
-      grid-template-columns: 1fr;
-      gap: 34px;
-    }
   }
 
   /* ----------------------------------------------------------------- faq */

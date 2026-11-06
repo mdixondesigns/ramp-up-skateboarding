@@ -6,7 +6,7 @@
  * behaviour, and the correct announcement to a screen reader. Anything we wrote
  * on top of a <div> would be a worse version of all three.
  *
- * Note the design system's own position on this — the Parent Resources FAQ is
+ * Note the design system's own position on this. The Parent Resources FAQ is
  * deliberately an always-open grid, because parents scan. Reach for the
  * accordion where the answers are long or most readers only want one of them,
  * not to tidy up a short list of short answers.
@@ -25,7 +25,7 @@ interface Props {
   openFirst?: boolean;
   /**
    * Exclusive mode: opening a row closes the others. Uses the `name` attribute,
-   * which browsers without support simply ignore — leaving rows independent.
+   * which browsers without support simply ignore. Leaving rows independent.
    */
   single?: boolean;
   background?: "paper" | "alt";
@@ -43,7 +43,7 @@ const {
 
 /*
  * Exclusive rows share a `name`, so it has to be unique per accordion but
- * stable across builds — derived from the heading rather than randomised, which
+ * stable across builds. Derived from the heading rather than randomised, which
  * would churn the HTML on every rebuild for no reason.
  */
 const groupName = single

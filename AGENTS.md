@@ -2,7 +2,7 @@
 
 Astro site for Ramp Up, a for-profit youth skateboarding program serving the
 Lancaster, PA area. The audience is parents of kids aged 5 to 14 who have never
-skated. The site's job is to provide 30 minutes of infomational content for parents 
+skated. The site's job is to provide 30 minutes of informational content for parents 
 with kids who want to learn to skateboard, and get a registration or an email address.
 
 ## Knowledge base
@@ -13,11 +13,13 @@ needs.** These files exist so you don't have to load all of them.
 | Working on | Read |
 | :--- | :--- |
 | Any copy at all | `docs/kb/brand-voice.md` |
+| Writing or restructuring a page | `docs/kb/pages.md` |
 | Program pages, levels, how kids progress | `docs/kb/programs.md` |
 | Week-by-week lesson content, lesson plans, activities | `docs/kb/curriculum.md` |
 | Group size, safety, venues, weather, gear | `docs/kb/operations.md` |
 | Prices, registration, scholarships | `docs/kb/pricing.md` |
 | About pages, origin story, growth numbers | `docs/kb/history.md` |
+| Coach bios, the team page, who teaches | `docs/kb/team.md` |
 | Legal shape, service area, who's who, partners | `docs/kb/business.md` |
 | Skateboarding terminology | `docs/kb/terminology.md` |
 | Anything that will be published | `docs/kb/content-rules.md` |
@@ -34,6 +36,11 @@ needs.** These files exist so you don't have to load all of them.
    Use a period, a comma, or a colon.
 4. **Mark what you drafted.** If you propose a fact rather than sourcing one,
    label it so the next reader can tell the difference.
+5. **This repository is public.** Anything written into `docs/kb/` is published
+   the moment it is pushed. Never record a rate card, a unit cost, an insurance
+   policy number, a home address, a credential, or anything else Mike would not
+   put on the website. When a task needs a confidential figure, ask for it in
+   the conversation and keep it out of the files.
 
 ## Provenance convention
 

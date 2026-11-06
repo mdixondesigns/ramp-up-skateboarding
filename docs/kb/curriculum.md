@@ -28,6 +28,25 @@ Start with the wheels immobilized using Skater Trainers so nothing rolls away.
 Getting on and off the board. Standing properly. Then pushing, and cruising to
 get comfortable. Finish with the limbo stick and the speed bump.
 
+### Falling is not taught in Foundations
+
+The site used to claim falling was the first skill taught. **It is not taught
+at all in Foundations**, for two deliberate reasons:
+
+1. Foundations is not that dangerous. It is a slow, controlled, low-impact
+   environment, and nearly every kid Ramp Up has ever taught started there.
+   **Do not turn this into a claim about an injury-free record.** See
+   `content-rules.md`.
+2. It is a momentum breaker. Falling practice happens off the board on gym
+   mats, and kids arrive desperate to actually skate.
+
+Mike wants to introduce falling as a **regular Intermediate exercise** that can
+be practiced over time, rather than squeezing it into Foundations. Not built
+yet, so it does not go on the site.
+
+The locked-wheel start is the better safety story anyway, and it is true. A
+kid's first minutes are on a board that physically cannot roll.
+
 **Day 2. Turning.**
 Two types: carving and kick turns. Both practiced through games and activities.
 

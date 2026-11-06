@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import CheckerboardSection from "../../components/CheckerboardSection.astro";
 import ContributionDonut from "../../components/ContributionDonut.astro";
+import PullQuote from "../../components/article/PullQuote.astro";
 import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
 import {
@@ -16,15 +17,29 @@ import confidencePhoto from "../../assets/photos/ramp_up-54.jpg";
 import expressionPhoto from "../../assets/photos/radnor-144.jpg";
 
 /*
- * Written once and used by both branches below — the chart carries this copy
+ * Ramp Up is a for-profit family business. See docs/kb/business.md.
+ *
+ * This page used to open with "Our Mission" and "Our Vision" written as
+ * infinitive phrases, and closed by asking readers to "get behind the mission."
+ * That is grant-application grammar, and a parent who reads charity and later
+ * sees an invoice feels misled.
+ *
+ * The community purpose is real and stays. What changed is the voice: first
+ * person, concrete, and aimed at a parent deciding how their kid spends a
+ * Saturday rather than at a foundation deciding on a grant. Nothing here asks
+ * anyone to support a cause.
+ */
+
+/*
+ * Written once and used by both branches below. The chart carries this copy
  * as its own header when there are figures to show, and the fallback section
- * says the same thing above a build-out note when there aren't.
+ * says the same thing without a chart when there aren't.
  *
  * TODO(Christine): this is a first draft of the copy. It describes what the
  * four spending categories are, so check it says what you actually do.
  */
 const givingCopy = {
-  eyebrow: "Engage the community",
+  eyebrow: "Lift the skate community",
   heading: "We're a customer of the scene we serve",
   body: "A program that takes from skateboarding and puts nothing back isn't really part of it. We pay our coaches for their time, buy from the shops down the road rather than online, hire the photographers who shoot our sessions, and give directly to the parks and ramps our kids ride.",
 };
@@ -32,7 +47,7 @@ const givingCopy = {
 const pillars = [
   {
     title: "Resilience",
-    body: "Kids fall down learning to skate — a lot. We teach them to get back up, on the board and off it.",
+    body: "Kids fall down learning to skate. A lot. We teach them to get back up, on the board and off it.",
     image: resiliencePhoto,
     imageAlt:
       "A coach holding a young skater's hand as he rolls down a wooden ramp, with other kids watching their turn",
@@ -46,7 +61,7 @@ const pillars = [
   },
   {
     title: "Confidence",
-    body: "Every small win — a first push, a first roll-in — compounds into real self-belief.",
+    body: "Every small win compounds into real self-belief. A first push. A first roll-in.",
     image: confidencePhoto,
     imageAlt:
       "A girl in a tie-dye shirt riding a board with her arms out for balance while a coach walks beside her",
@@ -63,40 +78,64 @@ const pillars = [
 
 <BaseLayout
   title="Our Philosophy"
-  description="Ramp Up's mission and vision for using skateboarding to build resilient, confident kids."
+  description="Why we teach kids to skateboard: an hour outside, off a screen, next to other kids. What Ramp Up is actually trying to build."
 >
   <section>
     <div class="container">
       <p class="eyebrow">About &rsaquo; Our Philosophy</p>
-      <h1>Our Mission</h1>
+      <h1>The board is the excuse</h1>
       <p class="lede">
-        To build confident, resilient kids by providing a welcoming and
-        inclusive entry point to skateboarding for families through
-        structured, fun, and safe instruction.
+        What we're really doing is getting kids outside, off a screen, and
+        standing next to other kids who are just as bad at this as they are.
+        The skateboarding is how we get their attention. Everything after that
+        is the reason we bother.
       </p>
 
-      <h2>Our Vision</h2>
-      <p class="lede">
-        To use skateboarding as a catalyst for building resilience,
-        creativity, and confidence &mdash; empowering kids to thrive in our
-        ever-changing world.
+      <h2 id="what-we-know">We're teachers first</h2>
+      <p>
+        Here's something most skate programs won't tell you. Coach Mike has
+        skated on and off for about twenty years and he'll be the first to say
+        he's a casual skater. What he's actually spent his career on is kids:
+        five years teaching kids and teachers to code in Philadelphia schools,
+        two years teaching karate, camp counselor, adjunct professor.
+      </p>
+      <p>
+        That turns out to be the right way round. A coach is on a board for
+        less than ten percent of a class. The rest of the hour they're a
+        spotter, a mentor, and a lifeguard. We can teach someone the skate
+        part. We can't teach them to notice the one kid who went quiet.
+      </p>
+
+      <h2 id="what-this-is-not">Foundations is the opposite of the X Games</h2>
+      <p>
+        Nobody is getting pushed here. There's no tryout, no team, nobody
+        keeping score, and no kid sitting on a bench waiting to be picked. Your
+        kid decides what they try and when, and a grown up who's paying
+        attention stands next to them while they do it.
+      </p>
+      <p>
+        That's also why the friends part matters as much as the skating. Most
+        kids finish a season knowing a handful of other kids by name, which is
+        worth more than you'd think the next time they show up somewhere new
+        holding a board.
       </p>
     </div>
   </section>
 
   <CheckerboardSection
     heading="The four pillars"
-    sub="What we are actually teaching, underneath the pushing and the falling."
+    sub="What we're actually teaching, underneath the pushing and the falling."
     rows={pillars}
     background="alt"
   />
 
   {
     /*
-     * The chart only exists once there are real figures. Until then the section
-     * keeps its copy and shows a build-out note where the chart goes — the same
-     * treatment the Sawyer spots get. What it never does is draw a donut out of
-     * stand-in numbers, which would read as a factual claim about money.
+     * The chart only exists once there are real figures in
+     * src/data/contributions.ts. Until then the section keeps its copy and
+     * simply goes without the chart, which reads fine on its own. What it never
+     * does is draw a donut out of stand-in numbers, which would read as a
+     * factual claim about money.
      */
     hasContributionFigures ? (
       <ContributionDonut
@@ -119,14 +158,6 @@ const pillars = [
           <p class="eyebrow">{givingCopy.eyebrow}</p>
           <h2>{givingCopy.heading}</h2>
           <p>{givingCopy.body}</p>
-
-          <div class="todo">
-            TODO(Christine): the breakdown chart appears here as soon as
-            <code>src/data/contributions.ts</code> has real figures in it. It is
-            deliberately not drawn with stand-in amounts &mdash; these are public
-            claims about money, and a wrong one reads as a fact rather than as an
-            obvious placeholder.
-          </div>
         </div>
       </section>
     )
@@ -134,17 +165,43 @@ const pillars = [
 
   <section>
     <div class="container">
-      <h2>Get behind the mission</h2>
+      <h2 id="the-free-clinics">Why the free clinics are actually free</h2>
       <p>
-        Every family who joins the movement is helping us prove that a van,
-        a handful of certified coaches, and a lot of belief can change how
-        kids meet a hard new skill. We're just getting started.
+        Nobody makes money on a free clinic. Not us, not the town hosting it.
+        We pay to put them on.
+      </p>
+      <p>
+        We do it because a kid who has never stood on a board has no way to
+        know whether they'd love this, and neither do you. Ninety minutes and
+        a borrowed board answers that question for free. A lot of the kids who
+        come to one sign up for a paid program afterward, and the rest got a
+        free afternoon outside. We're fine with that math.
+      </p>
+
+      <PullQuote>
+        We tell people we're going to save the world with skateboarding. We're
+        mostly kidding.
+      </PullQuote>
+
+      <p>
+        Mostly. But stand at the top of a twelve inch ramp with a six year old
+        who is genuinely scared, and watch what happens to their face when they
+        roll down it and realize they're fine. Then tell us it's just a
+        skateboard.
+      </p>
+
+      <h2 id="whats-next">What we're working on now</h2>
+      <p>
+        Nothing grand. We're building our Lancaster schedule back up to regular
+        programming, adding towns as we find partners, and training more
+        coaches so we can be in more than one place at once. If you want your
+        town on that list, <a class="link-underline" href="/get-involved/partner-with-ramp-up">that's a conversation we'd love to have</a>.
       </p>
     </div>
   </section>
 
   <EmailSignupBand
-    heading="Join the movement"
-    body="Follow the growth story, and be first to know as we open new sessions and locations."
+    heading="Know when we're near you"
+    body="New clinic and program dates go out by email first, and they fill fast."
   />
 </BaseLayout>

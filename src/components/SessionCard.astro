@@ -2,11 +2,14 @@
 import { Image } from "astro:assets";
 
 /**
- * One paid, multi-week session on the Seasonal Sessions page.
+ * One open, paid, multi-week program on the Programs index.
  *
  * Registration lives on Sawyer, so the button is a plain outbound link rather
- * than an embed — these are managed by hand, a few at a time, and an embedded
- * widget per session would be far more machinery than the page needs.
+ * than an embed. These are managed by hand, a few at a time, and an embedded
+ * widget per program would be far more machinery than the page needs.
+ *
+ * `price` is the exact price for this one program. Never a range, never a
+ * per-class rate. See docs/kb/pricing.md.
  */
 interface Props {
   name: string;
@@ -15,11 +18,16 @@ interface Props {
   blurb: string;
   image: ImageMetadata;
   imageAlt: string;
-  /** The session's Sawyer listing. Without one the card says so plainly. */
+  /** Exact price for this program, already formatted, e.g. "$168". */
+  price?: string;
+  /** How long it runs, e.g. "6 weeks, 1 hour a week". */
+  length?: string;
+  /** The program's Sawyer listing. Without one the card says so plainly. */
   registerUrl?: string;
 }
 
-const { name, location, ages, blurb, image, imageAlt, registerUrl } = Astro.props;
+const { name, location, ages, blurb, image, imageAlt, price, length, registerUrl } =
+  Astro.props;
 ---
 
 <article class="card session">
@@ -28,7 +36,8 @@ const { name, location, ages, blurb, image, imageAlt, registerUrl } = Astro.prop
   <div class="body">
     <p class="location">{location}</p>
     <h3>{name}</h3>
-    <p class="ages">{ages}</p>
+    <p class="ages">{ages}{length ? ` \u00b7 ${length}` : ""}</p>
+    {price && <p class="price">{price}</p>}
     <p class="blurb">{blurb}</p>
 
     {
@@ -89,6 +98,13 @@ const { name, location, ages, blurb, image, imageAlt, registerUrl } = Astro.prop
   .ages {
     font-size: 15px;
     color: var(--ink-55);
+    margin: 0 0 12px;
+  }
+
+  .price {
+    font-size: 21px;
+    font-weight: 700;
+    font-family: var(--font-display, inherit);
     margin: 0 0 12px;
   }
 

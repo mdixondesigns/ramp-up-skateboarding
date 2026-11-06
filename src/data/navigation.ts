@@ -2,7 +2,7 @@
  * Single source of truth for site navigation.
  *
  * `primaryNav` drives the header, including its hover/tap dropdowns. The footer
- * columns are composed from the same `children` arrays so the two can't drift —
+ * columns are composed from the same `children` arrays so the two can't drift,
  * add a subpage here and it appears in both places.
  */
 
@@ -20,8 +20,9 @@ export interface NavItem extends NavLink {
 
 const programsChildren: NavLink[] = [
   { href: "/programs/free-clinics", label: "Free Clinics" },
+  { href: "/programs/foundations", label: "Foundations" },
+  { href: "/programs/intermediate", label: "Intermediate" },
   { href: "/programs/calendar", label: "Calendar" },
-  { href: "/programs/seasonal-sessions", label: "Seasonal Sessions" },
   { href: "/programs/private-lessons", label: "Private Lessons" },
 ];
 
@@ -52,9 +53,8 @@ export const primaryNav: NavItem[] = [
   { href: "/contact", label: "Contact" },
 ];
 
-// TODO(Christine): confirm the live social URLs.
 const socialLinks: NavLink[] = [
-  { href: "https://www.instagram.com/rampupskate", label: "Instagram" },
+  { href: "https://www.instagram.com/rampupskateboarding/", label: "Instagram" },
   { href: "https://www.facebook.com/rampupskate", label: "Facebook" },
 ];
 
@@ -70,7 +70,7 @@ export const footerColumns: { heading: string; links: NavLink[] }[] = [
 /**
  * The header's nav, with the published guides folded into Parent Resources.
  *
- * Use this rather than `primaryNav` anywhere the dropdowns are rendered —
+ * Use this rather than `primaryNav` anywhere the dropdowns are rendered,
  * `primaryNav` alone has the static sections only.
  *
  * NOTE: this list grows with every guide Christine publishes. At roughly a

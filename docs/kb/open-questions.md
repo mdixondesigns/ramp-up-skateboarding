@@ -11,24 +11,22 @@ it from here.
 
 ## Safety and credentials
 
-These are claims that must be literally true. The site currently makes them in
-general terms ("certified and background-checked") with nothing concrete
-behind them.
+All answered. Clearances, certification, first aid, and insurance are in
+`operations.md`.
 
-- Insurance carrier and coverage amount
-- Whether coaches carry PA child abuse clearances
-- Whether coaches carry FBI fingerprinting
-- Which coaching certification is used, and who issues it
-- Whether coaches hold first aid or CPR certification
-- Whether there is always more than one adult on site
+## Legal, outside the website
+
+Flagged but not verified, and worth checking with someone qualified:
+
+- Whether PA's clearance requirements really stop at 18 for **paid** staff, given
+  there are specific provisions covering employees aged 14 to 17
+- Whether paying assistant coaches aged 14 to 17 brings PA child labor rules
+  into play (work permits, hour limits)
 
 ## Money
 
-- Private lesson rate, or whether it is quoted per family
-- What Ramp Up pays coaches
-- Who funds the free clinics. If a partner, grant, or sponsor covers them,
-  saying so answers the "what's the catch" question every parent has. If Ramp
-  Up funds them outright, that is a better story than silence.
+- Whether the current private lesson rates should be recorded in this public
+  repo, or kept out until the new booking model launches
 
 ## Programs
 
@@ -43,41 +41,26 @@ behind them.
 Needed for `/get-involved/partner-with-ramp-up`, which is currently entirely
 placeholder text:
 
-- What a host provides: space type and size, restroom access, promotion,
-  point of contact
-- Minimum and maximum group sizes for a host
-- Lead time needed to schedule
-- The commercial model, or models: does the partner pay Ramp Up, do families
-  register directly, or is it a split
-- Whether a certificate of insurance can be published or linked
-
-## Geography and SEO
-
-- Which specific Lancaster-area towns to name on `/programs/calendar` and
-  elsewhere. Town names are what parents actually search.
+All answered, in `operations.md` and `pricing.md`.
 
 ## Team
 
+Mike's bio is now in `team.md`. Still open:
+
 - Names, photos, and one-line bios for the assistant coaches, each with that
   coach's consent
-- Mike's own bio and photo for the top of `/about/team`
-- Typical coach-to-kid ratio as it actually runs, versus the 1:6 target
+- A photo of Mike, and a photo of Mike and Christine together
 
 ## About pages
 
-- What happened at the first clinic, to finish the origin story
-- A specific stated ambition for where Ramp Up is going, to replace "our
-  ambitions are epic"
+Answered in `business.md` under "Where this is going."
 - Real figures and a date range for the giving breakdown on
   `/about/philosophy`, or a decision to cut the section
 
 ## Coach recruitment
 
-Two FAQ answers on `/get-involved/coach-with-us` are currently the literal
-string "[Answer]":
-
-- What skateboarding skills are required
-- Whether it is a paid opportunity
+All answered, in `team.md`. Both "[Answer]" placeholders on
+`/get-involved/coach-with-us` now have real answers waiting.
 
 ## Site assets
 

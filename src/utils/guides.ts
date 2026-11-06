@@ -4,7 +4,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
  * Shared helpers for the guides collection, so the index, the article template,
  * and the card component all agree on ordering and filtering.
  *
- * A guide's `category` is no longer shown anywhere — the filter chips and the
+ * A guide's `category` is no longer shown anywhere. The filter chips and the
  * card labels are gone. It still earns its place in the frontmatter by deciding
  * which guides a reader is offered next, so the slug and label-color helpers
  * that served the visible tags were removed and this wasn't.

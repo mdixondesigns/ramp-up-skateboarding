@@ -1,32 +1,124 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import SawyerEmbed from "../../components/SawyerEmbed.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+/*
+ * One calendar, all locations.
+ *
+ * Sawyer's widget builder has a Calendar view and it can be pre-filtered to
+ * one or more locations, but a single embed has no visitor-facing "filter by
+ * town" toggle. So this page runs one unified calendar. If we ever want per
+ * town filtering, the way to do it is a separate location-filtered widget per
+ * town, each in its own section.
+ *
+ * The town list is our service area from docs/kb/business.md. It's here in
+ * plain text on purpose: it's the page a parent searching "skateboarding
+ * lessons near <town>" is most likely to land on.
+ */
+
+const towns = [
+  "Lancaster",
+  "Lititz",
+  "Millersville",
+  "Ephrata",
+  "Elizabethtown",
+  "Manheim Township",
+  "Denver",
+  "Reamstown",
+  "Quarryville",
+  "Honey Brook",
+  "York",
+];
 ---
 
 <BaseLayout
   title="Calendar"
-  description="See every upcoming Ramp Up clinic and session across Greater Lancaster, PA."
+  description="Every upcoming Ramp Up free clinic, Foundations program, and Intermediate program across the Lancaster, PA area, in one place."
 >
   <section>
     <div class="container">
       <p class="eyebrow">Programs &rsaquo; Calendar</p>
-      <h1>There's always something happening.</h1>
+      <h1>Everything we have coming up</h1>
       <p class="lede">
-        A living view of clinics and sessions across the area. Register
-        links go straight to Sawyer.
+        Free clinics, Foundations, and Intermediate, all in one list. Pick a
+        date that works and sign up right here.
       </p>
 
-      <SawyerEmbed label="Unified calendar view (all locations)" />
+      <SawyerEmbed
+        label="All upcoming Ramp Up programs and clinics"
+        fallbackBody="Our season runs about three quarters of the year, so there are quiet stretches. New dates go out to our email list before they go anywhere else."
+      />
 
-      <div class="todo">
-        Sawyer's widget builder supports a Calendar view and can be
-        pre-filtered to one or more locations, but a single embed doesn't
-        currently offer a visitor-facing "filter by town" toggle. For now,
-        this page uses one unified calendar across all locations. If you
-        want per-town filtering later, the simplest option is embedding a
-        separate location-filtered widget per town on its own section of
-        this page.
-      </div>
+      <h2 id="where-we-go">Where we run programs</h2>
+      <p>
+        We're mobile, which means we pack the boards and the ramps into the
+        van and come to you. A town doesn't need a skatepark. A basketball
+        court works great.
+      </p>
+      <p>
+        Right now we run programs around Lancaster County and just past it,
+        including:
+      </p>
+
+      <ul class="towns">
+        {towns.map((town) => <li>{town}</li>)}
+      </ul>
+
+      <p>
+        Don't see your town? That list grows when someone asks. Tell us where
+        you are and we'll look into it.
+      </p>
+
+      <h2 id="how-dates-work">How our dates work</h2>
+      <p>
+        Free clinic dates usually go up about a month ahead. Paid programs go
+        up earlier, normally two to three months before the first class, so
+        families have time to plan around them.
+      </p>
+      <p>
+        Either way, our email list hears first. Spots in the paid programs go
+        fast, and the free clinics fill even faster.
+      </p>
+
+      <h2 id="pick-a-program">Not sure which one to pick?</h2>
+      <p>
+        Start with a <a class="link-underline" href="/programs/free-clinics">free clinic</a>
+        if your kid has never really been on a board. It costs nothing and it
+        takes ninety minutes. After that,
+        <a class="link-underline" href="/programs/foundations">Foundations</a>
+        is where kids learn to push, turn, and stop for real, and
+        <a class="link-underline" href="/programs/intermediate">Intermediate</a>
+        is where they chase the ollie.
+      </p>
+      <p>
+        Still stuck? <a class="link-underline" href="/contact">Ask us</a>. We
+        would rather put your kid in the right group than the full one.
+      </p>
     </div>
   </section>
+
+  <EmailSignupBand
+    heading="Nothing open near you yet?"
+    body="Tell us where you are and we'll email you when a program opens nearby."
+  />
 </BaseLayout>
+
+<style>
+  .towns {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 24px;
+  }
+
+  .towns li {
+    background: var(--paper-alt);
+    border: 1px solid var(--rule-tile);
+    border-radius: 999px;
+    padding: 6px 14px;
+    font-size: 15px;
+  }
+</style>

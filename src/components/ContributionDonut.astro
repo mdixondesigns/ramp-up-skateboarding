@@ -1,12 +1,12 @@
 ---
 /**
- * Where the money we put back into skateboarding goes — a donut, a legend that
+ * Where the money we put back into skateboarding goes. A donut, a legend that
  * carries the actual numbers, and a table underneath.
  *
  * A donut is a weak form for *comparing* values: nobody reads two arcs and
  * knows which is bigger when they're close. It's used here because the job is
  * part-to-whole at a glance, which it does well, and because the comparison
- * never rests on the arcs — every amount and share is printed in the legend and
+ * never rests on the arcs. Every amount and share is printed in the legend and
  * again in the table. The ring shows the shape of the giving; the text carries
  * the figures.
  *
@@ -16,7 +16,7 @@
 
 interface Slice {
   label: string;
-  /** Whole dollars. Formatting happens here — don't pass a pre-formatted string. */
+  /** Whole dollars. Formatting happens here. Don't pass a pre-formatted string. */
   amount: number;
   /** One short line of context, shown under the label in the legend. */
   note?: string;
@@ -29,7 +29,7 @@ interface Props {
   items: Slice[];
   /** Sits under the total in the middle of the ring. */
   centerLabel?: string;
-  /** Small print under the chart — the place to say what period this covers. */
+  /** Small print under the chart. The place to say what period this covers. */
   note?: string;
   /** Anchor, for linking to this section from another page. */
   id?: string;
@@ -48,13 +48,13 @@ const {
 } = Astro.props;
 
 /*
- * Fixed colour slots, and the order is load-bearing — not a preference.
+ * Fixed colour slots, and the order is load-bearing. Not a preference.
  *
  * These four were picked by running the palette validator against the paper
  * surface: all sit inside the OKLCH lightness band, clear the chroma floor,
  * and hold 3:1 against the background. The one soft spot is gold against green
  * at ΔE 6.5 under deuteranopia, which sits in the band that is only allowed
- * when colour isn't the sole channel — hence the 2px gaps between segments and
+ * when colour isn't the sole channel. Hence the 2px gaps between segments and
  * the amounts printed in the legend and the table.
  *
  * Rose and green collapse into each other under deuteranopia (ΔE 3.6), so the
@@ -70,7 +70,7 @@ const SLOT_COLORS = ["#00789A", "#3FA05A", "#A9750A", "#D93C74"];
 if (items.length > SLOT_COLORS.length) {
   throw new Error(
     `ContributionDonut takes at most ${SLOT_COLORS.length} slices, got ${items.length}. ` +
-      `A fifth colour can't be invented — the palette is validated for four and a ` +
+      `A fifth colour can't be invented. The palette is validated for four and a ` +
       `generated hue would be indistinguishable from one of these under colour-vision ` +
       `deficiency. Fold the smallest categories into one "Everything else" slice.`
   );
@@ -278,7 +278,7 @@ const totalLabel = money.format(total);
     stroke-width: 34;
     transform-origin: center;
     /*
-     * The stroke is the hit target — with no fill there is nothing to catch the
+     * The stroke is the hit target. With no fill there is nothing to catch the
      * pointer in the middle of the ring, which is what we want. Keyboard access
      * comes from the legend buttons, so these stay out of the tab order.
      */
@@ -386,7 +386,7 @@ const totalLabel = money.format(total);
   }
 
   /*
-   * Text wears text colours, never the series colour — the swatch beside it is
+   * Text wears text colours, never the series colour. The swatch beside it is
    * what carries identity. A label tinted to match its segment reads as a
    * second, weaker copy of the same information.
    */
@@ -526,7 +526,7 @@ const totalLabel = money.format(total);
    * it survives the pointer leaving, which is what you want on a phone and when
    * reading the figure rather than hunting for it.
    *
-   * The legend rows are the real controls — they are buttons, so they are in the
+   * The legend rows are the real controls. They are buttons, so they are in the
    * tab order and announce their pressed state for free. The ring mirrors them.
    */
   for (const root of document.querySelectorAll<HTMLElement>("[data-donut]")) {
@@ -552,7 +552,7 @@ const totalLabel = money.format(total);
         root.dataset.active = String(index);
         const row = rows[index];
         value.textContent = row.querySelector(".legend-amount")?.textContent ?? "";
-        // Labels come from page content — assign as text, never as markup.
+        // Labels come from page content. Assign as text, never as markup.
         label.textContent = row.querySelector(".legend-label")?.textContent ?? "";
       }
 

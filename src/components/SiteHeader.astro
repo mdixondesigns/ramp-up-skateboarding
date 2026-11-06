@@ -17,7 +17,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
 
 <header class="site-header">
   <div class="header-inner">
-    <a href="/" class="logo-chip" aria-label="Ramp Up — home">
+    <a href="/" class="logo-chip" aria-label="Ramp Up, home">
       <Image src={logo} alt="Ramp Up" height={50} densities={[1, 2]} />
     </a>
 
@@ -38,7 +38,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
           const active = isActive(item.href);
 
           /*
-           * Sections without subpages stay a plain link — no button, no
+           * Sections without subpages stay a plain link. No button, no
            * dropdown, nothing extra in the tab order.
            */
           if (!item.children?.length) {
@@ -117,7 +117,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
     <a
       href="/#join"
       class="header-cta"
-      aria-label="Roll with us — get free clinic dates by email"
+      aria-label="Roll with us, get free clinic dates by email"
     >
       Roll with us
     </a>
@@ -345,7 +345,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
 
   /*
    * Under ~980px the nav collapses into the hamburger panel and the dropdowns
-   * become inline accordions — there is no hover on a touch screen, so the
+   * become inline accordions. There is no hover on a touch screen, so the
    * chevron button is the only way in.
    */
   @media (max-width: 980px) {
@@ -446,7 +446,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
       padding-inline: 16px;
     }
 
-    /* Stays at the full 15px — "Roll with us" fits without shrinking. */
+    /* Stays at the full 15px. "Roll with us" fits without shrinking. */
     .header-cta {
       padding: 11px 18px;
     }
@@ -566,7 +566,7 @@ const menuId = (href: string) => `nav-menu-${href.replace(/\W+/g, "-").replace(/
 
     /*
      * Order matters. Hiding the panel while focus is still inside it makes the
-     * browser dump focus on <body>, which would clobber the focus() below — so
+     * browser dump focus on <body>, which would clobber the focus() below. So
      * move focus to the chevron first, then close. Marking it dismissed before
      * focusing stops focusin from reopening what Escape just closed.
      */

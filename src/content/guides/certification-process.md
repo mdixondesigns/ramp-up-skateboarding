@@ -9,7 +9,7 @@ authorAvatar: "coach"
 updated: 2026-07-01
 readingTime: 3
 draft: true
-shortVersion: "Every coach is background-checked and certified, and no session ever runs with a single adult on site."
+shortVersion: "Lead coaches are USSEA certified, with First Aid, CPR and Safe Sport training. Every coach 18 and over carries all three Pennsylvania clearances."
 toc:
   - label: "Vetting"
     slug: "vetting"
@@ -21,13 +21,13 @@ toc:
     slug: "ongoing-standards"
 ---
 
-<p class="standfirst">This isn't a sales pitch — it's the seriousness behind who we put in front of your kid.</p>
+<p class="standfirst">This isn't a sales pitch. It's the seriousness behind who we put in front of your kid.</p>
 
 <div class="todo">
   TODO(Christine): this page is a placeholder structure only, and is marked
   <strong>draft: true</strong> so it stays off the live site until it's real.
   The claims on a certification and safety page have to be accurate, so please
-  replace each section below with your actual process before publishing — I
+  replace each section below with your actual process before publishing. I
   didn't want to guess at specifics like background checks, training hours, or
   safety certifications. A quick bullet list of what really happens at each
   stage is enough for me to turn into finished copy. Remove the draft flag when

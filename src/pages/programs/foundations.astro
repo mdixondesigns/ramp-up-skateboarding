@@ -1,0 +1,207 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NumberedPoints from "../../components/article/NumberedPoints.astro";
+import SpecCard from "../../components/article/SpecCard.astro";
+import AccordionSection from "../../components/AccordionSection.astro";
+import TestimonialsSection from "../../components/TestimonialsSection.astro";
+import SawyerEmbed from "../../components/SawyerEmbed.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+/*
+ * Foundations is the first paid step after a free clinic. The page's job is to
+ * sell the arc: six named weeks, six concrete promises. See docs/kb/curriculum.md.
+ */
+
+const weeks = [
+  {
+    lead: "Week 1. Get rolling.",
+    body: "We start with the wheels locked so nothing rolls away. Kids learn to step on, step off, and stand the right way. Then we unlock the wheels and push. By the end of the hour they're cruising, ducking under a limbo stick, and rolling over a speed bump.",
+  },
+  {
+    lead: "Week 2. Turn.",
+    body: "There are two ways to turn a skateboard. You can lean into it, which we call carving, or you can lift the front wheels and swing around, which is a kick turn. We learn both, mostly by playing games.",
+  },
+  {
+    lead: "Week 3. Drop in.",
+    body: "Coach Mike brings a quarter pipe, which is a small curved ramp. It's twelve inches tall, which sounds small until it's your kid standing at the top. Then they roll down it. Then they want to do it again.",
+  },
+  {
+    lead: "Week 4. Rails.",
+    body: "Real rails, low to the ground. No jumping needed. Point the board, keep your speed, roll across. It's all aim.",
+  },
+  {
+    lead: "Week 5. Get some air.",
+    body: "Go fast, hit the kicker, and all four wheels leave the ground. Not by much. By enough.",
+  },
+  {
+    lead: "Week 6. Build your own skatepark.",
+    body: "On the last day the kids pick from every obstacle we've used and build the park they want. Then they skate it. Bring your phone.",
+  },
+];
+
+const faqs = [
+  {
+    question: "Already did a free clinic. Is week one a repeat?",
+    answer:
+      "It will look familiar, and that's on purpose. Running it again is good practice, and this time your kid is the one who already knows how it goes. They get to be the big fish.",
+  },
+  {
+    question: "Can we start here without doing a clinic first?",
+    answer:
+      "Yes. Week one starts from zero either way. Plenty of kids come straight to Foundations.",
+  },
+  {
+    question: "What if it rains?",
+    answer:
+      "Every program has a spare week built in. If we lose a day to weather we do our best to add one to the end, so you don't lose the class and you don't have to ask us for anything.",
+  },
+  {
+    question: "What if not enough kids sign up?",
+    answer:
+      "A program needs at least six kids to run. If we're short we postpone, and we tell you at least three days before the first session. Your spot moves with you automatically. If the new dates don't work, or if we have to cancel, you get a full refund.",
+  },
+  {
+    question: "Does my kid need their own board?",
+    answer:
+      "No. We bring the boards, sized for every kid and free to borrow. Bring a helmet, closed-toe sneakers, and a water bottle.",
+  },
+];
+---
+
+<BaseLayout
+  title="Foundations"
+  description="Foundations is where kids aged 5 to 9 learn to really ride. Push, turn, stop, and roll down a ramp on purpose. We bring the boards."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs &rsaquo; Foundations</p>
+      <h1>From wobbly to skatepark ready</h1>
+      <p class="lede">
+        Foundations is where kids learn to really ride. Push, turn, stop, and
+        roll down a ramp on purpose. Ages 5 to 9. We bring the boards.
+      </p>
+
+      <h2 id="week-by-week">What happens, week by week</h2>
+      <p>
+        Every class is one hour. Here is the order we teach things, and why each
+        week builds on the one before it.
+      </p>
+
+      <NumberedPoints points={weeks} />
+
+      <p class="note">
+        Programs run 4 to 8 weeks depending on the location. The first three
+        weeks are always the same, because that's where the real riding
+        happens. After that we pick what fits the group. A longer program means
+        more practice time on everything, not different material.
+      </p>
+
+      <h2 id="how-a-class-works">How a class works</h2>
+
+      <SpecCard
+        title="One hour, every week"
+        rows={[
+          { label: "Group size", body: "Six to twelve kids." },
+          { label: "Coaches", body: "One coach for every six kids." },
+          { label: "Same coach", body: "Every single week, so your kid is never starting over with a stranger." },
+          { label: "Where", body: "Basketball courts, tennis courts, and quiet parking lots. Sometimes indoors. Never near traffic." },
+        ]}
+      />
+
+      <p>
+        We bring the boards, sized for every kid. Most kids this age don't own
+        one yet, and that's completely normal. You bring a helmet, closed-toe
+        sneakers, and a water bottle. That's the whole list. Pads are your
+        call, and for bigger kids we strongly recommend wrist guards.
+      </p>
+
+      <h2 id="what-they-walk-away-with">What your kid walks away with</h2>
+      <p>
+        By the last day they can push, turn, and stop on their own. They can
+        ride a small ramp and roll over a small rail. They know how a skatepark
+        works, whose turn it is, and how to look out for the other kids.
+      </p>
+      <p>
+        They also know a few other kids by name, which matters more than you
+        would think when they show up somewhere new with a board.
+      </p>
+
+      <h2 id="when-foundations-is-done">When Foundations is done</h2>
+      <p>You have two choices, and neither one is wrong.</p>
+
+      <div class="grid cols-2">
+        <div class="card">
+          <h3>Run it again</h3>
+          <p>
+            Great for kids under 6, and great for anyone who wants more time on
+            the basics. Plenty of kids do Foundations twice. We've had a few
+            do it three times and get better every round.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Move up to Intermediate</h3>
+          <p>
+            The next step up. In <a href="/programs/intermediate">Intermediate</a>,
+            kids work toward the ollie, which is the trick where the rider and
+            the board leave the ground together. It unlocks most other tricks.
+          </p>
+        </div>
+      </div>
+
+      <h3>How to know if they're ready</h3>
+      <p>
+        If your kid can push, turn, and stop on their own, they're ready for
+        Intermediate. If they're already dropping in, hitting the rail, or
+        launching off the kicker by themselves, they're more than ready.
+      </p>
+      <p>
+        And if they're under 6, another round of Foundations is usually the
+        better call no matter what they can do.
+      </p>
+      <p>
+        Not sure which? Ask your coach. They watch your kid every week and they
+        are happy to tell you what they think.
+      </p>
+
+      <h2 id="register">Upcoming Foundations programs</h2>
+      <p>
+        Pick a location and a start date. Price and schedule are on each
+        listing.
+      </p>
+
+      <SawyerEmbed label="Foundations programs" />
+
+      <p class="note">
+        Scholarship spots and payment plans are sometimes available.
+        <a class="link-underline" href="/contact">Just ask</a>, no forms.
+      </p>
+    </div>
+  </section>
+
+  <AccordionSection
+    heading="Common questions"
+    items={faqs}
+    openFirst
+    single
+    background="alt"
+  />
+
+  <TestimonialsSection heading="What parents say" />
+
+  <EmailSignupBand
+    heading="Nothing open near you yet?"
+    body="Tell us where you are and we'll email you when a program opens nearby."
+  />
+</BaseLayout>
+
+<style>
+  .note {
+    font-size: 15px;
+    color: var(--ink-50);
+    margin: 28px 0 0;
+  }
+
+  .card h3 {
+    margin-bottom: 0.5rem;
+  }
+</style>

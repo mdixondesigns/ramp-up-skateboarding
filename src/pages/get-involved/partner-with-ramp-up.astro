@@ -1,49 +1,163 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import SpecCard from "../../components/article/SpecCard.astro";
+import NumberedPoints from "../../components/article/NumberedPoints.astro";
+import PartnerGrid from "../../components/PartnerGrid.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
-// TODO(Christine): swap in real partner/host logos once you have
-// permission to display them.
-const partners = ["Partner logo", "Partner logo", "Partner logo", "Partner logo"];
+/*
+ * Written for a rec director, a school, or a business owner, not a parent.
+ *
+ * The whole job of this page is to make hosting feel small. A rec director
+ * assumes a skateboarding program needs a skatepark, a fence, a waiver pile,
+ * and a liability conversation with their solicitor. It needs a basketball
+ * court. Everything here comes from docs/kb/operations.md.
+ *
+ * Insurance wording is the approved public phrasing. Never name the carrier,
+ * the agency, the policy number, or the insured address. This repo is public.
+ */
+
+const whatWeBring = [
+  { label: "Boards", body: "Twelve to fifteen skateboards, sized for the kids who sign up." },
+  { label: "Coaches", body: "A USSEA-certified lead coach, plus assistants as needed to hold one coach for every six kids." },
+  { label: "Safety", body: "A first aid kit, and mobile barriers to slow down a loose board. They're pool noodles on a cord, held down by weights. Simple and they work." },
+  { label: "Insurance", body: "Commercial general liability written for youth recreation, including sexual abuse liability, plus accident coverage for every registered kid." },
+  { label: "Signups", body: "Registration through Sawyer, unless you would rather run your own." },
+  { label: "The program", body: "A real curriculum, and the same coach every single week." },
+];
+
+const promotion = [
+  {
+    lead: "We send you the materials.",
+    body: "Print-ready flyers, the program description and details, and a pack of social graphics. Nothing for you to write or design.",
+  },
+  {
+    lead: "You share it with your people.",
+    body: "An email to your list and a post on your social channels do most of the work. Flyers up in the building help too.",
+  },
+  {
+    lead: "We post it on our side.",
+    body: "If you engage with our posts, more local families see them. That's the whole ask.",
+  },
+];
 ---
 
 <BaseLayout
   title="Partner With Ramp Up"
-  description="Bring Ramp Up's mobile youth skateboarding program to your township, school, or business."
+  description="Host a mobile youth skateboarding program at your township, school, rec center, or business. All you need is a flat space about the size of half a basketball court."
 >
   <section>
     <div class="container">
       <p class="eyebrow">Get Involved &rsaquo; Partner With Ramp Up</p>
-      <h1>Bring Ramp Up to your community.</h1>
+      <h1>All we need is a flat spot</h1>
       <p class="lede">
-        We're mobile &mdash; we bring the program to townships, schools, and
-        businesses. This is the invitation to bring it to yours.
+        Ramp Up is mobile. We load the boards and the ramps into the van and
+        bring the whole program to your community. Your town doesn't need a
+        skatepark. It needs a basketball court.
       </p>
 
-      <h2>How hosting works</h2>
-      <div class="todo">
-        Fill in the real mechanics here: what a host provides (space,
-        promotion to their community, etc.), what Ramp Up brings
-        (equipment, certified coaches, insurance, marketing support), typical
-        timeline, and any minimum commitment.
-      </div>
-      <ul>
-        <li>[What the host provides]</li>
-        <li>[What Ramp Up brings]</li>
-        <li>[How scheduling and logistics work]</li>
-      </ul>
+      <h2 id="what-you-provide">What you provide</h2>
+      <p>
+        This is a shorter list than most people expect, so here is the whole
+        thing.
+      </p>
 
-      <h2>Who we've worked with</h2>
-      <div class="grid cols-3">
-        {partners.map((label) => (
-          <div class="placeholder-photo">{label}</div>
-        ))}
-      </div>
+      <SpecCard
+        title="The space"
+        rows={[
+          { label: "Ideal", body: "A basketball court. The surface and the size are both right." },
+          { label: "Smallest", body: "Half a basketball court, roughly 2,000 square feet. Not much less than that." },
+          { label: "Also works", body: "Tennis courts, quiet parking lots, and indoor gyms." },
+          { label: "Must have", body: "A reasonably smooth surface, no live traffic, and nothing breakable right up against it." },
+        ]}
+      />
 
-      <h2>Start a conversation</h2>
-      <p>Ready to talk about bringing Ramp Up to your community?</p>
+      <p>
+        A fence isn't required. Restrooms are a nice thing to have and also
+        not required. If you're picturing a fenced concrete skatepark, picture
+        the gym floor instead.
+      </p>
+
+      <p>
+        The one other thing we ask for is a hand getting the word out, which is
+        further down this page and takes about five minutes.
+      </p>
+
+      <h2 id="what-we-bring">What we bring</h2>
+      <p>Everything else.</p>
+
+      <SpecCard title="In the van" rows={whatWeBring} />
+
+      <p>
+        Every coach 18 and older carries all three Pennsylvania clearances, and
+        we keep them on file. Assistant coaches under 18 are always working
+        alongside a lead coach. Because our lead coaches hold First Aid and CPR
+        through their USSEA certification, every session has at least one adult
+        trained to handle an injury.
+      </p>
+      <p>
+        We carry commercial general liability insurance for youth recreation
+        programs, including sexual abuse liability. We're happy to provide a
+        certificate of insurance. Just ask.
+      </p>
+
+      <h2 id="filling-the-program">Filling the program</h2>
+      <p>
+        Marketing is shared. You know your community and we know how to explain
+        skateboarding to a nervous parent, so we split it.
+      </p>
+
+      <NumberedPoints points={promotion} />
+
+      <h2 id="numbers">How many kids</h2>
+      <p>
+        A multi-week program runs with 6 kids and caps at 12. Free clinics go up
+        to 15. If only eight families sign up, that's a good program and we're
+        glad to run it.
+      </p>
+      <p>
+        If we come up short of six, we postpone, and we tell everyone at least
+        three days before the first class so nobody drives out for nothing.
+        Families move to the new dates automatically, and anyone who can't make
+        them gets a full refund. We also build a spare week into the schedule so
+        a rained-out class can be made up instead of lost.
+      </p>
+
+      <h2 id="lead-time">When to start planning</h2>
+      <p>
+        About one month ahead for a free clinic, and two to three months ahead
+        for a paid program. Planning in January for an April start is
+        comfortable.
+      </p>
+      <p>
+        Our favorite way to do it is both at once. Promote a free clinic for a
+        month, run it, then start a six-week paid program about two weeks later.
+        The clinic introduces us to your families and the paid program is where
+        they actually learn to ride.
+      </p>
+
+      <h2 id="shared-spaces">If the space is shared</h2>
+      <p>
+        When we use part of a skatepark or another public space, we keep as much
+        of it open to everyone else as we can. We're guests in your town and we
+        would rather not take over the facility for an hour.
+      </p>
+
+      <h2 id="start">Start a conversation</h2>
+      <p>
+        Tell us about your space and roughly when you're thinking. We'll tell
+        you straight away whether it works.
+      </p>
       <p>
         <a class="button button--primary" href="/contact">Get in touch &rarr;</a>
       </p>
     </div>
   </section>
+
+  <PartnerGrid />
+
+  <EmailSignupBand
+    heading="Not ready to talk yet?"
+    body="Get on the list and see what we're running around the county."
+  />
 </BaseLayout>

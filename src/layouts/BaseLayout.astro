@@ -15,7 +15,7 @@ interface Props {
 
 const {
   title,
-  description = "Ramp Up is a mobile youth skateboarding program building resilient, confident kids across Greater Lancaster, PA. Free clinics, all gear provided.",
+  description = "Ramp Up is a mobile youth skateboarding program building resilient, confident kids across the Lancaster, PA area. Free clinics, boards provided.",
   ogImage,
 } = Astro.props;
 
@@ -52,7 +52,7 @@ const fullTitle = `${title} | Ramp Up`;
     <script>
       /*
        * Scroll parallax for elements marked `data-parallax="<speed>"`.
-       * Decorative only — the layout is complete and correct without it, so the
+       * Decorative only. The layout is complete and correct without it, so the
        * whole effect is skipped when the visitor prefers reduced motion.
        */
       const motionOK = window.matchMedia("(prefers-reduced-motion: no-preference)");

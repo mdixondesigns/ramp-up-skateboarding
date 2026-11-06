@@ -4,7 +4,7 @@
  * TODO(Christine): these are placeholder dates from the design. Replace with
  * real dates, venues, times, age ranges, and Sawyer registration URLs.
  *
- * Registration is handled by Sawyer — `registerUrl` should point at the Sawyer
+ * Registration is handled by Sawyer. `registerUrl` should point at the Sawyer
  * listing for that specific session.
  */
 

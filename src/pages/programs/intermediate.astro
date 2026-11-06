@@ -1,0 +1,204 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import NumberedPoints from "../../components/article/NumberedPoints.astro";
+import SpecCard from "../../components/article/SpecCard.astro";
+import InlineCta from "../../components/article/InlineCta.astro";
+import AccordionSection from "../../components/AccordionSection.astro";
+import SawyerEmbed from "../../components/SawyerEmbed.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
+
+/*
+ * Intermediate's goal is the ollie, which can take 4 to 24 weeks. So the page's
+ * job is to make each season feel complete on its own. The class rhythm does
+ * that work. See docs/kb/curriculum.md.
+ */
+
+const rhythm = [
+  {
+    lead: "Word of the week.",
+    body: "Five minutes on one idea. Risk. Grit. Goals. Whose turn it is at the park. Skateboarding teaches this stuff anyway, so we say it out loud.",
+  },
+  {
+    lead: "Warm up.",
+    body: "Laps, back and forth, or a game. Something to get moving.",
+  },
+  {
+    lead: "Fundamental skills.",
+    body: "The things they can practice at home in the driveway. This is where the ollie lives.",
+  },
+  {
+    lead: "Park skills.",
+    body: "The things they can practice at a skatepark. Ramps, rails, and lines.",
+  },
+  {
+    lead: "Free skate.",
+    body: "They pick. We watch and help.",
+  },
+  {
+    lead: "Recap.",
+    body: "Two minutes. What we did, and what to work on this week.",
+  },
+];
+
+const readyCheck = [
+  {
+    lead: "Push and roll.",
+    body: "Down the driveway and back, without stepping off.",
+  },
+  {
+    lead: "Stop when you say stop.",
+    body: "Under control, not by jumping off.",
+  },
+  {
+    lead: "Turn by leaning.",
+    body: "Around a cone, one way and then the other. A sneaker works fine as a cone.",
+  },
+  {
+    lead: "Swing the board around.",
+    body: "Lift the front wheels and pivot to face the other way.",
+  },
+];
+
+const faqs = [
+  {
+    question: "How long will my kid be in Intermediate?",
+    answer:
+      "Usually a few seasons. That's the design, not a delay. The ollie takes somewhere between one month and six, depending entirely on the kid, and we've never seen one get there by rushing.",
+  },
+  {
+    question: "Does my kid need their own board now?",
+    answer:
+      "We still bring boards to every class, so nobody is ever stuck. But Intermediate kids should have a board at home. Think of it like a musical instrument. The kids who ollie first are the ones rolling around the driveway in between classes.",
+  },
+  {
+    question: "What if it rains?",
+    answer:
+      "Every program has a spare week built in. If we lose a day to weather we do our best to add one to the end, so you don't lose the class.",
+  },
+  {
+    question: "Are the groups split by age?",
+    answer:
+      "More by skill than by age. Some activities the whole group does together, and some we split.",
+  },
+];
+---
+
+<BaseLayout
+  title="Intermediate"
+  description="Intermediate is where kids aged 6 to 12 chase the ollie, the trick that unlocks almost everything else in skateboarding."
+>
+  <section>
+    <div class="container">
+      <p class="eyebrow">Programs &rsaquo; Intermediate</p>
+      <h1>The one trick that unlocks the rest</h1>
+      <p class="lede">
+        Intermediate is where kids chase the ollie, the trick where the rider
+        and the board leave the ground together. Almost everything else in
+        skateboarding starts there. Ages 6 to 12.
+      </p>
+
+      <h2 id="what-every-class-looks-like">What every class looks like</h2>
+      <p>
+        No two Intermediate classes have the same activities. They all have the
+        same shape, so kids always know what is coming next.
+      </p>
+
+      <NumberedPoints points={rhythm} />
+
+      <h2 id="how-long-the-ollie-takes">How long does the ollie take?</h2>
+      <p>
+        Somewhere between one month and six. It depends entirely on the kid, and
+        we've never seen one get there by rushing.
+      </p>
+      <p>
+        So yes, most kids do a few seasons of Intermediate. That's the design,
+        not a delay. Every single class has a word, a warm up, new skills, and
+        free skate, so your kid gets a full hour whether or not this is the week
+        it finally clicks.
+      </p>
+
+      <h2 id="how-a-class-works">How a class works</h2>
+
+      <SpecCard
+        title="One hour, every week"
+        rows={[
+          { label: "Group size", body: "Six to twelve kids." },
+          { label: "Coaches", body: "One coach for every six kids." },
+          { label: "Grouping", body: "More by skill than by age. Some activities together, some split." },
+          { label: "Same coach", body: "Every week, all season." },
+        ]}
+      />
+
+      <h2 id="time-for-their-own-board">Time to get their own board</h2>
+      <p>
+        Intermediate kids should have a board at home. Think of it like a
+        musical instrument. An hour a week on our boards teaches them plenty,
+        but the kids who ollie first are the ones rolling around the driveway in
+        between.
+      </p>
+      <p>
+        We still bring boards to every class, so nobody is ever stuck. But if
+        you're buying one, we wrote a guide so you don't spend too much on the
+        wrong thing.
+      </p>
+
+      <InlineCta
+        heading="Buying a first board?"
+        body="What a good beginner setup costs, which parts matter, and the three things on the toy-store board that will make your kid quit."
+        href="/parent-resources/buying-your-first-skateboard"
+        label="Read the buying guide"
+      />
+
+      <h2 id="can-my-kid-start-here">Can my kid start here?</h2>
+      <p>
+        Most Intermediate kids come up through <a href="/programs/foundations">Foundations</a>,
+        but not all of them. If your kid already skates, try this in a driveway
+        or an empty parking lot. It takes about five minutes and it should feel
+        like messing around, not a test.
+      </p>
+
+      <NumberedPoints points={readyCheck} />
+
+      <p>
+        <b>All four without help?</b> They're ready for Intermediate.
+        <b>First two but not the turns?</b> One round of Foundations will get
+        them there, and they will have more fun doing it. <b>Not sure?</b> Bring
+        them to a free clinic and ask a coach. That's what we're there for.
+      </p>
+
+      <h2 id="register">Upcoming Intermediate programs</h2>
+      <p>
+        Pick a location and a start date. Price and schedule are on each
+        listing.
+      </p>
+
+      <SawyerEmbed label="Intermediate programs" />
+
+      <p class="note">
+        Scholarship spots and payment plans are sometimes available.
+        <a class="link-underline" href="/contact">Just ask</a>, no forms.
+      </p>
+    </div>
+  </section>
+
+  <AccordionSection
+    heading="Common questions"
+    items={faqs}
+    openFirst
+    single
+    background="alt"
+  />
+
+  <EmailSignupBand
+    heading="Nothing open near you yet?"
+    body="Tell us where you are and we'll email you when a program opens nearby."
+  />
+</BaseLayout>
+
+<style>
+  .note {
+    font-size: 15px;
+    color: var(--ink-50);
+    margin: 28px 0 0;
+  }
+</style>

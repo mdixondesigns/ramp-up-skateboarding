@@ -3,7 +3,7 @@ import { Image } from "astro:assets";
 import WheelDot from "./WheelDot.astro";
 
 /**
- * Alternating photo/text rows — the standard antidote to a wall of paragraphs.
+ * Alternating photo/text rows. The standard antidote to a wall of paragraphs.
  * Each row flips which side the photo sits on, so a run of them reads as a
  * rhythm rather than a list.
  *
@@ -116,7 +116,7 @@ const dotColors = ["var(--cyan)", "var(--pink)", "var(--yellow)", "var(--green)"
 
   /*
    * The flip. Both children are placed explicitly on even rows rather than
-   * reordering one of them, so the DOM order stays photo-then-text throughout —
+   * reordering one of them, so the DOM order stays photo-then-text throughout,
    * that is the order a screen reader and a narrow screen both want.
    */
   .row:nth-child(even) .media {

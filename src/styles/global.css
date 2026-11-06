@@ -49,7 +49,7 @@ h4 {
   font-weight: 700;
 }
 
-/* Visible focus ring — the design didn't specify one, so this is ours. */
+/* Visible focus ring. The design didn't specify one, so this is ours. */
 :focus-visible {
   outline: 3px solid var(--focus-light);
   outline-offset: 2px;
@@ -85,7 +85,7 @@ h4 {
 }
 
 /*
- * Two full-width color bands in a row read as one continuous slab — the dark
+ * Two full-width color bands in a row read as one continuous slab. The dark
  * testimonial band running straight into the yellow signup block has no seam
  * to tell you a new section started. `.band-bleed` marks a section whose color
  * runs edge to edge; `.band-inset` marks one whose color sits in a rounded
@@ -293,7 +293,7 @@ a.card:hover {
  * must be `position: relative; overflow: hidden`.
  *
  * The image is deliberately taller than its frame and offset upward by half
- * the excess. That overscan is what the drift travels through — without it,
+ * the excess. That overscan is what the drift travels through. Without it,
  * translating the image would expose a bare edge inside the frame.
  *
  * Overscan and speed are coupled: travel scales linearly with the speed on
@@ -333,12 +333,15 @@ a.card:hover {
   white-space: nowrap;
 }
 
-/* Marks unfinished integrations (MailerLite, Sawyer) during build-out. */
+/*
+ * Internal build-out notes. NEVER visible to a visitor.
+ *
+ * This used to render a cream box with a dashed gold border, which meant every
+ * note we wrote to ourselves was published on the live site. It is now hidden
+ * outright. Prefer a comment in a component's frontmatter over this class,
+ * because frontmatter comments never reach the browser at all and a hidden
+ * div is still readable in View Source.
+ */
 .todo {
-  background: #fff8e1;
-  border: 1px dashed #d8b83a;
-  padding: 0.75rem 1rem;
-  border-radius: 12px;
-  font-size: 0.9rem;
-  color: #6b5900;
+  display: none !important;
 }

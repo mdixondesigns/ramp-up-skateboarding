@@ -11,7 +11,7 @@ interface Props {
 
 const {
   heading = "Join the movement",
-  body = "Free clinic dates go out by email first, and they fill fast. One short note a month — nothing else.",
+  body = "Free clinic dates go out by email first, and they fill fast.",
   id = "join",
 } = Astro.props;
 ---
@@ -25,27 +25,43 @@ const {
     <h2>{heading}</h2>
     <p class="band-body">{body}</p>
 
-    <!--
-      TODO(Christine): wire this to MailerLite. Replace the form's action with
-      your MailerLite embedded-form endpoint (Integrations > Embedded forms),
-      or swap the whole <form> for their embed snippet. The markup and styling
-      here already match the design, so only the submission target changes.
-    -->
-    <form class="signup" data-signup novalidate>
+    {/*
+      Posts straight to MailerLite. The target is a hidden iframe rather than a
+      new tab, so the subscriber is added for real while the page keeps its own
+      success state and its own styling. Field names are MailerLite's and must
+      not be renamed. The account and form ids are public embed identifiers,
+      not secrets.
+
+      Known limitation: an iframe post is fire-and-forget, so we cannot read
+      MailerLite's response. A rejected address still shows the success state.
+    */}
+    <iframe name={`${id}-ml-sink`} class="visually-hidden" tabindex="-1" title="" aria-hidden="true"
+    ></iframe>
+
+    <form
+      class="signup"
+      data-signup
+      novalidate
+      method="post"
+      action="https://assets.mailerlite.com/jsonp/410130/forms/85997053135554229/subscribe"
+      target={`${id}-ml-sink`}
+    >
       <label class="visually-hidden" for={`${id}-email`}>Email address</label>
       <input
         id={`${id}-email`}
         type="email"
-        name="email"
+        name="fields[email]"
         placeholder="you@email.com"
         autocomplete="email"
         required
       />
+      <input type="hidden" name="ml-submit" value="1" />
+      <input type="hidden" name="anticsrf" value="true" />
       <button type="submit">Sign up</button>
     </form>
 
     <p class="success" data-signup-success hidden role="status">
-      You're on the list — first clinic email comes Monday.
+      You're on the list. We'll email you as soon as the next dates go up.
     </p>
     <p class="error" data-signup-error hidden role="alert">
       That doesn't look like an email address. Mind checking it?
@@ -158,7 +174,11 @@ const {
 </style>
 
 <script>
-  // Client-side validation + success state. Submission itself is not wired yet.
+  /*
+   * Validate, then let the submit through. The form posts to MailerLite with a
+   * hidden iframe as its target, so the browser never navigates and we can show
+   * our own success state in place of the form.
+   */
   for (const form of document.querySelectorAll<HTMLFormElement>("[data-signup]")) {
     const band = form.parentElement;
     const success = band?.querySelector<HTMLElement>("[data-signup-success]");
@@ -166,14 +186,15 @@ const {
     const input = form.querySelector<HTMLInputElement>("input[type=email]");
 
     form.addEventListener("submit", (event) => {
-      event.preventDefault();
-
       if (!input?.checkValidity() || !input.value.includes("@")) {
+        // Only block the submit when the address is obviously wrong.
+        event.preventDefault();
         error?.removeAttribute("hidden");
         input?.focus();
         return;
       }
 
+      // Valid: do NOT preventDefault. The post goes to the hidden iframe.
       error?.setAttribute("hidden", "");
       form.setAttribute("hidden", "");
       success?.removeAttribute("hidden");

@@ -2,71 +2,121 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import AccordionSection from "../../components/AccordionSection.astro";
 
+/*
+ * Written for a prospective coach, not a parent.
+ *
+ * Two things this page has to get right:
+ *
+ * 1. We can't put new coaches to work immediately, so the honest framing is a
+ *    warm pipeline, not "apply now." Overselling the opening wastes their time
+ *    and ours.
+ * 2. The skill bar is much lower than a skater assumes. A coach is on the board
+ *    for less than ten percent of a class. Saying so out loud is the single
+ *    biggest thing that turns a reader into an applicant.
+ *
+ * Values are the current set of four from docs/kb/business.md. The page used to
+ * publish an older set of five.
+ */
+
 const values = [
   {
     name: "The Grind",
     body: "We carry on the legacy of skaters who built the sport through sheer effort and dedication. Our meticulous attention to detail and hands-on approach ensure our programs consistently outperform the competition through actions, not just words.",
   },
   {
-    name: "Engage the Community",
-    body: "We are more than a business; we are a force for our community. We build friendships, camaraderie, and a sense of belonging at the local level, and actively partner with schools and small businesses to strengthen bonds across our community.",
+    name: "Lift the Skate Community",
+    body: "We're a family business that acts like a neighbor. We build friendships, camaraderie, and a sense of belonging at the local level, and we actively partner with schools and small businesses to strengthen bonds across our community.",
   },
   {
     name: "Radical Hospitality",
     body: "We believe a transformative experience is built on a foundation of trust. We proactively anticipate every need, ensuring parents feel confident and kids have a trusted mentor, empowering them to accomplish things they never thought possible.",
   },
   {
-    name: "The Positive Push",
-    body: "We promote a lifelong love for skateboarding through a balanced and healthy approach to the sport. By prioritizing safety, recovery, and both mental and physical strength, we teach the self-discipline necessary for a lifetime of well-being.",
-  },
-  {
     name: "Beyond the Board",
-    body: "We use skateboarding as a catalyst for building great humans, focusing on developing qualities such as resilience, confidence, and self-discipline. Our program empowers kids to embrace challenges and grow both on and off the board.",
+    body: "We use skateboarding as a catalyst for building great humans, focusing on qualities such as resilience, confidence, and self-discipline. We promote a lifelong love for the sport through a balanced and healthy approach, prioritizing safety, recovery, and both mental and physical strength.",
   },
 ];
 
-// TODO(Christine): the original site had these two questions but the answers
-// weren't available to migrate. Replace the placeholder text below with the
-// real answers — the section is otherwise ready to go.
 const faqs = [
   {
     question: "What skateboarding skills are required?",
-    answer: "[Answer]",
+    answer:
+      "Less than you think. If you can comfortably push, cruise, turn, and stop, you can coach with us. You're on the board for less than ten percent of a class. The rest of the time you're a spotter, a mentor, and a lifeguard, and those are the skills that actually matter here.",
   },
   {
     question: "Is this a paid opportunity?",
-    answer: "[Answer]",
+    answer:
+      "Yes. Every coach is paid, including assistant coaches under 18. The starting rate for an assistant coach is $22.50 an hour, and coaches can expect 3 to 9 hours in a typical week.",
+  },
+  {
+    question: "How old do I have to be?",
+    answer:
+      "Assistant coaches can be 14 and up, and are always working alongside a lead coach. Lead coaches are 18 or older, carry all three Pennsylvania clearances, and are certified through USSEA, the U.S. Skateboard Education Association.",
+  },
+  {
+    question: "Are you hiring right now?",
+    answer:
+      "Not always, and we would rather say so than waste your time. We hire ahead of new programs, so the people we already know are the ones we call first. Getting on our radar now is the whole point.",
   },
 ];
 ---
 
 <BaseLayout
   title="Coach With Us"
-  description="The standard, values, and certification path behind every Ramp Up coach."
+  description="Coach youth skateboarding in the Lancaster, PA area. If you can push, turn, and stop, you have the skills. Assistant coaches start at $22.50 an hour."
 >
   <section>
     <div class="container">
       <p class="eyebrow">Get Involved &rsaquo; Coach With Us</p>
       <h1>Here's the standard. Here's the path.</h1>
       <p class="lede">
-        Ramp Up is a new type of youth skateboarding program, growing fast
-        across Greater Lancaster, PA. Whether you skate every day or you're
-        looking for a reason to get back on a board, this is what it takes
-        to coach with us.
+        Ramp Up is a new type of youth skateboarding program, building back up
+        across the Lancaster, PA area. Whether you skate every day or you're
+        looking for a reason to get back on a board, this is what it takes to
+        coach with us.
       </p>
 
-      <div class="todo">
-        We can't put new coaches to work immediately, so the honest framing
-        here is trust and a warm pipeline rather than "apply now." A light
-        interest form or just directing people to Contact both work &mdash;
-        currently this points to the Contact page.
-      </div>
+      <h2 id="the-skill-bar">You probably already skate well enough</h2>
+      <p>
+        This is the part most people get wrong. If you can push, cruise, turn,
+        and stop without thinking about it, you have the skateboarding covered.
+      </p>
+      <p>
+        You're on the board for less than ten percent of a class. The other
+        ninety percent you're spotting a kid on a ramp, remembering whose turn
+        it is, noticing the one kid who went quiet, and keeping everybody
+        pointed the right way. That's the job. We can teach the skate coaching.
+        We can't teach caring about eight year olds.
+      </p>
+
+      <h2 id="the-path">Where it goes</h2>
+      <p>
+        Assistant coaches start at $22.50 an hour, with 3 to 9 hours in a
+        typical week. You work alongside a lead coach from day one.
+      </p>
+      <p>
+        From there, we're training lead instructors who can eventually run
+        their own regions. That's the real opportunity here and it's why we
+        take the training seriously. This doesn't have to be a weekend job.
+      </p>
+
+      <h2 id="get-on-our-radar">Getting started</h2>
+      <p>
+        We're not always hiring, and we're not going to pretend otherwise. We
+        bring on coaches just ahead of new programs, and when that happens we
+        call the people we already know. So the move is to get on our radar
+        before there's an opening, not after.
+      </p>
+      <p>
+        Send us a note. Tell us where you are, how long you've been skating,
+        and what you've done with kids, even if the answer is nothing yet.
+      </p>
 
       <p>
         <a class="button button--primary" href="/contact">Think you've got it? Get on our radar &rarr;</a>
       </p>
 
-      <h2>Our values</h2>
+      <h2 id="our-values">Our values</h2>
       <div class="grid cols-2">
         {values.map((value) => (
           <div class="card">
@@ -77,20 +127,28 @@ const faqs = [
       </div>
 
       {/*
-        Deliberately says nothing about published figures — the breakdown on the
-        other end only appears once there are real ones. "How we back the scene"
-        is true either way.
+        Deliberately says nothing about published figures. The breakdown on the
+        other end only appears once there are real ones, and "how we back the
+        scene" is true either way.
       */}
       <p>
-        Engaging the community isn't only a line on this page.{" "}
+        Lifting the skate community isn't only a line on this page.{" "}
         <a href="/about/philosophy#supporting-the-scene">
           See how we back the scene &rarr;
         </a>
       </p>
 
-      <h2>The certification path</h2>
+      <h2 id="certification">The certification path</h2>
       <p>
-        Every coach is trained and vetted against the same standard.
+        Lead coaches are certified through USSEA, the U.S. Skateboard Education
+        Association. It's an online course followed by a live assessment, and
+        it covers Red Cross First Aid and CPR, Heads Up concussion training, and
+        Safe Sport abuse prevention training.
+      </p>
+      <p>
+        Every coach 18 and older also carries all three Pennsylvania clearances,
+        and we keep them on file. Assistant coaches under 18 don't carry them,
+        and are always working alongside a lead coach who does.
         {/*
           Points at the section index rather than the certification guide,
           which is draft: true and so isn't built in production. Point it back
@@ -99,7 +157,6 @@ const faqs = [
         {" "}
         <a href="/parent-resources">See our certification process &rarr;</a>
       </p>
-
     </div>
   </section>
 

@@ -6,7 +6,7 @@ import "../../styles/global.css";
 import { loadStories, groupStories, storySlugs } from "../../dev/registry";
 
 /**
- * The component gallery — one component at a time, away from the page it
+ * The component gallery. One component at a time, away from the page it
  * normally lives on.
  *
  * Dev only. `getStaticPaths` returns nothing in a production build, so none of
@@ -74,7 +74,7 @@ const Story = current?.Component;
           ))
         }
 
-        <p class="footnote">Dev only — this route is not built for production.</p>
+        <p class="footnote">Dev only. This route is not built for production.</p>
       </nav>
 
       <main class="stage">
@@ -145,7 +145,7 @@ const Story = current?.Component;
 
     <script>
       /*
-       * Width and background are view state, not content — they live in the URL
+       * Width and background are view state, not content. They live in the URL
        * hash-free world of localStorage so a choice survives clicking through
        * the whole list, which is the point of having the controls at all.
        */
@@ -191,7 +191,7 @@ const Story = current?.Component;
 
 <style>
   /*
-   * The gallery's own chrome. Deliberately plain and a little cool in tone —
+   * The gallery's own chrome. Deliberately plain and a little cool in tone,
    * it should never be mistaken for part of the site being previewed.
    */
   .dev {
