@@ -43,8 +43,8 @@ believed it showed up without a helmet.
 
 - **Foundations and Intermediate are the public names.** Not "level 1" and
   "level 2."
-- **Three program pages:** `/programs` (the live list, edited each season),
-  `/programs/foundations` and `/programs/intermediate` (evergreen).
+- **Three program pages:** `/lancaster/programs` (the live list, edited each season),
+  `/lancaster/programs/foundations` and `/lancaster/programs/intermediate` (evergreen).
 - **Exact price per listing**, never a general range.
 - **Service area is the Lancaster, PA area only** for now.
 - **Do not promise all six Foundations days on a 4-week program.** The first
@@ -64,8 +64,10 @@ pages are touched:
 - "[What the host provides]" and similar on
   `/get-involved/partner-with-ramp-up`
 - A placeholder Google reviews URL in the testimonials band
-- `site: 'https://rampupskate.com'` in `astro.config.mjs` is unconfirmed and
-  drives every canonical URL
+- ~~`site:` in `astro.config.mjs` unconfirmed~~ Confirmed:
+  `https://rampupskateboarding.com`
+- `[Bracketed]` placeholders on the new hub home page `/`. The hub is not
+  live yet; Squarespace still serves the domain
 - `src/data/partners.ts` renders 5 of the 7 partners in `business.md`. Boys and
   Girls Club of Lancaster is missing and needs a logo; Lancaster City needs a PNG
 

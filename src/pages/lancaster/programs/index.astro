@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import SessionCard from "../../components/SessionCard.astro";
-import EmailSignupBand from "../../components/EmailSignupBand.astro";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import SessionCard from "../../../components/SessionCard.astro";
+import EmailSignupBand from "../../../components/EmailSignupBand.astro";
 
-import { openPrograms, hasOpenPrograms } from "../../data/programs";
+import { openPrograms, hasOpenPrograms } from "../../../data/programs";
 
 /*
  * This page is the live listing: whatever is open right now, with exact prices.
@@ -13,14 +13,14 @@ import { openPrograms, hasOpenPrograms } from "../../data/programs";
 
 const levels = [
   {
-    href: "/programs/foundations",
+    href: "/lancaster/programs/foundations",
     label: "Foundations",
     ages: "Ages 5 to 9",
     blurb:
       "The first paid step. Push, turn, stop, and roll down a ramp on purpose. Six weeks of building, one hour at a time.",
   },
   {
-    href: "/programs/intermediate",
+    href: "/lancaster/programs/intermediate",
     label: "Intermediate",
     ages: "Ages 6 to 12",
     blurb:
@@ -43,7 +43,7 @@ const levels = [
       </p>
 
       <p>
-        <a class="button button--primary" href="/programs/free-clinics">
+        <a class="button button--primary" href="/lancaster/programs/free-clinics">
           See free clinic dates &rarr;
         </a>
       </p>
@@ -110,7 +110,7 @@ const levels = [
       <p>
         We also run private lessons for kids aged 6 to 14. They work well for a
         kid who hung back in a group, or one moving faster than their class.
-        <a class="link-underline" href="/programs/private-lessons">Get in touch</a>
+        <a class="link-underline" href="/lancaster/programs/private-lessons">Get in touch</a>
         and we'll sort out the details.
       </p>
 

@@ -1,8 +1,8 @@
 ---
 import { getCollection, render, type CollectionEntry } from "astro:content";
 
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import EmailSignupBand from "../../../components/EmailSignupBand.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
 export async function getStaticPaths() {
   const updates = await getCollection("updates", ({ data }) =>
@@ -43,7 +43,7 @@ const publishedLabel = update.data.publishedAt.toLocaleDateString("en-US", {
       </div>
 
       <p class="back">
-        <a class="link-underline" href="/parent-resources/community-updates">
+        <a class="link-underline" href="/updates">
           &larr; Back to Community Updates
         </a>
       </p>

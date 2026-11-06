@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "lancaster.rampupskateboarding.com" }],
+      "destination": "https://rampupskateboarding.com/lancaster/:path*",
+      "permanent": true
+    },
+    { "source": "/programs", "destination": "/lancaster/programs", "permanent": true },
+    { "source": "/programs/:path*", "destination": "/lancaster/programs/:path*", "permanent": true },
+    { "source": "/parent-resources/community-updates", "destination": "/updates", "permanent": true },
+    { "source": "/parent-resources/community-updates/:slug", "destination": "/updates/:slug", "permanent": true }
+  ]
+}

@@ -5,7 +5,7 @@ import { getHeaderNav } from "../data/navigation";
 
 const navItems = await getHeaderNav();
 
-// Mark the active section from the current URL so /programs/calendar still
+// Mark the active section from the current URL so /lancaster/programs/calendar still
 // highlights "Programs".
 const path = Astro.url.pathname;
 const isActive = (href: string) =>

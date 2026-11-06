@@ -3,7 +3,42 @@
 What each page is for, who lands on it, and which components carry it. Read
 this before writing or restructuring a page.
 
-## The funnel
+## Site structure (November 2026)
+
+Decided by Christine in November 2026. Ramp Up is now a **brand and culture
+hub**, not a local programs funnel. The hub is about beginner-first
+skateboarding for kids and families, inclusivity, safety, and wellness and
+mental health, and about teaching other people to do what Ramp Up does.
+
+| Space | Address | Audience | Status |
+| :--- | :--- | :--- | :--- |
+| Hub | `rampupskateboarding.com` | Anyone, anywhere | Structure built, copy to come |
+| Lancaster | `rampupskateboarding.com/lancaster/` | Lancaster-area parents | Maintenance mode |
+| Course app | not yet named | People running sessions, on their phones | Deferred, no product yet |
+
+- **Hub pages:** Home `/`, About, Parent Resources, Updates `/updates`
+  (organization-wide "where Ramp Up is going" posts, not day-to-day local
+  news), Get Involved, Contact.
+- **Lancaster pages:** `/lancaster` (the old home page) and everything in
+  `/lancaster/programs/`. They keep running for income and coaching practice,
+  and as a source of stories for the hub. Little effort goes into them.
+- `lancaster.rampupskateboarding.com` is a forwarding address for flyers. It
+  redirects to `/lancaster/` (set up in `vercel.json`). A path was chosen over
+  a real subdomain because it carries the hub's search authority and needs one
+  codebase.
+- **Course app:** the playbook is written as Markdown for now, so it can move
+  to any platform. Build vs. hosted platform is decided once there's a product.
+- **The funnel below now describes the Lancaster pages.** The hub's own
+  reader, job, and ask still need to be written. [open]
+
+## Hub home `/`
+
+Skeleton only, with visible `[bracketed]` placeholders. It has the five
+themes Christine named (beginners first, kids and families, inclusivity,
+safety, wellness and mental health), with descriptions to come, plus links to
+each section and the email signup. Do not launch with brackets showing.
+
+## The funnel (Lancaster)
 
 A real sequence. Each page belongs to one rung and should ask for that rung's
 next step, not a bigger one.
@@ -21,7 +56,7 @@ lever available, and it costs one paragraph.
 
 ---
 
-## Home `/`
+## Lancaster home `/lancaster` (was the site home)
 
 **Reader.** A parent of a 5 to 14 year old who has never skated, arriving from
 Facebook, Google, or another parent at pickup. Deciding in about eight seconds
@@ -41,7 +76,7 @@ VideoFeature, EmailSignupBand, StatBand.
 
 ---
 
-## Programs index `/programs`
+## Programs index `/lancaster/programs`
 
 **Reader.** A parent who knows Ramp Up exists and wants to pick the right
 thing. Comparison shopping against soccer, swim lessons, and doing nothing.
@@ -56,7 +91,7 @@ instead of presenting four equal doors.
 
 ---
 
-## Foundations `/programs/foundations`
+## Foundations `/lancaster/programs/foundations`
 
 **Reader.** A parent whose kid did a free clinic and came home glowing. They
 have decided to spend money and want to know it is worth it.
@@ -73,7 +108,7 @@ TestimonialsSection, SawyerEmbed, EmailSignupBand.
 
 ---
 
-## Intermediate `/programs/intermediate`
+## Intermediate `/lancaster/programs/intermediate`
 
 **Reader.** A parent moving up from Foundations, who will be asked to commit
 for multiple seasons.
@@ -88,7 +123,7 @@ six, both are normal." Then the buying guide, framed as a musical instrument.
 
 ---
 
-## Free Clinics `/programs/free-clinics`
+## Free Clinics `/lancaster/programs/free-clinics`
 
 **Reader.** A parent one click from registering. **The highest-intent page on
 the site.**
@@ -104,7 +139,7 @@ EmailSignupBand.
 
 ---
 
-## Calendar `/programs/calendar`
+## Calendar `/lancaster/programs/calendar`
 
 **Reader.** Someone checking whether Ramp Up comes anywhere near them, and when.
 
@@ -118,7 +153,7 @@ a partnership lead wearing a parent costume. Capture their town name.
 
 ---
 
-## Private Lessons `/programs/private-lessons`
+## Private Lessons `/lancaster/programs/private-lessons`
 
 **Reader.** A parent with a specific reason a group will not work. Usually an
 anxious kid, or one progressing faster than their group.
@@ -233,8 +268,8 @@ small content failure worth noticing.
 
 ---
 
-## Note on `/programs/seasonal-sessions`
+## Note on `/lancaster/programs/seasonal-sessions`
 
 This page predates the Foundations and Intermediate split. Decide whether it
-redirects to `/programs` or is removed outright. Do not leave all three live,
+redirects to `/lancaster/programs` or is removed outright. Do not leave all three live,
 since they compete for the same search terms and the same reader.

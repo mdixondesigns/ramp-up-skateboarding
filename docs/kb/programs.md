@@ -1,5 +1,9 @@
 # Programs and the level ladder
 
+**Status, November 2026:** Lancaster programs are in maintenance mode. They
+keep running, for income, coaching practice, and stories for the hub, but they
+are not where the effort goes. Their pages live under `/lancaster/`.
+
 What we sell and how a kid moves through it. For what actually happens in a
 class, see `curriculum.md`. For prices, see `pricing.md`.
 
@@ -163,10 +167,10 @@ has no permanent space, which makes them hard to coordinate. Possibly someday.
 
 Decided: three pages.
 
-- `/programs` — an index listing the 2 or 3 programs currently open, with price
+- `/lancaster/programs` — an index listing the 2 or 3 programs currently open, with price
   and level on each. This is the page that changes every season.
-- `/programs/foundations` — evergreen explanation of the level.
-- `/programs/intermediate` — evergreen explanation of the level.
+- `/lancaster/programs/foundations` — evergreen explanation of the level.
+- `/lancaster/programs/intermediate` — evergreen explanation of the level.
 
 The split exists so seasonal edits never touch copy that is already right, and
 so each level page can rank for its own search terms.

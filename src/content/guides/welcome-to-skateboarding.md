@@ -36,7 +36,7 @@ Our beginner sessions are the opposite of the X Games. Bunny slopes, close to th
 
 ### "My kid has never stood on a board. Is that okay?"
 
-That's exactly who our [free clinics](/programs/free-clinics) are for. No experience needed, and we bring the boards. We start with balance and comfort before anything else.
+That's exactly who our [free clinics](/lancaster/programs/free-clinics) are for. No experience needed, and we bring the boards. We start with balance and comfort before anything else.
 
 ### "What age is a good age to start?"
 
@@ -44,6 +44,6 @@ Most kids can start learning fundamentals around age 5–6, once they're comfort
 
 ## How to start
 
-1. Come try a [free clinic](/programs/free-clinics). No experience needed, and we bring the boards. Just pack a helmet.
+1. Come try a [free clinic](/lancaster/programs/free-clinics). No experience needed, and we bring the boards. Just pack a helmet.
 2. Read [your first trip to the skatepark](/parent-resources/first-trip-to-the-skatepark) so you know what to expect.
-3. If your kid is hooked, [Foundations](/programs/foundations) is the next step, six weeks of real progression.
+3. If your kid is hooked, [Foundations](/lancaster/programs/foundations) is the next step, six weeks of real progression.

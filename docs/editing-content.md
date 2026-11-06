@@ -81,8 +81,8 @@ is most of the battle.
 
 **Pages** map to URLs by their file path. `src/pages/about/team.astro` is
 `/about/team`. Create a file, you've created a page; rename it, you've changed
-the URL. `index.astro` is the folder's own page — `src/pages/programs/index.astro`
-is `/programs`.
+the URL. `index.astro` is the folder's own page — `src/pages/lancaster/programs/index.astro`
+is `/lancaster/programs`.
 
 **Data files** are lists — clinics, testimonials, partner logos, navigation.
 They're `.ts` files, but you only ever edit the list at the bottom, and it reads
@@ -167,51 +167,91 @@ A property on its own means "yes, turn this on."
 **One file controls both the header and the footer:** `src/data/navigation.ts`.
 They're built from the same lists, so they can't drift apart.
 
+### How the site is organized
+
+Since November 2026 the site has two parts:
+
+- **The hub** is everything at the top level: Home, About, Parent Resources,
+  Updates, Get Involved, Contact. This is Ramp Up the brand, for anyone,
+  anywhere.
+- **Lancaster** is everything under `/lancaster/`: the old home page (now
+  `src/pages/lancaster/index.astro`) and all the program pages (in
+  `src/pages/lancaster/programs/`). These are the local, bookable programs.
+  They are in maintenance mode, so they are kept working but not grown.
+
+In the menu, Lancaster is a single dropdown.
+
 ### Adding or renaming a menu item
 
 Find the list for the section you want:
 
 ```ts
-const programsChildren: NavLink[] = [
-  { href: "/programs/free-clinics", label: "Free Clinics" },
-  { href: "/programs/calendar", label: "Calendar" },
-  { href: "/programs/seasonal-sessions", label: "Seasonal Sessions" },
-  { href: "/programs/private-lessons", label: "Private Lessons" },
+const lancasterChildren: NavLink[] = [
+  { href: "/lancaster", label: "Ramp Up Lancaster" },
+  { href: "/lancaster/programs", label: "All Programs" },
+  { href: "/lancaster/programs/free-clinics", label: "Free Clinics" },
+  …
 ];
 ```
 
 Add a line in the same shape. `href` is the URL, `label` is what people see.
-Keep the trailing comma. That one edit puts the link in the Programs dropdown
-**and** the Programs footer column.
+Keep the trailing comma. That one edit puts the link in the Lancaster dropdown
+**and** the Lancaster footer column.
 
 ### The top-level sections
 
 ```ts
 export const primaryNav: NavItem[] = [
-  { href: "/programs", label: "Programs", children: programsChildren },
   { href: "/about", label: "About us", children: aboutChildren },
-  …
+  { href: "/parent-resources", label: "Parent Resources" },
+  { href: "/updates", label: "Updates" },
+  { href: "/get-involved", label: "Get involved", children: getInvolvedChildren },
+  { href: "/lancaster", label: "Lancaster", children: lancasterChildren },
   { href: "/contact", label: "Contact" },
 ];
 ```
 
 Reorder these lines to reorder the header. A section **with** `children` gets a
 dropdown; a section **without** (like Contact) is a plain link. Deleting
-`children:` from a section turns its dropdown off.
+`children:` from a section turns its dropdown off. Parent Resources is the one
+exception: its dropdown is filled in automatically with the published guides
+(see below).
 
 ### The footer
 
 ```ts
 export const footerColumns = [
-  { heading: "Programs", links: programsChildren },
-  { heading: "About us", links: [...aboutChildren, { href: "/contact", label: "Contact" }] },
+  {
+    heading: "About us",
+    links: [
+      ...aboutChildren,
+      { href: "/updates", label: "Updates" },
+      { href: "/contact", label: "Contact" },
+    ],
+  },
+  { heading: "Lancaster programs", links: lancasterChildren },
   { heading: "Get involved", links: [...getInvolvedChildren, ...socialLinks] },
 ];
 ```
 
 `...aboutChildren` means "everything from that list, then these extras." So the
-About footer column is the About dropdown plus a Contact link. Change a column
-heading by editing `heading`.
+About footer column is the About dropdown plus Updates and Contact. Change a
+column heading by editing `heading`.
+
+### Moving a page means adding a redirect
+
+When a page moves, its old address keeps working only if there is a redirect
+for it in `vercel.json` at the project root. Each line reads "this old address
+goes to this new one":
+
+```json
+{ "source": "/programs/:path*", "destination": "/lancaster/programs/:path*", "permanent": true }
+```
+
+`:path*` means "and anything after it." Leave `permanent` set to `true`, so
+Google moves the page's ranking to the new address. The same file also sends
+`lancaster.rampupskateboarding.com` to `/lancaster/`, for use on flyers. If the
+site ever moves off Vercel, these rules move to that host's redirects file.
 
 ### Social links
 
@@ -414,7 +454,7 @@ import photoOne from "../assets/photos/rootdown-37.jpg";
       body: "Kids fall down learning to skate — a lot.",
       image: photoOne,
       imageAlt: "A coach holding a young skater's hand on a ramp",
-      cta: { label: "See a clinic", href: "/programs/free-clinics" },
+      cta: { label: "See a clinic", href: "/lancaster/programs/free-clinics" },
     },
   ]}
   background="alt"
@@ -570,7 +610,7 @@ the chart appears; there is no other switch to flip. See
 Leave `registerUrl` off (or empty) and the card shows "Registration opens soon"
 instead of a button — so a session can go up before its Sawyer page exists,
 without anyone landing on a dead link. Sessions are edited in the list at the top
-of `src/pages/programs/seasonal-sessions.astro`.
+of `src/pages/lancaster/programs/seasonal-sessions.astro`.
 
 <a id="stepcard"></a>
 #### `StepCard` — the numbered "what a first day looks like" cards
@@ -646,7 +686,7 @@ These are for **inside a guide article**, not for pages. See
 <InlineCta
   heading="Not sure yet? Come try ours."
   body="Free clinics, all gear provided."
-  href="/programs/free-clinics"
+  href="/lancaster/programs/free-clinics"
   label="See clinic dates"
 />
 ```
@@ -728,9 +768,9 @@ Create the file, and it exists:
 
 ```astro
 ---
-// src/pages/programs/summer-camp.astro  →  /programs/summer-camp
-import BaseLayout from "../../layouts/BaseLayout.astro";
-import EmailSignupBand from "../../components/EmailSignupBand.astro";
+// src/pages/lancaster/programs/summer-camp.astro  →  /lancaster/programs/summer-camp
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../../components/EmailSignupBand.astro";
 ---
 
 <BaseLayout
@@ -750,8 +790,8 @@ import EmailSignupBand from "../../components/EmailSignupBand.astro";
 ```
 
 Count the `../` carefully — it's one `../` per folder deep. A page in
-`src/pages/` uses `../layouts/`; one in `src/pages/programs/` uses
-`../../layouts/`. Copy an existing page in the same folder and you'll get it
+`src/pages/` uses `../layouts/`; one in `src/pages/lancaster/programs/` uses
+`../../../layouts/`. Copy an existing page in the same folder and you'll get it
 right by default.
 
 Then add it to `src/data/navigation.ts` or nothing will link to it.
@@ -779,7 +819,7 @@ the placeholder `<div>` with the embed code from your Sawyer portal
 </div>
 ```
 
-Where it appears: `/programs/free-clinics` (clinic list) and `/programs/calendar`
+Where it appears: `/lancaster/programs/free-clinics` (clinic list) and `/lancaster/programs/calendar`
 (unified calendar). Each passes a `label` describing which widget belongs there.
 
 Seasonal Sessions deliberately does **not** use an embed — those cards link out
@@ -887,7 +927,7 @@ Normal paragraphs are just paragraphs. Blank line between them.
 
 ## What a complete costs
 
-Markdown headings become the article's `h2`s. **Bold** and [links](/programs)
+Markdown headings become the article's `h2`s. **Bold** and [links](/lancaster/programs)
 work the way you'd expect.
 ```
 
@@ -1181,7 +1221,7 @@ updated: "2026-07-01"    # ❌ build fails
 ### 6. Commas and brackets in data files
 
 ```ts
-{ href: "/programs", label: "Programs" },   ← the trailing comma matters
+{ href: "/lancaster/programs", label: "Programs" },   ← the trailing comma matters
 ```
 
 A missing comma or an unclosed bracket breaks the file. The build error points
@@ -1221,17 +1261,17 @@ existing link to it — including any Google has indexed. If you rename, update
 
 ## 13. Recipes
 
-**Reorder the home page sections**
-→ Open `src/pages/index.astro`, cut and paste the `<section>` blocks and
+**Reorder the Lancaster home page sections**
+→ Open `src/pages/lancaster/index.astro`, cut and paste the `<section>` blocks and
 `<Component />` lines in the template into the order you want.
 
 **Change the header button text**
 → `src/components/SiteHeader.astro`, near the bottom. Update the visible text and
 the `aria-label` together.
 
-**Add a page to the Programs dropdown**
-→ Create the page in `src/pages/programs/`, then add a line to
-`programsChildren` in `src/data/navigation.ts`.
+**Add a page to the Lancaster dropdown**
+→ Create the page in `src/pages/lancaster/programs/`, then add a line to
+`lancasterChildren` in `src/data/navigation.ts`.
 
 **Break up a wall of text**
 → [`CheckerboardSection`](#checkerboardsection) if you have photos,
@@ -1294,7 +1334,7 @@ anything still boxed is publicly visible as unfinished.
 | Christine & Mike photo | `src/pages/about/team.astro` |
 | Answers to the two coaching FAQs | `src/pages/get-involved/coach-with-us.astro` |
 | How hosting works, and host logos | `src/pages/get-involved/partner-with-ramp-up.astro` |
-| Session dates and Sawyer links | `src/pages/programs/seasonal-sessions.astro` |
+| Session dates and Sawyer links | `src/pages/lancaster/programs/seasonal-sessions.astro` |
 | Rest of the February 2026 update | `src/content/updates/february-2026-update.md` |
 | Certification process: placeholder structure, held as `draft: true` because the claims on a safety page have to be accurate | `src/content/guides/certification-process.md` |
 | Curriculum stages: a reasonable general framework, not your actual curriculum — confirm the names and order | `src/content/guides/curriculum-and-progression.mdx` |

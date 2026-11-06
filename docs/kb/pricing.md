@@ -5,11 +5,11 @@
 **Exact price per program, shown on each listing.** No general price range on
 the site.
 
-Prices appear on `/programs` alongside each currently open program, and
+Prices appear on `/lancaster/programs` alongside each currently open program, and
 wherever else a specific program is listed. A parent should only ever see the
 one number that applies to them.
 
-This means `/programs` is a page that gets edited every season rather than
+This means `/lancaster/programs` is a page that gets edited every season rather than
 written once. That is the reason the evergreen level explanations live on
 separate pages.
 

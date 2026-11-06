@@ -68,4 +68,18 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
 - The live Google Business reviews URL
 - Waiver, clinic day checklist, and beginner gear list PDFs
 - Lancaster City partner logo as a PNG
-- Confirmation that `rampupskate.com` is the production domain
+- ~~Confirmation of the production domain~~ Answered: the website is
+  `rampupskateboarding.com`. `rampupskate.com` is email only. The domain is
+  registered through Squarespace and currently serves the old Squarespace
+  site, which this site replaces at launch. Only pages need to carry over.
+
+## Restructure (November 2026)
+
+- Mike's confirmation that path 3 ("teach others to do what we do") can be
+  stated on the hub. See `business.md`.
+- Vercel plan tier. The free Hobby plan is for non-commercial use only. Move
+  to Pro, or move to Cloudflare, before launch.
+- The full list of live Squarespace URLs, to map to 301 redirects at launch.
+- Whether hub subscribers and Lancaster clinic subscribers should be separate
+  MailerLite groups. Right now both forms post to the same one.
+- A name for the course app's space.

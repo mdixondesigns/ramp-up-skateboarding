@@ -18,12 +18,18 @@ export interface NavItem extends NavLink {
   children?: NavLink[];
 }
 
-const programsChildren: NavLink[] = [
-  { href: "/programs/free-clinics", label: "Free Clinics" },
-  { href: "/programs/foundations", label: "Foundations" },
-  { href: "/programs/intermediate", label: "Intermediate" },
-  { href: "/programs/calendar", label: "Calendar" },
-  { href: "/programs/private-lessons", label: "Private Lessons" },
+/**
+ * Lancaster-area programs. These live under /lancaster/ and are in maintenance
+ * mode: they keep running, but the hub is the main site. See docs/kb/pages.md.
+ */
+const lancasterChildren: NavLink[] = [
+  { href: "/lancaster", label: "Ramp Up Lancaster" },
+  { href: "/lancaster/programs", label: "All Programs" },
+  { href: "/lancaster/programs/free-clinics", label: "Free Clinics" },
+  { href: "/lancaster/programs/foundations", label: "Foundations" },
+  { href: "/lancaster/programs/intermediate", label: "Intermediate" },
+  { href: "/lancaster/programs/calendar", label: "Calendar" },
+  { href: "/lancaster/programs/private-lessons", label: "Private Lessons" },
 ];
 
 const aboutChildren: NavLink[] = [
@@ -37,19 +43,12 @@ const getInvolvedChildren: NavLink[] = [
   { href: "/get-involved/partner-with-ramp-up", label: "Partner With Ramp Up" },
 ];
 
-const parentResourcesChildren: NavLink[] = [
-  { href: "/parent-resources/community-updates", label: "Community Updates" },
-];
-
 export const primaryNav: NavItem[] = [
-  { href: "/programs", label: "Programs", children: programsChildren },
   { href: "/about", label: "About us", children: aboutChildren },
+  { href: "/parent-resources", label: "Parent Resources" },
+  { href: "/updates", label: "Updates" },
   { href: "/get-involved", label: "Get involved", children: getInvolvedChildren },
-  {
-    href: "/parent-resources",
-    label: "Parent Resources",
-    children: parentResourcesChildren,
-  },
+  { href: "/lancaster", label: "Lancaster", children: lancasterChildren },
   { href: "/contact", label: "Contact" },
 ];
 
@@ -59,11 +58,15 @@ const socialLinks: NavLink[] = [
 ];
 
 export const footerColumns: { heading: string; links: NavLink[] }[] = [
-  { heading: "Programs", links: programsChildren },
   {
     heading: "About us",
-    links: [...aboutChildren, { href: "/contact", label: "Contact" }],
+    links: [
+      ...aboutChildren,
+      { href: "/updates", label: "Updates" },
+      { href: "/contact", label: "Contact" },
+    ],
   },
+  { heading: "Lancaster programs", links: lancasterChildren },
   { heading: "Get involved", links: [...getInvolvedChildren, ...socialLinks] },
 ];
 
@@ -87,7 +90,7 @@ export async function getHeaderNav(): Promise<NavItem[]> {
 
   return primaryNav.map((item) =>
     item.href === "/parent-resources"
-      ? { ...item, children: [...guideLinks, ...parentResourcesChildren] }
+      ? { ...item, children: guideLinks }
       : item
   );
 }

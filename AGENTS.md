@@ -1,9 +1,14 @@
 # Ramp Up Skateboarding
 
-Astro site for Ramp Up, a for-profit youth skateboarding program serving the
-Lancaster, PA area. The audience is parents of kids aged 5 to 14 who have never
-skated. The site's job is to provide 30 minutes of informational content for parents 
-with kids who want to learn to skateboard, and get a registration or an email address.
+Astro site for Ramp Up, a for-profit youth skateboarding business based in
+Lancaster, PA. Since November 2026 the site is a **brand and culture hub** for
+beginner-first skateboarding for kids and families, with the local Lancaster
+programs in a maintenance-mode section under `/lancaster/`. See "Site
+structure" in `docs/kb/pages.md` before moving or adding pages.
+
+The audience is parents of kids aged 5 to 14 who have never skated. The site's
+job is to provide 30 minutes of informational content for parents with kids
+who want to learn to skateboard, and get a registration or an email address.
 
 ## Knowledge base
 

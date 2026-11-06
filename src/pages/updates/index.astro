@@ -1,8 +1,8 @@
 ---
 import { getCollection } from "astro:content";
 
-import BaseLayout from "../../../layouts/BaseLayout.astro";
-import EmailSignupBand from "../../../components/EmailSignupBand.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import EmailSignupBand from "../../components/EmailSignupBand.astro";
 
 /*
  * Publishing a new update is now a matter of adding one Markdown file to
@@ -31,7 +31,7 @@ const updates = (
       <div class="post-list">
         {
           updates.map((update) => (
-            <a class="card post-card" href={`/parent-resources/community-updates/${update.id}`}>
+            <a class="card post-card" href={`/updates/${update.id}`}>
               <time class="date" datetime={update.data.publishedAt.toISOString()}>
                 {update.data.publishedAt.toLocaleDateString("en-US", {
                   month: "long",
