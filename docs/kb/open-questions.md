@@ -84,4 +84,6 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
   (Christine, 2026-11-11).
 - Whether hub subscribers and Lancaster clinic subscribers should be separate
   MailerLite groups. Right now both forms post to the same one.
+- The MailerLite group and form for the playbook's Free First Class Kit
+  signup (decided: separate group; not created yet).
 - A name for the course app's space.

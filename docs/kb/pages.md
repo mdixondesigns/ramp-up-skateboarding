@@ -31,7 +31,10 @@ mental health, and about teaching other people to do what Ramp Up does.
   platform" plan. The curriculum is the product, so it does **not** go in this
   public repository. It lives in the private repo
   `mdixondesigns/ramp-up-lessons`, and invited reviewers sign in with their
-  email through Cloudflare Access.
+  email through Cloudflare Access. It stays locked to invited reviewers while
+  Christine and Mike review and refine it (Christine, 2026-11-11). Its Free
+  First Class Kit signup will use a separate MailerLite group for coaches and
+  program-starters, not the clinic list.
 - **The funnel below now describes the Lancaster pages.** The hub's own
   reader, job, and ask still need to be written. [open]
 

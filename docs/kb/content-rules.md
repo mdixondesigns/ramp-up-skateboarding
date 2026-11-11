@@ -29,7 +29,7 @@ believed it showed up without a helmet.
 | **Level 3** | Exists in theory, has never been run. |
 | **Invite-only skate clubs** | A plan, not a program. Never run. |
 | **Birthday parties and private group events** | Deliberately off the site for now. No permanent space makes them hard to coordinate. |
-| **Anything about under-5s or tot sessions** | Ramp Up is not catering to that age group. The site's range is 5 to 14, full stop. Do not mention younger ages even though private sessions for them exist. |
+| **Anything about under-5s or tot sessions** | Ramp Up is not catering to that age group. The site's range is 5 to 14, full stop. Do not mention younger ages even though private sessions for them exist. This rule is for the parent-facing site. The private coaching playbook may cover under-5s (Christine, 2026-11-11). |
 | **The bracelet / belt progression system** | Considered and set aside. Does not exist. |
 | **Nonprofit or charity framing** | Ramp Up is a for-profit business. See `business.md`. |
 | **Dollar figures in the giving breakdown** | The chart on `/about/philosophy` stays empty until there are real numbers. A wrong dollar amount reads as a fact, not a placeholder. |
