@@ -75,11 +75,13 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
 
 ## Restructure (November 2026)
 
-- Mike's confirmation that path 3 ("teach others to do what we do") can be
-  stated on the hub. See `business.md`.
-- Vercel plan tier. The free Hobby plan is for non-commercial use only. Move
-  to Pro, or move to Cloudflare, before launch.
-- The full list of live Squarespace URLs, to map to 301 redirects at launch.
+- ~~Whether path 3 can be public~~ Answered: yes. See `business.md`.
+- Hosting: the Vercel team is on the Hobby plan, which is for non-commercial
+  use only. Move to Vercel Pro or to Cloudflare before launch.
+- ~~The list of live Squarespace URLs~~ Crawled on 2026-11-11 and mapped in
+  `vercel.json`. `/opt-in` and `/opt-in-2` ("Vendor - Newsletter") point to
+  the hub signup as a placeholder. Confirm where they were used (ads? QR
+  codes? vendor tables?) and whether vendors need their own signup.
 - Whether hub subscribers and Lancaster clinic subscribers should be separate
   MailerLite groups. Right now both forms post to the same one.
 - A name for the course app's space.

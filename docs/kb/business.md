@@ -88,12 +88,14 @@ goal is that kids end up ready to enjoy a real skatepark safely.
 ## Where this is going
 
 > **Update, November 2026 (Christine):** Ramp Up is becoming a brand and
-> culture hub, and teaching other people to do what Ramp Up does is now the
-> public direction. That is path 3 below, plus a course app for the curriculum
-> and playbook later. **This reverses "Paths 2 and 3 stay off the site
-> entirely"** under "What the site may say." Mike should confirm before hub
-> copy states path 3 outright. Lancaster programs continue in maintenance
-> mode. See `pages.md` for the new site structure.
+> culture hub. Teaching other people to do what Ramp Up does (path 3 below) is
+> now **public** and can be stated on the site. Christine confirmed this on
+> 2026-11-11. This replaces "Paths 2 and 3 stay off the site entirely" for
+> path 3. Path 2 (a brick-and-mortar space) is still internal. The curriculum
+> and playbook will be shared through a course space at
+> `learn.rampupskateboarding.com`, starting with invited reviewers. Lancaster
+> programs continue in maintenance mode. See `pages.md` for the site
+> structure.
 
 ### Three paths, internal
 

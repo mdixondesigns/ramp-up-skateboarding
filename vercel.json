@@ -3,13 +3,94 @@
   "redirects": [
     {
       "source": "/:path*",
-      "has": [{ "type": "host", "value": "lancaster.rampupskateboarding.com" }],
+      "has": [
+        {
+          "type": "host",
+          "value": "lancaster.rampupskateboarding.com"
+        }
+      ],
       "destination": "https://rampupskateboarding.com/lancaster/:path*",
       "permanent": true
     },
-    { "source": "/programs", "destination": "/lancaster/programs", "permanent": true },
-    { "source": "/programs/:path*", "destination": "/lancaster/programs/:path*", "permanent": true },
-    { "source": "/parent-resources/community-updates", "destination": "/updates", "permanent": true },
-    { "source": "/parent-resources/community-updates/:slug", "destination": "/updates/:slug", "permanent": true }
+    {
+      "source": "/programs",
+      "destination": "/lancaster/programs",
+      "permanent": true
+    },
+    {
+      "source": "/programs/:path*",
+      "destination": "/lancaster/programs/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/parent-resources/community-updates",
+      "destination": "/updates",
+      "permanent": true
+    },
+    {
+      "source": "/parent-resources/community-updates/:slug",
+      "destination": "/updates/:slug",
+      "permanent": true
+    },
+    {
+      "source": "/home",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/start-here",
+      "destination": "/parent-resources",
+      "permanent": true
+    },
+    {
+      "source": "/lancaster-programs",
+      "destination": "/lancaster",
+      "permanent": true
+    },
+    {
+      "source": "/fall-programs",
+      "destination": "/lancaster/programs",
+      "permanent": true
+    },
+    {
+      "source": "/lititz",
+      "destination": "/lancaster",
+      "permanent": true
+    },
+    {
+      "source": "/york",
+      "destination": "/lancaster",
+      "permanent": true
+    },
+    {
+      "source": "/assistant-coach",
+      "destination": "/get-involved/coach-with-us",
+      "permanent": true
+    },
+    {
+      "source": "/join-the-team",
+      "destination": "/get-involved/coach-with-us",
+      "permanent": true
+    },
+    {
+      "source": "/community-updates",
+      "destination": "/updates",
+      "permanent": true
+    },
+    {
+      "source": "/community-updates/feb-2026",
+      "destination": "/updates/february-2026-update",
+      "permanent": true
+    },
+    {
+      "source": "/opt-in",
+      "destination": "/#join",
+      "permanent": true
+    },
+    {
+      "source": "/opt-in-2",
+      "destination": "/#join",
+      "permanent": true
+    }
   ]
 }
