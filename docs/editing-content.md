@@ -250,8 +250,18 @@ goes to this new one":
 
 `:path*` means "and anything after it." Leave `permanent` set to `true`, so
 Google moves the page's ranking to the new address. The same file also sends
-`lancaster.rampupskateboarding.com` to `/lancaster/`, for use on flyers. If the
-site ever moves off Vercel, these rules move to that host's redirects file.
+`lancaster.rampupskateboarding.com` to `/lancaster/`, for use on flyers.
+
+**Hosting is moving to Cloudflare,** which reads redirects from
+`public/_redirects` instead. Until the move is finished, add every redirect
+to **both** files. In `_redirects`, each line is old address, new address,
+and `301`, separated by spaces, with `*` and `:splat` in place of `:path*`:
+
+```
+/programs/*  /lancaster/programs/:splat  301
+```
+
+Once the site runs on Cloudflare, delete `vercel.json`.
 
 ### Social links
 

@@ -79,9 +79,9 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
 - Hosting: the Vercel team is on the Hobby plan, which is for non-commercial
   use only. Move to Vercel Pro or to Cloudflare before launch.
 - ~~The list of live Squarespace URLs~~ Crawled on 2026-11-11 and mapped in
-  `vercel.json`. `/opt-in` and `/opt-in-2` ("Vendor - Newsletter") point to
-  the hub signup as a placeholder. Confirm where they were used (ads? QR
-  codes? vendor tables?) and whether vendors need their own signup.
+  `vercel.json` and `public/_redirects`. `/opt-in` and `/opt-in-2` ("Vendor -
+  Newsletter") go to the hub signup. Vendors do not need their own signup
+  (Christine, 2026-11-11).
 - Whether hub subscribers and Lancaster clinic subscribers should be separate
   MailerLite groups. Right now both forms post to the same one.
 - A name for the course app's space.

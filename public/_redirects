@@ -1,0 +1,20 @@
+# Redirects for Cloudflare. Mirrors vercel.json (minus the lancaster.
+# subdomain rule, which on Cloudflare is a Redirect Rule in the dashboard).
+# Format: old-address  new-address  301. Keep the two files in sync until
+# hosting has moved, then delete vercel.json.
+/programs  /lancaster/programs  301
+/programs/*  /lancaster/programs/:splat  301
+/parent-resources/community-updates  /updates  301
+/parent-resources/community-updates/:slug  /updates/:slug  301
+/home  /  301
+/start-here  /parent-resources  301
+/lancaster-programs  /lancaster  301
+/fall-programs  /lancaster/programs  301
+/lititz  /lancaster  301
+/york  /lancaster  301
+/assistant-coach  /get-involved/coach-with-us  301
+/join-the-team  /get-involved/coach-with-us  301
+/community-updates  /updates  301
+/community-updates/feb-2026  /updates/february-2026-update  301
+/opt-in  /#join  301
+/opt-in-2  /#join  301
