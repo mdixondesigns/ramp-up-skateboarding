@@ -29,7 +29,9 @@ mental health, and about teaching other people to do what Ramp Up does.
 - **Course space:** self-hosted at `learn.rampupskateboarding.com`. Decided
   by Christine on 2026-11-11, replacing the earlier "defer, probably a hosted
   platform" plan. The curriculum is the product, so it does **not** go in this
-  public repository.
+  public repository. It lives in the private repo
+  `mdixondesigns/ramp-up-lessons`, and invited reviewers sign in with their
+  email through Cloudflare Access.
 - **The funnel below now describes the Lancaster pages.** The hub's own
   reader, job, and ask still need to be written. [open]
 
