@@ -28,8 +28,14 @@ mental health, and about teaching other people to do what Ramp Up does.
   codebase.
 - **Course space:** self-hosted at `coach.rampupskateboarding.com` (renamed
   from `learn.` on 2026-11-14, because it will also hold a module on the
-  business side of coaching). Reviewers sign in with Google or an emailed
-  magic link, invited emails only (Christine, 2026-11-14). Decided
+  business side of coaching). **Access (Christine, 2026-11-14):** anyone can
+  sign up with their email or Google. Signing up creates an account on the
+  coach site and unlocks the free module, **Foundations** (the 6-week beginner
+  program, with the activities and coach tips it uses). Paid later: the full
+  activities and coach tips library, a 6-week Intermediate course, and
+  special modules for adults, tots, and schools. Until there is something to
+  sell, every account sees everything. New accounts join the MailerLite
+  coaches group automatically. Decided
   by Christine on 2026-11-11, replacing the earlier "defer, probably a hosted
   platform" plan. The curriculum is the product, so it does **not** go in this
   public repository. It lives in the private repo

@@ -81,8 +81,9 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
   non-commercial use, and a site promoting a for-profit business's paid
   programs likely counts as commercial. Revisit before the hub replaces
   Squarespace.
-- ~~How the course space is locked~~ Decided: Google sign-in plus an
-  emailed magic link, invited emails only. Not built yet.
+- ~~How the course space is locked~~ Decided: open signup (email magic
+  link or Google), which creates an account with at least one free module.
+  Future modules are purchased. Not built yet. See `pages.md`.
 - ~~The list of live Squarespace URLs~~ Crawled on 2026-11-11 and mapped in
   `vercel.json`. `/opt-in` and `/opt-in-2` ("Vendor -
   Newsletter") go to the hub signup. Vendors do not need their own signup
