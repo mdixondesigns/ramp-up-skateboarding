@@ -93,7 +93,7 @@ goal is that kids end up ready to enjoy a real skatepark safely.
 > 2026-11-11. This replaces "Paths 2 and 3 stay off the site entirely" for
 > path 3. Path 2 (a brick-and-mortar space) is still internal. The curriculum
 > and playbook will be shared through a course space at
-> `learn.rampupskateboarding.com`, starting with invited reviewers. Lancaster
+> `coach.rampupskateboarding.com`, starting with invited reviewers. Lancaster
 > programs continue in maintenance mode. See `pages.md` for the site
 > structure.
 

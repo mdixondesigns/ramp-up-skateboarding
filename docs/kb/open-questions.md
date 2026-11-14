@@ -76,9 +76,13 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
 ## Restructure (November 2026)
 
 - ~~Whether path 3 can be public~~ Answered: yes. See `business.md`.
-- ~~Hosting~~ Decided: stay on Vercel and upgrade to Pro (Christine,
-  2026-11-14). Hobby is for non-commercial use only.
-- How the course space is locked to invited reviewers on Vercel.
+- Hosting: staying on Vercel. Christine is keeping the Hobby plan until
+  there is something to sell (2026-11-14). Vercel's terms limit Hobby to
+  non-commercial use, and a site promoting a for-profit business's paid
+  programs likely counts as commercial. Revisit before the hub replaces
+  Squarespace.
+- ~~How the course space is locked~~ Decided: Google sign-in plus an
+  emailed magic link, invited emails only. Not built yet.
 - ~~The list of live Squarespace URLs~~ Crawled on 2026-11-11 and mapped in
   `vercel.json`. `/opt-in` and `/opt-in-2` ("Vendor -
   Newsletter") go to the hub signup. Vendors do not need their own signup

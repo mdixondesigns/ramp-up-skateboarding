@@ -14,7 +14,7 @@ mental health, and about teaching other people to do what Ramp Up does.
 | :--- | :--- | :--- | :--- |
 | Hub | `rampupskateboarding.com` | Anyone, anywhere | Structure built, copy to come |
 | Lancaster | `rampupskateboarding.com/lancaster/` | Lancaster-area parents | Maintenance mode |
-| Course space | `learn.rampupskateboarding.com` | People running sessions, on their phones | Planned. Hosted by Ramp Up, not a third-party platform (Christine, 2026-11-11). Starts with invited reviewers. |
+| Course space | `coach.rampupskateboarding.com` | People running sessions, on their phones | Planned. Hosted by Ramp Up, not a third-party platform (Christine, 2026-11-11). Starts with invited reviewers. |
 
 - **Hub pages:** Home `/`, About, Parent Resources, Updates `/updates`
   (organization-wide "where Ramp Up is going" posts, not day-to-day local
@@ -26,7 +26,10 @@ mental health, and about teaching other people to do what Ramp Up does.
   redirects to `/lancaster/` (set up in `vercel.json`). A path was chosen over
   a real subdomain because it carries the hub's search authority and needs one
   codebase.
-- **Course space:** self-hosted at `learn.rampupskateboarding.com`. Decided
+- **Course space:** self-hosted at `coach.rampupskateboarding.com` (renamed
+  from `learn.` on 2026-11-14, because it will also hold a module on the
+  business side of coaching). Reviewers sign in with Google or an emailed
+  magic link, invited emails only (Christine, 2026-11-14). Decided
   by Christine on 2026-11-11, replacing the earlier "defer, probably a hosted
   platform" plan. The curriculum is the product, so it does **not** go in this
   public repository. It lives in the private repo
