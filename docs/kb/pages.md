@@ -32,8 +32,9 @@ mental health, and about teaching other people to do what Ramp Up does.
   sign up with their email or Google. Signing up creates an account on the
   coach site and unlocks the free module, **Foundations** (the 6-week beginner
   program, with the activities and coach tips it uses). Paid later: the full
-  activities and coach tips library, a 6-week Intermediate course, and
-  special modules for adults, tots, and schools. Until there is something to
+  activities and coach tips library, a 6-week Intermediate course, Start
+  Your Program, a module on the business of coaching, and special modules
+  for adults, tots, and schools. Until there is something to
   sell, every account sees everything. New accounts join the MailerLite
   coaches group automatically. Decided
   by Christine on 2026-11-11, replacing the earlier "defer, probably a hosted
