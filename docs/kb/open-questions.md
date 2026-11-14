@@ -76,10 +76,11 @@ All answered, in `team.md`. Both "[Answer]" placeholders on
 ## Restructure (November 2026)
 
 - ~~Whether path 3 can be public~~ Answered: yes. See `business.md`.
-- Hosting: the Vercel team is on the Hobby plan, which is for non-commercial
-  use only. Move to Vercel Pro or to Cloudflare before launch.
+- ~~Hosting~~ Decided: stay on Vercel and upgrade to Pro (Christine,
+  2026-11-14). Hobby is for non-commercial use only.
+- How the course space is locked to invited reviewers on Vercel.
 - ~~The list of live Squarespace URLs~~ Crawled on 2026-11-11 and mapped in
-  `vercel.json` and `public/_redirects`. `/opt-in` and `/opt-in-2` ("Vendor -
+  `vercel.json`. `/opt-in` and `/opt-in-2` ("Vendor -
   Newsletter") go to the hub signup. Vendors do not need their own signup
   (Christine, 2026-11-11).
 - Whether hub subscribers and Lancaster clinic subscribers should be separate
